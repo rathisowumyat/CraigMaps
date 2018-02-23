@@ -105,3 +105,7 @@ a:hover{
   z-index: 100;
   position: relative;
 }
+
+.input.required {
+  color: red;
+}

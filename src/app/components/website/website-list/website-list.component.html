@@ -1,0 +1,47 @@
+<nav class="navbar navbar-fixed-top cl-blue-navbar">
+  <div class="container-fluid">
+    <p class="navbar-text pull-left">
+      <a routerLink="/profile" class="navbar-link cl-text-white">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    </p>
+    <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+      Websites {{ws.length}}
+    </a>
+    <a routerLink="/websitenew" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+      <span class="glyphicon glyphicon-plus"></span>
+    </a>
+  </div>
+</nav>
+<div class="mypaddig"></div>
+<div class="container">
+  <ul class="list-group cl-list-group-borderless">
+    <li *ngFor="let w of ws">
+        {{w.name}}
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a routerLink="/websiteedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      <a routerLink="/pagelist">Address Book App</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a routerLink="/websiteedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      <a routerLink="/pagelist">Blogger</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a routerLink="/websiteedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      <a routerLink="/pagelist">Blogging App</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a routerLink="/websiteedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      <a routerLink="/pagelist">Script Testing App</a>
+    </li>
+  </ul>
+</div>
+
+<nav class="navbar navbar-fixed-bottom cl-blue-navbar">
+  <div class="container-fuild">
+    <a routerLink="/profile" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>

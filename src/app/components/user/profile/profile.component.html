@@ -1,0 +1,45 @@
+<nav class="navbar navbar-fixed-top cl-blue-navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+        Profile
+      </a>
+      <p class="navbar-text pull-right">
+        <a href="#" class="navbar-link">
+          <span class="glyphicon glyphicon-plus pull-right">
+          </span>
+        </a>
+      </p>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+
+
+  <form>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" placeholder="Username"
+             [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"
+             [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="first-name">First Name</label>
+      <input type="text" class="form-control" id="first-name" placeholder="Alice"
+             [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="last-name">Last Name</label>
+      <input type="text" class="form-control" id="last-name" placeholder="Wonderland"
+             [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}">
+    </div>
+  </form>
+  <a class="btn btn-success btn-block" (click)="updateUser(email, firstname,lastname)" routerLink="/profile/{{user._id}}">Update</a>
+  <a class="btn btn-danger btn-block" (click)="deleteUser()" routerLink="/login">Delete</a>
+  <a class="btn btn-primary btn-block" routerLink="/profile/{{user._id}}/websitelist">Websites</a>
+  <a class="btn btn-warning  btn-block" routerLink="/login">Logout</a>
+</div>

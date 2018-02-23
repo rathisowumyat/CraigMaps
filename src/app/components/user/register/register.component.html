@@ -1,0 +1,36 @@
+<nav class="navbar navbar-fixed-top cl-blue-navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+        Register
+      </a>
+      <p class="navbar-text pull-right">
+        <a href="#" class="navbar-link">
+          <span class="glyphicon glyphicon-plus pull-right">
+          </span>
+        </a>
+      </p>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <h1>Register</h1>
+  <input type="text"
+         [(ngModel)] = "username"
+  [ngModelOptions]="{standalone: true}"
+class="form-control"
+placeholder="username"/>
+<input type="password"
+       [(ngModel)] = "password"
+       [ngModelOptions]="{standalone: true}"
+class="form-control"
+placeholder="password"/>
+<input type="password"
+       [(ngModel)] = "same"
+       [ngModelOptions]="{standalone: true}"
+class="form-control"
+placeholder="very password"/>
+<a class="btn btn-primary btn-block" (click)="createUser(username, password, same)">Register</a>
+<a class="btn btn-danger  btn-block"
+routerLink="/login">Cancel</a>
+</div>
