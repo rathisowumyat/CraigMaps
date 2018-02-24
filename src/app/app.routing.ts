@@ -18,10 +18,11 @@ import { WidgetYoutubeComponent } from './components/widget/widget-edit/widget-y
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent},
   {path: 'profile/:userId', component: ProfileComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'websitenew', component: WebsiteNewComponent},
-  {path: 'websiteedit', component: WebsiteEditComponent},
+  {path: 'profile/:userId/websitenew', component: WebsiteNewComponent},
+  {path: 'profile/:userId/websitelist/:webId/websiteedit', component: WebsiteEditComponent},
   {path: 'profile/:userId/websitelist', component: WebsiteListComponent},
   {path: 'pagenew', component: PageNewComponent},
   {path: 'pageedit', component: PageEditComponent},

@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   password: String;
   same: String;
   user: User;
+  userId: String;
 
   constructor(private userservice: UserService,
               private route: Router) { }
@@ -25,21 +26,20 @@ export class RegisterComponent implements OnInit {
       return;
     }
   if ( password === same ) {
-    this.user = new User('55',
+      const tempid = Math.floor(Math.random() * 10);
+      this.userId = tempid.toString();
+      this.user = new User(this.userId ,
       this.username,
       this.password,
       this.username,
       this.username);
+      this.userservice.createUser(this.user);
+      this.route.navigate(['/profile', this.user._id]);
   } else {
     alert('Passwords are not same');
   }
-
-  this.userservice.createUser(this.user);
-
-  this.route.navigate(['/profile', this.user._id]);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
 }

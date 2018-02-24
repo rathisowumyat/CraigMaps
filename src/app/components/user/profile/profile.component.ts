@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
     private userservice: UserService,
     private route: ActivatedRoute) { }
 
-   createUser(user) {
+  createUser(user) {
     this.userservice.createUser(user);
   }
 

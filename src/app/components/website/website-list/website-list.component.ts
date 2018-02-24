@@ -12,7 +12,7 @@ import {UserService} from '../../../services/user.service.client';
   styleUrls: ['./website-list.component.css']
 })
 export class WebsiteListComponent implements OnInit {
-  ws: Website[] = WEBSITES;
+  ws: Website[];
   userId: String;
   webId: String;
   user: User;
@@ -34,6 +34,7 @@ export class WebsiteListComponent implements OnInit {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.user = this.userservice.findUserById(this.userId);
+      this.ws = this.webservice.findWebsitesByUser(this.userId);
     });
   }
 

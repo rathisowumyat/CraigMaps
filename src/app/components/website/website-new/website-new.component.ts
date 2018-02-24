@@ -3,6 +3,7 @@ import {Website} from '../../../models/website.model.client';
 import {WebsiteService} from '../../../services/website.service.client';
 import {ActivatedRoute, Route} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {UserService} from '../../../services/user.service.client';
 
 @Component({
   selector: 'app-website-new',
@@ -14,25 +15,33 @@ export class WebsiteNewComponent implements OnInit {
   userId: String;
   webId: String;
   desc: String;
-  errorFlag: boolean;
-  @ViewChild('f') webForm: NgForm;
-  errorMsg = 'Invalid developer!';
+  ws: Website[];
 
   constructor(private webservice: WebsiteService,
+              private userservice: UserService,
               private route: ActivatedRoute) { }
 
-  createWebsite() {
+  createWebsite(name, desc) {
+    if (!name) {
+      alert ('Please give name of website');
+      return;
+    }
+    const tempid = Math.floor(Math.random() * 100);
+    this.webId = tempid.toString();
     this.webservice.createWebsite(this.userId,
-      new Website('777',
-        this.webForm.value.name,
+      new Website(this.webId,
+        name,
         this.userId,
-        this.webForm.value.desscription));
+        desc));
+    const username = this.userservice.findUserById(this.userId).username;
+    alert('Website updated successfully for user ' + '\'' + username + '\'');
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
+      this.ws = this.webservice.findWebsitesByUser(this.userId);
     });
   }
 

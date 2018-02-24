@@ -16,21 +16,20 @@
 <div class="container">
   <h1>Register</h1>
   <input type="text"
-         [(ngModel)] = "username"
-  [ngModelOptions]="{standalone: true}"
-class="form-control"
-placeholder="username"/>
+       [(ngModel)] = "username"
+       [ngModelOptions]="{standalone: true}"
+       class="form-control"
+       placeholder="username"/>
 <input type="password"
        [(ngModel)] = "password"
        [ngModelOptions]="{standalone: true}"
-class="form-control"
-placeholder="password"/>
+       class="form-control"
+       placeholder="password"/>
 <input type="password"
        [(ngModel)] = "same"
        [ngModelOptions]="{standalone: true}"
-class="form-control"
-placeholder="very password"/>
-<a class="btn btn-primary btn-block" (click)="createUser(username, password, same)">Register</a>
-<a class="btn btn-danger  btn-block"
-routerLink="/login">Cancel</a>
+       class="form-control"
+       placeholder="same password"/>
+<a class="btn btn-primary btn-block" (click)="createUser(username, password, same)" >Register</a>
+<a class="btn btn-danger  btn-block" routerLink="/login">Cancel</a>
 </div>
