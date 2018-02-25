@@ -34,13 +34,13 @@ export class WebsiteNewComponent implements OnInit {
         this.userId,
         desc));
     const username = this.userservice.findUserById(this.userId).username;
-    alert('Website updated successfully for user ' + '\'' + username + '\'');
+    alert('Website \'' + name + ' \' created successfully for user ' + '\'' + username + '\'');
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
-      this.webId = params['webId'];
+      // this.webId = params['webId'];
       this.ws = this.webservice.findWebsitesByUser(this.userId);
     });
   }

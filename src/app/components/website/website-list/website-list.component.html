@@ -18,7 +18,7 @@
   <ul class="list-group-item cl-list-item-borderless">
     <li *ngFor="let w of ws">
       <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/websiteedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/pagelist">{{w.name}}</a>
+      <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/pagelist">{{w.name}}</a>
     </li>
   </ul>
 </div>

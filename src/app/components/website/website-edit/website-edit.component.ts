@@ -31,19 +31,21 @@ export class WebsiteEditComponent implements OnInit {
         name,
         this.userId,
         desc));
-    alert('Website of id ' + this.webId + ' updated successfully for user ' + '\'' + this.username + '\'');
+    const username = this.userservice.findUserById(this.userId).username;
+    alert('Website \'' + name + '\'' + ' updated successfully for user ' + '\'' + username + '\'');
   }
 
   deleteWebsite() {
+    const webname = this.webservice.findWebsitesById(this.webId).name;
+    const username = this.userservice.findUserById(this.userId).username;
     this.webservice.deleteWebsite(this.webId);
-    alert('Website of id ' + this.webId + ' deleted successfully for user ' + '\'' + this.username + '\'');
+    alert('Website \'' + webname + '\'' + ' deleted successfully for user ' + '\'' + username + '\'');
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
-      this.username = this.userservice.findUserById(this.userId).username;
       this.ws = this.webservice.findWebsitesByUser(this.userId);
     });
   }

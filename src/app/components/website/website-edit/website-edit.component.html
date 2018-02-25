@@ -20,7 +20,7 @@
         <a class="cl-text-white navbar-brand cl-text-bold" href="#">
           New Websites
         </a>
-        <a routerLink="/profile/{{userId}}/websitelist" (click)="updateWebsite(name, desc)" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a routerLink="/profile/{{userId}}/websitelist" class="cl-text-white cl-icon-padding">
           <span class="glyphicon glyphicon-ok"></span>
         </a>
       </div>
@@ -50,15 +50,15 @@
                   [ngModelOptions]="{standalone: true}" class="form-control" rows="5" placeholder="Description"></textarea>
       </div>
     </form>
-    <!--<a class="btn btn-success btn-block" (click)="updateWebsite(name, desc)" routerLink="/profile/{{userid}}">Add/Update Website</a>-->
-    <a class="btn btn-warning btn-block" routerLink="/profile/{{userid}}//websitelist">Cancel</a>
+    <a class="btn btn-success btn-block" (click)="updateWebsite(name, desc)">Update</a>
+    <a class="btn btn-warning btn-block" routerLink="/profile/{{userId}}/websitelist">Cancel</a>
     <a class="btn btn-danger btn-block" (click)="deleteWebsite()">Delete</a>
   </div>
 </div>
 
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">
   <div class="container-fuild">
-    <a routerLink="/profile/{{userid}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+    <a routerLink="/profile/{{userId}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </div>

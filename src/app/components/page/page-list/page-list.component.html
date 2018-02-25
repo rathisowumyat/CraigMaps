@@ -2,13 +2,13 @@
   <div class="container-fluid row">
 
     <div class="navbar-text pull-left">
-      <a routerLink="/websitelist" class="cl-text-white cl-icon-padding">
+      <a routerLink="/profile/{{userId}}/websitelist" class="cl-text-white cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="/pagenew" class="cl-icon-padding cl-text-black">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagenew" class="cl-icon-padding cl-text-white">
           <span class="glyphicon glyphicon-plus">
           </span>
       </a>
@@ -20,26 +20,11 @@
 </nav>
 <div class="mypaddig"></div>
 <div class="container-fluid">
-  <ul class="list-group cl-list-group-borderless">
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/pageedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/widgetlist">Blog Post</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/pageedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/widgetlist">Blogs</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/pageedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/widgetlist">Home</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/pageedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/widgetlist">About</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/pageedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/widgetlist">Contact Us</a>
+  <ul class="list-group-item cl-list-item-borderless">
+    <li class="list-group-item cl-list-item-borderless" *ngFor="let p of ps">
+      <a routerLink="/profile/{{userId}}/websitelist/{{p.webId}}/pagelist/{{p._id}}/pageedit">
+        <span class="glyphicon glyphicon-cog pull-right"></span></a>
+      <a routerLink="/profile/{{userId}}/websitelist/{{p.webId}}/pagelist/{{p._id}}/widgetlist">{{p.name}}</a>
     </li>
   </ul>
 </div>
@@ -47,7 +32,7 @@
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-      <a routerLink="/profile" class="cl-icon-padding">
+      <a routerLink="/profile/{{userId}}" class="cl-icon-padding">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </div>

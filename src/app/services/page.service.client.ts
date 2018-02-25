@@ -44,7 +44,7 @@ export class PageService {
     }
   }
 
-  deleteWebsite(pageId: String) {
+  deletePage(pageId: String) {
     for (const i in this.pages) {
       if (this.pages[i]._id === pageId) {
         const j = +i;

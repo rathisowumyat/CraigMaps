@@ -2,13 +2,13 @@
   <div class="container-fluid row">
 
     <div class="navbar-text pull-left">
-      <a routerLink="/pagelist" class="cl-text-white cl-icon-padding">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist" class="cl-text-white cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="/pagelist" class="cl-icon-padding cl-text-black">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist" class="cl-icon-padding cl-text-black">
           <span class="glyphicon glyphicon-ok">
           </span>
       </a>
@@ -30,13 +30,15 @@
       <input type="text" class="form-control" id="page-title" placeholder="Page Title">
     </div>
   </form>
-  <a class="btn btn-danger  btn-block" routerLink="/pagelist">Delete</a>
+  <a class="btn btn-success btn-block" (click)="updatePage(name, desc)">Update</a>
+  <a class="btn btn-warning btn-block" routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist">Cancel</a>
+  <a class="btn btn-danger  btn-block" routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist" (click)="deletePage()">Delete</a>
 </div>
 
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-      <a routerLink="/profile" class="cl-icon-padding">
+      <a routerLink="/profile/{{userId}}" class="cl-icon-padding">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </div>
