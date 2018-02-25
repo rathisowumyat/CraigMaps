@@ -40,7 +40,7 @@ export class PageEditComponent implements OnInit {
     const pgname = this.pageservice.findPageById(this.pgId).name;
     const webname = this.webservice.findWebsitesById(this.webId).name;
     const username = this.userservice.findUserById(this.userId).username;
-    this.webservice.deleteWebsite(this.pgId);
+    this.pageservice.deletePage(this.pgId);
     alert('Page \'' + pgname + '\' of Website \'' + webname + '\'' + ' deleted successfully for user ' + '\'' + username + '\'');
   }
 
