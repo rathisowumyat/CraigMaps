@@ -2,13 +2,13 @@
   <div class="container-fluid row">
 
     <div class="navbar-text pull-left">
-      <a routerLink="/widgetlist" class="cl-text-white cl-icon-padding">
+      <a routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetlist" class="cl-text-white cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="/widgetlist" class="cl-icon-padding cl-text-white">
+      <a routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetlist" class="cl-icon-padding cl-text-white">
           <span class="glyphicon glyphicon-ok">
           </span>
       </a>
@@ -23,32 +23,42 @@
   <form>
     <div class="form-group">
       <label for="youtube-name">Name</label>
-      <input type="text" class="form-control" id="youtube-name" placeholder="Name">
+      <input type="text" class="form-control" id="youtube-name" placeholder="Name"
+             [(ngModel)]="name"
+             [ngModelOptions]="{standalone: true}">
     </div>
     <div class="form-group">
       <label for="youtube-text">Text</label>
-      <input type="text" class="form-control" id="youtube-text" placeholder="Text">
+      <input type="text" class="form-control" id="youtube-text" placeholder="Text"
+             [(ngModel)]="text"
+             [ngModelOptions]="{standalone: true}">
     </div>
     <div class="form-group">
       <label for="youtube-URL">URL</label>
-      <input type="text" class="form-control" id="youtube-URL" placeholder="URL">
+      <input type="text" class="form-control" id="youtube-URL" placeholder="URL"
+             [(ngModel)]="url"
+             [ngModelOptions]="{standalone: true}">
     </div>
     <div class="form-group">
       <label for="youtube-width">Width</label>
-      <input type="text" class="form-control" id="youtube-width" placeholder="100%">
+      <input type="text" class="form-control" id="youtube-width" placeholder="100%"
+             [(ngModel)]="width"
+             [ngModelOptions]="{standalone: true}">
     </div>
   </form>
-  <a class="btn btn-danger btn-block" href="widget-list.html">Delete</a>
+  <a class="btn btn-success btn-block" (click)="updateWidget(name, text, url, width)">Update</a>
+  <a class="btn btn-warning btn-block"
+     routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetlist">Cancel</a>
+  <a class="btn btn-danger  btn-block" (click)="deleteWidget()"
+     routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetlist">Delete</a>
 </div>
 
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-
-      <a routerLink="/profile" class="cl-icon-padding">
+      <a routerLink="/profile{{userId}}" class="cl-icon-padding cl-text-white">
         <span class="glyphicon glyphicon-user"></span>
       </a>
-
     </div>
   </div>
 </nav>

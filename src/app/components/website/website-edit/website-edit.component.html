@@ -52,7 +52,7 @@
     </form>
     <a class="btn btn-success btn-block" (click)="updateWebsite(name, desc)">Update</a>
     <a class="btn btn-warning btn-block" routerLink="/profile/{{userId}}/websitelist">Cancel</a>
-    <a class="btn btn-danger btn-block" (click)="deleteWebsite()">Delete</a>
+    <a class="btn btn-danger btn-block" routerLink="/profile/{{userId}}/websitelist" (click)="deleteWebsite()">Delete</a>
   </div>
 </div>
 

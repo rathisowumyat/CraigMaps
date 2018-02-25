@@ -6,6 +6,7 @@ import {Page} from '../../../models/page.model.client';
 import {PageService} from '../../../services/page.service.client';
 import {UserService} from '../../../services/user.service.client';
 import {Widget} from '../../../models/widget.model.client';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-widget-list',

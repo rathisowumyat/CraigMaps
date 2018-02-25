@@ -33,7 +33,7 @@ export  class WidgetService {
     for ( const i in this.widgets ) {
       if ( this.widgets[i]._id === widgetId ) {
         switch (widget.widgetType) {
-          case 'HEADER':
+          case 'HEADING':
             this.widgets[i].text = widget.text;
             this.widgets[i].size = widget.size;
             return true;
@@ -64,5 +64,4 @@ export  class WidgetService {
       }
     }
   }
-
 }
