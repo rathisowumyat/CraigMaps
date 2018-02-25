@@ -20,7 +20,7 @@
         <a class="cl-text-white navbar-brand cl-text-bold" href="#">
           New Websites
         </a>
-        <a routerLink="/profile/{{userId}}/websitelist" class="cl-text-white cl-icon-padding">
+        <a routerLink="/profile/{{userId}}/websitelist" class="cl-text-white cl-icon-padding pull-right">
           <span class="glyphicon glyphicon-ok"></span>
         </a>
       </div>
@@ -33,7 +33,7 @@
     <ul class="list-group-item cl-list-item-borderless">
       <li *ngFor="let w of ws">
         <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/websiteedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-        <a routerLink="/pagelist">{{w.name}}</a>
+        <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/pagelist">{{w.name}}</a>
       </li>
     </ul>
   </div>
