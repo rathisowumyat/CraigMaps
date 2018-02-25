@@ -50,7 +50,6 @@ export  class WidgetService {
             this.widgets[i].width = widget.width;
             return true;
         }
-
       }
     }
     return false;

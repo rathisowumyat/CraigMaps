@@ -19,7 +19,7 @@
 </nav>
 <div class="mypaddig"></div>
 <div class="container " *ngFor="let w of wdgs">
-  <div *ngIf="w.widgetType === 'HEADER'">
+  <div *ngIf="w.widgetType === 'HEADER'" [ngSwitch]="w.size">
     <div class="pull-right">
       <a href="#" class="pull-right">
         <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -28,7 +28,12 @@
         <span class="glyphicon glyphicon-cog"></span>
       </a>
     </div>
-       <h1>{{w.text}}</h1>
+    <h1 *ngSwitchCase="'1'">{{w.text}}</h1>
+    <h2 *ngSwitchCase="'2'">{{w.text}}</h2>
+    <h3 *ngSwitchCase="'3'">{{w.text}}</h3>
+    <h4 *ngSwitchCase="'4'">{{w.text}}</h4>
+    <h5 *ngSwitchCase="'5'">{{w.text}}</h5>
+    <h5 *ngSwitchDefault>{{w.text}}</h5>
   </div>
 
   <div *ngIf="w.widgetType === 'IMAGE'">
@@ -52,37 +57,37 @@
         <span class="glyphicon glyphicon-cog"></span>
       </a>
     </div>
-      {{w.text}}
+    {{w.text}}
   </div>
 
-  <div *ngIf="w.widgetType === 'YOUTUBE'">
-    <div class="embed-responsive embed-responsive-16by9">
-      <!--<iframe width="640" height="360" src="{{w.url}}" frameborder="0" allowfullscreen></iframe>"-->
-      <a href="#" class="pull-right">
-        <span class="glyphicon glyphicon-menu-hamburger" style="background-color: white"></span>
-      </a>
-      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/{{w._id}}/widgetyoutube" class="pull-right">
-        <span class="glyphicon glyphicon-cog" style="background-color: white"></span>
-      </a>
-    </div>
-  </div>
+  <!--<div *ngIf="w.widgetType === 'YOUTUBE'">-->
+    <!--<div class="embed-responsive embed-responsive-16by4">-->
+      <!--&lt;!&ndash;<iframe width="640" height="360" src="{{w.url}}" frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
+      <!--<a href="#" class="pull-right">-->
+        <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
+      <!--</a>-->
+      <!--<a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/{{w._id}}/widgetyoutube"-->
+         <!--class="pull-right">-->
+        <!--<span class="glyphicon glyphicon-cog"></span>-->
+      <!--</a>-->
+    <!--</div>-->
+  <!--</div>-->
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar cl-blue-navbar navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-      <a routerLink="/profile/{{userId}}" class="cl-icon-padding">
+      <a routerLink="/profile/{{userId}}" class="cl-icon-padding cl-text-white">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </div>
-
-    <div class="pull-left navbar navbar-text">
-      <a href="#" class="cl-icon-padding">
-        <span class="glyphicon glyphicon-play"></span>
-      </a>
-      <a href="#" class="cl-icon-padding">
-        <span class="glyphicon glyphicon-eye-open"></span>
-      </a>
-    </div>
+    <!--<div class="pull-left navbar navbar-text">-->
+      <!--<a href="#" class="cl-icon-padding">-->
+        <!--<span class="glyphicon glyphicon-play"></span>-->
+      <!--</a>-->
+      <!--<a href="#" class="cl-icon-padding">-->
+        <!--<span class="glyphicon glyphicon-eye-open"></span>-->
+      <!--</a>-->
+    <!--</div>-->
   </div>
 </nav>

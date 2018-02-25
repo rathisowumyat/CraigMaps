@@ -44,6 +44,7 @@ export class WidgetListComponent implements OnInit {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
+      this.wdgId = params['wdgId'];
       this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
     });
   }

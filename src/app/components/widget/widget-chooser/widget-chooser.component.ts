@@ -22,7 +22,7 @@ export class WidgetChooserComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  ps: Page[];
+  wdgs: Widget[];
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
@@ -58,7 +58,7 @@ export class WidgetChooserComponent implements OnInit {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      this.ps = this.pageservice.findPageByWebsiteId(this.webId);
+      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
     });
   }
 }

@@ -99,7 +99,7 @@
              [ngModelOptions]="{standalone: true}">
     </div>
   </form>
-  <a class="btn btn-success btn-block" (click)="createWidget(type, size, text, width, url)">Add New {{type}}</a>
+  <a class="btn btn-success btn-block" (click)="createWidget(name, type, size, text, width, url)">Add New {{type}}</a>
   <a class="btn btn-warning btn-block"
      routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
   <a class="btn btn-danger  btn-block" (click)="deleteWidget()"

@@ -32,6 +32,10 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   updateWidget(name, text, url, width) {
+    if (!url) {
+      alert('Please give the youtube url');
+      return;
+    }
     this.wdgservice.updateWidget(this.wdgId,
       new Widget(this.wdgId,
         'YOUTUBE',
@@ -63,6 +67,7 @@ export class WidgetYoutubeComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
+      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
     });
   }
 }

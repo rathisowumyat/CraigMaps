@@ -32,6 +32,10 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   updateWidget(name, text, size) {
+    if (!text) {
+      alert('Please give the text of the HEADER');
+      return;
+    }
     this.wdgservice.updateWidget(this.wdgId,
       new Widget(this.wdgId,
         'HEADER',
@@ -63,6 +67,7 @@ export class WidgetHeaderComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
+      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
     });
   }
 }

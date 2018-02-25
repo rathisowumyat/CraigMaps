@@ -31,6 +31,10 @@ export class WidgetImageComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   updateWidget(name, text, url, width) {
+    if (!url) {
+      alert('Please give the image url');
+      return;
+    }
     this.wdgservice.updateWidget(this.wdgId,
       new Widget(this.wdgId,
         'IMAGE',
@@ -62,6 +66,7 @@ export class WidgetImageComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
+      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
     });
   }
 }

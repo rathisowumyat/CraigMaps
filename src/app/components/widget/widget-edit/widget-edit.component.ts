@@ -49,13 +49,13 @@ export class WidgetEditComponent implements OnInit {
       '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
   }
 
-  createWidget(type, size, text, width, url) {
+  createWidget(name, type, size, text, width, url) {
     if (!type) {
       alert('Please give type of the widget');
       return;
     }
-    if (type === 'HEADER' && !name) {
-      alert('Please give the title of the HEADER');
+    if (type === 'HEADER' && !text) {
+      alert('Please give the text of the HEADER');
       return;
     }
     if (type === 'IMAGE' && !url) {
@@ -66,7 +66,7 @@ export class WidgetEditComponent implements OnInit {
       alert('Please give the youtube url');
       return;
     }
-    const tempid = Math.floor(Math.random() * 10000);
+    const tempid = Math.floor(Math.random() * 100);
     this.wdgId = tempid.toString();
     this.wdgservice.createWidget(this.pgId,
       new Widget(this.wdgId,
