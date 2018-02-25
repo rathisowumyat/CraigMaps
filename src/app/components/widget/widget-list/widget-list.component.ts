@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
 import {WidgetService} from '../../../services/widget.service.client';
-import {Page} from '../../../models/page.model.client';
 import {PageService} from '../../../services/page.service.client';
 import {UserService} from '../../../services/user.service.client';
 import {Widget} from '../../../models/widget.model.client';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-widget-list',

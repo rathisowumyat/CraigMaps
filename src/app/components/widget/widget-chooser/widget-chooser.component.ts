@@ -47,8 +47,8 @@ export class WidgetChooserComponent implements OnInit {
         width,
         url));
     const username = this.userservice.findUserById(this.userId).username;
-    const webname = this.webservice.findWebsitesById(this.webId);
-    const pgname = this.pageservice.findPageById(this.pgId);
+    const webname = this.webservice.findWebsitesById(this.webId).name;
+    const pgname = this.pageservice.findPageById(this.pgId).name;
     alert('Widget of type ' + type + ' created successfully for Page \'' + pgname +
       '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
   }
@@ -58,7 +58,7 @@ export class WidgetChooserComponent implements OnInit {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      // this.ps = this.pageservice.findPageByWebsiteId(this.webId);
+      this.ps = this.pageservice.findPageByWebsiteId(this.webId);
     });
   }
 }

@@ -25,6 +25,7 @@ export class WidgetEditComponent implements OnInit {
   url: String;
   wdgs: Widget[];
   widget: Widget;
+  type: String;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
@@ -42,9 +43,43 @@ export class WidgetEditComponent implements OnInit {
         width,
         url));
     const username = this.userservice.findUserById(this.userId).username;
-    const webname = this.webservice.findWebsitesById(this.webId);
-    const pgname = this.pageservice.findPageById(this.pgId);
+    const webname = this.webservice.findWebsitesById(this.webId).name;
+    const pgname = this.pageservice.findPageById(this.pgId).name;
     alert('Widget of type ' + type + ' updated successfully for Page \'' + pgname +
+      '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
+  }
+
+  createWidget(type, size, text, width, url) {
+    if (!type) {
+      alert('Please give type of the widget');
+      return;
+    }
+    if (type === 'HEADER' && !name) {
+      alert('Please give the title of the HEADER');
+      return;
+    }
+    if (type === 'IMAGE' && !url) {
+      alert('Please give the image url');
+      return;
+    }
+    if (type === 'YOUTUBE' && !url) {
+      alert('Please give the youtube url');
+      return;
+    }
+    const tempid = Math.floor(Math.random() * 10000);
+    this.wdgId = tempid.toString();
+    this.wdgservice.createWidget(this.pgId,
+      new Widget(this.wdgId,
+        type,
+        this.pgId,
+        size,
+        text,
+        width,
+        url));
+    const username = this.userservice.findUserById(this.userId).username;
+    const webname = this.webservice.findWebsitesById(this.webId).name;
+    const pgname = this.pageservice.findPageById(this.pgId).name;
+    alert('Widget of type ' + type + ' created successfully for Page \'' + pgname +
       '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
   }
 
@@ -64,6 +99,7 @@ export class WidgetEditComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
+      this.type = params['type'];
       this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
     });
   }

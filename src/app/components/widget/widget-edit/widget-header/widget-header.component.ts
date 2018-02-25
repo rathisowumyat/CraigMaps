@@ -31,29 +31,29 @@ export class WidgetHeaderComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
-  updateWidget(type, size, text, width, url) {
+  updateWidget(name, text, size) {
     this.wdgservice.updateWidget(this.wdgId,
       new Widget(this.wdgId,
-        type,
+        'HEADER',
         this.pgId,
         size,
         text,
-        width,
-        url));
+        '',
+        ''));
     const username = this.userservice.findUserById(this.userId).username;
-    const webname = this.webservice.findWebsitesById(this.webId);
-    const pgname = this.pageservice.findPageById(this.pgId);
-    alert('Widget of type ' + type + ' updated successfully for Page \'' + pgname +
+    const webname = this.webservice.findWebsitesById(this.webId).name;
+    const pgname = this.pageservice.findPageById(this.pgId).name;
+    alert('Widget of type HEADER updated successfully for Page \'' + pgname +
       '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
   }
 
   deleteWidget() {
     const webname = this.webservice.findWebsitesById(this.webId).name;
     const username = this.userservice.findUserById(this.userId).username;
-    const pgname = this.pageservice.findPageById(this.pgId);
+    const pgname = this.pageservice.findPageById(this.pgId).name;
     const type = this.wdgservice.findWidgetById(this.wdgId).widgetType;
     this.wdgservice.deleteWidget(this.wdgId);
-    alert('Widget of type ' + type + ' deleteted successfully for Page \'' + pgname +
+    alert('Widget of type HEADING deleteted successfully for Page \'' + pgname +
       '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
   }
 
@@ -63,7 +63,6 @@ export class WidgetHeaderComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
     });
   }
 }

@@ -1,15 +1,15 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar cl-blue-navbar navbar-fixed-top">
   <div class="container-fluid row">
     <div class="navbar-text pull-left">
-      <a routerLink="pagelist" class="cl-text-black cl-icon-padding">
-          <span class="glyphicon glyphicon-chevron-left">
-          </span>
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist"
+         class="cl-text-white cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetchooser" class="cl-icon-padding cl-text-black">
-          <span class="glyphicon glyphicon-plus">
-          </span>
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetchooser"
+         class="cl-icon-padding cl-text-white">
+          <span class="glyphicon glyphicon-plus"></span>
       </a>
     </div>
     <a class="navbar-brand cl-text-white cl-text-bold" href="#">
@@ -18,15 +18,13 @@
   </div>
 </nav>
 <div class="mypaddig"></div>
-<div class="container cl-container-padding" *ngFor="let w of wdgs">
-  {{w.widgetType}}
-  <div *ngIf="w.widgetType === 'HEADING'">
-    {{w.text}}
+<div class="container " *ngFor="let w of wdgs">
+  <div *ngIf="w.widgetType === 'HEADER'">
     <div class="pull-right">
       <a href="#" class="pull-right">
         <span class="glyphicon glyphicon-menu-hamburger"></span>
       </a>
-      <a routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetlist/{{wdgId}}/widgetheader">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/{{w._id}}/widgetheader">
         <span class="glyphicon glyphicon-cog"></span>
       </a>
     </div>
@@ -38,7 +36,7 @@
       <a href="#" class="pull-right">
         <span class="glyphicon glyphicon-menu-hamburger"></span>
       </a>
-      <a routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetlist/{{wdgId}}/widgetimage" class="pull-right">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/{{w._id}}/widgetimage" class="pull-right">
         <span class="glyphicon glyphicon-cog"></span>
       </a>
       <img class="img-responsive img-rounded cl-widget-images"
@@ -54,7 +52,7 @@
         <span class="glyphicon glyphicon-cog"></span>
       </a>
     </div>
-    {{w.text}}
+      {{w.text}}
   </div>
 
   <div *ngIf="w.widgetType === 'YOUTUBE'">
@@ -63,7 +61,7 @@
       <a href="#" class="pull-right">
         <span class="glyphicon glyphicon-menu-hamburger" style="background-color: white"></span>
       </a>
-      <a routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}/widgetlist/{{wdgId}}/widgetyoutube" class="pull-right">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/{{w._id}}/widgetyoutube" class="pull-right">
         <span class="glyphicon glyphicon-cog" style="background-color: white"></span>
       </a>
     </div>
@@ -73,12 +71,12 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-      <a routerLink="/profile/{{userId}}" class="cl-icon-padding cl-text-white">
+      <a routerLink="/profile/{{userId}}" class="cl-icon-padding">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </div>
 
-    <div class="pull-left navbar-text">
+    <div class="pull-left navbar navbar-text">
       <a href="#" class="cl-icon-padding">
         <span class="glyphicon glyphicon-play"></span>
       </a>

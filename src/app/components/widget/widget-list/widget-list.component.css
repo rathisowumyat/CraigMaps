@@ -105,3 +105,18 @@ a:hover{
   z-index: 100;
   position: relative;
 }
+
+.glyphicon-cog {
+  color: blue;
+  background-color: lightgray;
+  padding: 7px;
+  border-bottom-left-radius: 10px;
+  opacity: 0.7;
+}
+
+.glyphicon-menu-hamburger {
+  color: blue;
+  background-color: lightgray;
+  padding: 7px;
+  opacity: 0.7;
+}

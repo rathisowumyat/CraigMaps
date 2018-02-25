@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { routing } from './app.routing';
 
-import { UserService } from './services/user.service.client';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
@@ -21,9 +19,10 @@ import { WidgetHeaderComponent } from './components/widget/widget-edit/widget-he
 import { WidgetImageComponent } from './components/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './components/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { FormsModule } from '@angular/forms';
-import {WebsiteService} from './services/website.service.client';
-import {WidgetService} from './services/widget.service.client';
-import {PageService} from './services/page.service.client';
+import { WebsiteService } from './services/website.service.client';
+import { WidgetService } from './services/widget.service.client';
+import { PageService } from './services/page.service.client';
+import { UserService } from './services/user.service.client';
 
 @NgModule({
   declarations: [

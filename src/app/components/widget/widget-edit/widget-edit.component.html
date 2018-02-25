@@ -1,3 +1,119 @@
-<p>
-  widget-edit works!
-</p>
+<nav class="navbar cl-blue-navbar navbar-fixed-top">
+  <div class="container-fluid row">
+    <div class="navbar-text pull-left">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
+         class="cl-text-white cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
+      </a>
+    </div>
+    <div class="navbar-text pull-right">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
+         class="cl-icon-padding cl-text-white">
+          <span class="glyphicon glyphicon-ok">
+          </span>
+      </a>
+    </div>
+    <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+      Widgets Edit
+    </a>
+  </div>
+</nav>
+<div class="mypaddig"></div>
+<div class="container"  >
+  <form *ngIf="type === 'HEADER'">
+    <div class="form-group">
+      <label for="heading-name">Name</label>
+      <input type="text" class="form-control" id="heading-name" placeholder="Name"
+             [(ngModel)]="name"
+             [ngModelOptions]="{standalone: true}" >
+    </div>
+    <div class="form-group">
+      <label for="heading-text">Text</label>
+      <input type="text" class="form-control" id="heading-text" placeholder="Text"
+             [(ngModel)]="text"
+             [ngModelOptions]="{standalone: true}" >
+    </div>
+    <div class="form-group">
+      <label for="heading-size">Size</label>
+      <input type="text" class="form-control" id="heading-size" placeholder="3"
+             [(ngModel)]="size"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+  </form>
+  <form *ngIf="type === 'IMAGE'">
+    <div class="form-group">
+      <label for="image-name">Name</label>
+      <input type="text" class="form-control" id="image-name" placeholder="Name"
+             [(ngModel)]="name"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="image-text">Text</label>
+      <input type="text" class="form-control" id="image-text" placeholder="Text"
+             [(ngModel)]="text"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="image-URL">URL</label>
+      <input type="text" class="form-control" id="image-URL" placeholder="URL"
+             [(ngModel)]="url"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="image-width">Width</label>
+      <input type="text" class="form-control" id="image-width" placeholder="100%"
+             [(ngModel)]="width"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputFile">Upload</label>
+      <input type="file" class="form-control" id="exampleInputFile"
+             [(ngModel)]="file"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+  </form>
+  <form *ngIf="type === 'YOUTUBE'">
+    <div class="form-group">
+      <label for="youtube-name">Name</label>
+      <input type="text" class="form-control" id="youtube-name" placeholder="Name"
+             [(ngModel)]="name"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="youtube-text">Text</label>
+      <input type="text" class="form-control" id="youtube-text" placeholder="Text"
+             [(ngModel)]="text"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="youtube-URL">URL</label>
+      <input type="text" class="form-control" id="youtube-URL" placeholder="URL"
+             [(ngModel)]="url"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="youtube-width">Width</label>
+      <input type="text" class="form-control" id="youtube-width" placeholder="100%"
+             [(ngModel)]="width"
+             [ngModelOptions]="{standalone: true}">
+    </div>
+  </form>
+  <a class="btn btn-success btn-block" (click)="createWidget(type, size, text, width, url)">Add New {{type}}</a>
+  <a class="btn btn-warning btn-block"
+     routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
+  <a class="btn btn-danger  btn-block" (click)="deleteWidget()"
+     routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Delete</a>
+</div>
+
+<nav class="navbar cl-blue-navbar navbar-fixed-bottom">
+  <div class="container-fluid row">
+    <div class="pull-right navbar-text">
+
+      <a routerLink="/profile/{{userId}}" class="cl-icon-padding cl-text-white">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+
+    </div>
+  </div>
+</nav>

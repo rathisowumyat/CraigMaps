@@ -1,7 +1,8 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar cl-blue-navbar navbar-fixed-top">
   <div class="container-fluid row">
     <div class="navbar-text pull-left">
-      <a routerLink="profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pageId}}//widgetlist" class="cl-text-white cl-icon-padding">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}//widgetlist"
+         class="cl-text-white cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
       </a>
@@ -16,43 +17,23 @@
 <div class="container-fluid">
   <ul class="list-group cl-list-group-borderless">
     <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/widgetheader">Header</a>
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetedit/HEADER">Header</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Label</a>
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetedit/IMAGE">Image</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">HTML</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Text Input</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Link</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Button</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/widgetimage">Image</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/widgetyoutube">YouTube</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Data Table</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Repeater</a>
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetedit/YOUTUBE">Youtube</a>
     </li>
   </ul>
+  <a class="btn btn-warning btn-block"
+     routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
 </div>
 
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-
-      <a routerLink="profile/{{userId}}" class="cl-icon-padding cl-text-white">
+      <a routerLink="/profile/{{userId}}" class="cl-icon-padding cl-text-white">
         <span class="glyphicon glyphicon-user"></span>
       </a>
 
