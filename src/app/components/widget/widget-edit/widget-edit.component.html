@@ -15,19 +15,13 @@
       </a>
     </div>
     <a class="navbar-brand cl-text-white cl-text-bold" href="#">
-      Widgets Edit
+      Widgets Details
     </a>
   </div>
 </nav>
 <div class="mypaddig"></div>
-<div class="container"  >
+<div class="contain-fluid"  >
   <form *ngIf="type === 'HEADER'">
-    <div class="form-group">
-      <label for="heading-name">Name</label>
-      <input type="text" class="form-control" id="heading-name" placeholder="Name"
-             [(ngModel)]="name"
-             [ngModelOptions]="{standalone: true}" >
-    </div>
     <div class="form-group">
       <label for="heading-text">Text</label>
       <input type="text" class="form-control" id="heading-text" placeholder="Text"
@@ -41,15 +35,17 @@
              [ngModelOptions]="{standalone: true}">
     </div>
   </form>
+  <form *ngIf="type === 'HTML'">
+    <div class="form-group">
+      <label for="heading-text">Text</label>
+      <input type="text" class="form-control" id="html-text" placeholder="Text"
+             [(ngModel)]="text"
+             [ngModelOptions]="{standalone: true}" >
+    </div>
+  </form>
   <form *ngIf="type === 'IMAGE'">
     <div class="form-group">
-      <label for="image-name">Name</label>
-      <input type="text" class="form-control" id="image-name" placeholder="Name"
-             [(ngModel)]="name"
-             [ngModelOptions]="{standalone: true}">
-    </div>
-    <div class="form-group">
-      <label for="image-text">Text</label>
+      <label for="image-text">FileName</label>
       <input type="text" class="form-control" id="image-text" placeholder="Text"
              [(ngModel)]="text"
              [ngModelOptions]="{standalone: true}">
@@ -75,12 +71,6 @@
   </form>
   <form *ngIf="type === 'YOUTUBE'">
     <div class="form-group">
-      <label for="youtube-name">Name</label>
-      <input type="text" class="form-control" id="youtube-name" placeholder="Name"
-             [(ngModel)]="name"
-             [ngModelOptions]="{standalone: true}">
-    </div>
-    <div class="form-group">
       <label for="youtube-text">Text</label>
       <input type="text" class="form-control" id="youtube-text" placeholder="Text"
              [(ngModel)]="text"
@@ -99,11 +89,10 @@
              [ngModelOptions]="{standalone: true}">
     </div>
   </form>
-  <a class="btn btn-success btn-block" (click)="createWidget(name, type, size, text, width, url)">Add New {{type}}</a>
+  <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
   <a class="btn btn-warning btn-block"
      routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
-  <a class="btn btn-danger  btn-block" (click)="deleteWidget()"
-     routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Delete</a>
+  <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
 </div>
 
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">

@@ -20,28 +20,41 @@ export class ProfileComponent implements OnInit {
     private userservice: UserService,
     private route: ActivatedRoute) { }
 
-  createUser(user) {
-    this.userservice.createUser(user);
-  }
-
-  updateUser(email, firstname, lastname) {
-    const user = this.userservice.findUserById(this.userId);
-    user.email = email;
-    user.firstName = firstname;
-    user.lastName = lastname;
-    this.userservice.updateUser(this.userId, user);
-    alert( 'User updated successfully');
+  updateUser(username, email, firstname, lastname) {
+	 this.route.params.subscribe(params => {
+	this.userId = params['userId'];
+	const user1 = new User(this.userId,
+	username,
+    email,
+    firstname,
+    lastname);
+    return this.userservice.updateUser(user1).subscribe(
+      (user) => {
+        this.user = user;
+      });
+	  });
   }
 
   deleteUser() {
-    this.userservice.deleteUser(this.userId);
-    alert( 'User deleted successfully. You may now close the app');
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      return this.userservice.deleteUser(this.userId).subscribe(
+        (users) => {
+        });
+    });
   }
 
   ngOnInit() {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       this.userId = params['userId'];
-      this.user = this.userservice.findUserById(this.userId);
+      this.userservice.findUserById(this.userId).subscribe(
+        (user) => {
+          this.user = user;
+		  this.username = user.username;
+		  this.email = user.email;
+		  this.firstname = user.firstName;
+		  this.lastname = user.lastName;
+        });
     });
   }
 }

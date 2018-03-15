@@ -2,8 +2,6 @@
 body {
   padding-top: 70px;
   padding-bottom: 70px;
-  width: 100%;
-  height: 100%;
 }
 input.form-control {
   margin-bottom: 5px;
@@ -106,19 +104,4 @@ a:hover{
   width: 85%;
   z-index: 100;
   position: relative;
-}
-
-.glyphicon-cog {
-  color: blue;
-  background-color: lightgray;
-  padding: 7px;
-  border-bottom-left-radius: 10px;
-  opacity: 0.7;
-}
-
-.glyphicon-menu-hamburger {
-  color: blue;
-  background-color: lightgray;
-  padding: 7px;
-  opacity: 0.7;
 }

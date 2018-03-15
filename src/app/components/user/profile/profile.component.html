@@ -19,7 +19,7 @@
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" class="form-control" id="username" placeholder="Username"
-             [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}">
+             [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
       <label for="email">Email address</label>
       <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"
              [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
@@ -35,8 +35,8 @@
              [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}">
     </div>
   </form>
-  <a class="btn btn-success btn-block" (click)="updateUser(email, firstname,lastname)" routerLink="/profile/{{user._id}}">Update</a>
+  <a class="btn btn-success btn-block" (click)="updateUser(username, email, firstname, lastname)" routerLink="/profile/{{userId}}">Update</a>
   <a class="btn btn-danger btn-block" (click)="deleteUser()" routerLink="/login">Delete</a>
-  <a class="btn btn-primary btn-block" routerLink="/profile/{{user._id}}/websitelist">Websites</a>
+  <a class="btn btn-primary btn-block" routerLink="/profile/{{userId}}/websitelist">Websites</a>
   <a class="btn btn-warning  btn-block" routerLink="/login">Logout</a>
 </div>

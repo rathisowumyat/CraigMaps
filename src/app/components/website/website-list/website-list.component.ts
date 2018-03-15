@@ -22,19 +22,35 @@ export class WebsiteListComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   listWebsites(userId) {
-    this.ws = this.webservice.findWebsitesByUser(userId);
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      return this.webservice.findWebsiteForUser(this.userId).subscribe(
+        (webs) => {
+          this.ws = webs;
+        });
+    });
   }
 
   listWebsitesById() {
-    this.web = this.webservice.findWebsitesById(this.webId);
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      return this.webservice.findWebsiteById(this.userId, this.webId).subscribe(
+        (web) => {
+          this.web = web;
+        });
+    });
   }
 
   ngOnInit() {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
-      this.user = this.userservice.findUserById(this.userId);
-      this.ws = this.webservice.findWebsitesByUser(this.userId);
+      return this.webservice.findWebsiteForUser(this.userId).subscribe(
+        (webs) => {
+          this.ws = webs;
+        });
     });
   }
 

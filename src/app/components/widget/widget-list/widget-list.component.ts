@@ -32,11 +32,16 @@ export class WidgetListComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   listWidgets() {
-    this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
-  }
-
-  listWidgetsById() {
-    this.widget = this.wdgservice.findWidgetById(this.wdgId);
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      this.pgId = params['pageId'];
+      //this.wdgId = params['wdgId'];
+      return this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
+        (webs) => {
+          this.wdgs = webs;
+        });
+    });
   }
 
   ngOnInit() {
@@ -44,8 +49,12 @@ export class WidgetListComponent implements OnInit {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
-      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
+	  
+      //this.wdgId = params['wdgId'];
+      return this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
+        (webs) => {
+          this.wdgs = webs;
+        });
     });
   }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Website} from '../../../models/website.model.client';
 import {WebsiteService} from '../../../services/website.service.client';
-import {ActivatedRoute, Route} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {UserService} from '../../../services/user.service.client';
 
@@ -19,29 +19,38 @@ export class WebsiteNewComponent implements OnInit {
 
   constructor(private webservice: WebsiteService,
               private userservice: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+			  private router: Router) { }
 
   createWebsite(name, desc) {
     if (!name) {
       alert ('Please give name of website');
       return;
     }
-    const tempid = Math.floor(Math.random() * 100);
+    this.route.params.subscribe(params => {
+	this.userId = params['userId'];
+	const tempid = (Math.floor(Math.random() * 100)) + "";
     this.webId = tempid.toString();
-    this.webservice.createWebsite(this.userId,
-      new Website(this.webId,
+    const web = new Website(this.webId,
         name,
         this.userId,
-        desc));
-    const username = this.userservice.findUserById(this.userId).username;
-    alert('Website \'' + name + ' \' created successfully for user ' + '\'' + username + '\'');
+        desc);
+      return this.webservice.createWebsiteForUser(this.userId, web)
+	  .subscribe(
+        (webs) => {
+          this.ws = webs;
+		  this.router.navigate(['/profile', this.userId,'websitelist']);
+        });
+    });
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
-      // this.webId = params['webId'];
-      this.ws = this.webservice.findWebsitesByUser(this.userId);
+      return this.webservice.findWebsiteForUser(this.userId).subscribe(
+        (webs) => {
+          this.ws = webs;
+        });
     });
   }
 

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Widget} from '../../../../models/widget.model.client';
-import {WebsiteService} from '../../../../services/website.service.client';
 import {WidgetService} from '../../../../services/widget.service.client';
+import {WebsiteService} from '../../../../services/website.service.client';
+import {Widget} from '../../../../models/widget.model.client';
 import {PageService} from '../../../../services/page.service.client';
 import {UserService} from '../../../../services/user.service.client';
 
 @Component({
-  selector: 'app-widget-header',
-  templateUrl: './widget-header.component.html',
-  styleUrls: ['./widget-header.component.css']
+  selector: 'app-widget-html',
+  templateUrl: './widget-html.component.html',
+  styleUrls: ['./widget-html.component.css']
 })
-export class WidgetHeaderComponent implements OnInit {
+export class WidgetHtmlComponent implements OnInit {
   name: String;
   userId: String;
   webId: String;
@@ -33,14 +33,14 @@ export class WidgetHeaderComponent implements OnInit {
 			  private router: Router) {
   }
 
-  updateWidget(text, size) {
+  updateWidget(text) {
     this.widget = new Widget(this.wdgId,
-      'HEADER',
+      'HTML',
       this.pgId,
-      size,
+      '1',
       text,
       '100%',
-      'he');
+      'ht');
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
@@ -54,16 +54,27 @@ export class WidgetHeaderComponent implements OnInit {
     });
   }
 
-  createWidget(psize, text, width, url) {
+  createWidget(size, text, width, url) {
+	if (!text) {
+      alert('Please give the text of the HTML');
+      return;
+    }
+    
     const tempid = Math.floor(Math.random() * 100);
     this.wdgId = tempid.toString();
+    this.widget = new Widget(this.wdgId,
+      'HTML',
+      this.pgId,
+      size,
+      text,
+      width,
+      url);
 
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  
       return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = this.wdgs;
@@ -93,7 +104,7 @@ export class WidgetHeaderComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  this.type = 'HEADER';
+	  this.type = 'HTML';
       this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
         (wdg) => {
           this.widget = wdg;
@@ -101,7 +112,6 @@ export class WidgetHeaderComponent implements OnInit {
           this.url = this.widget.url;
           this.size = this.widget.size;
           this.width = this.widget.width;
-		  this.type = 'HEADER';
         });
 	  this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
         (webs) => {

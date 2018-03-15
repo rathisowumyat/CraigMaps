@@ -31,66 +31,85 @@ export class WidgetEditComponent implements OnInit {
               private pageservice: PageService,
               private webservice: WebsiteService,
               private userservice: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+			  private router: Router) { }
 
   updateWidget(type, size, text, width, url) {
-    this.wdgservice.updateWidget(this.wdgId,
-      new Widget(this.wdgId,
+    this.widget = new Widget(this.wdgId,
         type,
         this.pgId,
         size,
         text,
         width,
-        url));
-    const username = this.userservice.findUserById(this.userId).username;
-    const webname = this.webservice.findWebsitesById(this.webId).name;
-    const pgname = this.pageservice.findPageById(this.pgId).name;
-    alert('Widget of type ' + type + ' updated successfully for Page \'' + pgname +
-      '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
+        url);
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      this.pgId = params['pageId'];
+      this.wdgId = params['wdgId'];
+	  this.type = type;
+      return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
+        (wdg) => {
+          this.wdgs = this.wdgs;
+		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+        });
+    });
   }
 
-  createWidget(name, type, size, text, width, url) {
-    if (!type) {
-      alert('Please give type of the widget');
-      return;
-    }
-    if (type === 'HEADER' && !text) {
+  createWidget(size, text, width, url) {
+    if (this.type === 'HEADER' && !text) {
       alert('Please give the text of the HEADER');
       return;
     }
-    if (type === 'IMAGE' && !url) {
+	if (this.type === 'HTML' && !text) {
+      alert('Please give the text of the HTML');
+      return;
+    }
+    if (this.type === 'IMAGE' && !url) {
       alert('Please give the image url');
       return;
     }
-    if (type === 'YOUTUBE' && !url) {
+    if (this.type === 'YOUTUBE' && !url) {
       alert('Please give the youtube url');
       return;
     }
     const tempid = Math.floor(Math.random() * 100);
     this.wdgId = tempid.toString();
-    this.wdgservice.createWidget(this.pgId,
-      new Widget(this.wdgId,
-        type,
+    this.widget = new Widget(this.wdgId,
+        this.type,
         this.pgId,
         size,
         text,
         width,
-        url));
-    const username = this.userservice.findUserById(this.userId).username;
-    const webname = this.webservice.findWebsitesById(this.webId).name;
-    const pgname = this.pageservice.findPageById(this.pgId).name;
-    alert('Widget of type ' + type + ' created successfully for Page \'' + pgname +
-      '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
+        url);
+
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      this.pgId = params['pageId'];
+      this.wdgId = params['wdgId'];
+	  this.type = params['type'];
+      return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
+        (wdg) => {
+          this.wdgs = this.wdgs;
+		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+        });
+    });
   }
 
   deleteWidget() {
-    const webname = this.webservice.findWebsitesById(this.webId).name;
-    const username = this.userservice.findUserById(this.userId).username;
-    const pgname = this.pageservice.findPageById(this.pgId);
-    const type = this.wdgservice.findWidgetById(this.wdgId).widgetType;
-    this.wdgservice.deleteWidget(this.wdgId);
-    alert('Widget of type ' + type + ' deleteted successfully for Page \'' + pgname +
-      '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      this.pgId = params['pageId'];
+      this.wdgId = params['wdgId'];
+      return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
+        (wdgs) => {
+          this.wdgs = this.wdgs;
+		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+        });
+    });
+
   }
 
   ngOnInit() {
@@ -99,8 +118,23 @@ export class WidgetEditComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-      this.type = params['type'];
-      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
+	  this.type = params['type'];
+	  if(this.wdgId) {
+      this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
+        (wdg) => {	
+          this.widget = wdg;
+          this.name = this.widget.name;
+          this.type = this.widget.widgetType;
+          this.text = this.widget.text;
+          this.url = this.widget.url;
+          this.size = this.widget.size;
+          this.width = this.widget.width;
+        });
+	  }
+     this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
+        (webs) => {
+          this.wdgs = webs;
+        });
     });
   }
 }

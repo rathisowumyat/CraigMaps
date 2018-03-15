@@ -23,6 +23,9 @@ import { WebsiteService } from './services/website.service.client';
 import { WidgetService } from './services/widget.service.client';
 import { PageService } from './services/page.service.client';
 import { UserService } from './services/user.service.client';
+import { WidgetIframeComponent } from './components/widget/widget-edit/widget-iframe/widget-iframe.component';
+import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -41,12 +44,15 @@ import { UserService } from './services/user.service.client';
     WidgetListComponent,
     WidgetHeaderComponent,
     WidgetImageComponent,
-    WidgetYoutubeComponent
+    WidgetYoutubeComponent,
+    WidgetIframeComponent,
+    WidgetHtmlComponent
   ],
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

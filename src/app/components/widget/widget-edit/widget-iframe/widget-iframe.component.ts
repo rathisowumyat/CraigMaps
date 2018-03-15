@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Widget} from '../../../../models/widget.model.client';
-import {WebsiteService} from '../../../../services/website.service.client';
+import {ActivatedRoute} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
+import {WebsiteService} from '../../../../services/website.service.client';
+import {Widget} from '../../../../models/widget.model.client';
 import {PageService} from '../../../../services/page.service.client';
 import {UserService} from '../../../../services/user.service.client';
 
 @Component({
-  selector: 'app-widget-header',
-  templateUrl: './widget-header.component.html',
-  styleUrls: ['./widget-header.component.css']
+  selector: 'app-widget-iframe',
+  templateUrl: './widget-iframe.component.html',
+  styleUrls: ['./widget-iframe.component.css']
 })
-export class WidgetHeaderComponent implements OnInit {
+export class WidgetIframeComponent implements OnInit {
   name: String;
   userId: String;
   webId: String;
@@ -23,24 +23,22 @@ export class WidgetHeaderComponent implements OnInit {
   url: String;
   wdgs: Widget[];
   widget: Widget;
-  type: String;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
               private userservice: UserService,
-              private route: ActivatedRoute,
-			  private router: Router) {
+              private route: ActivatedRoute) {
   }
 
-  updateWidget(text, size) {
+  updateWidget(type, size, text, width, url) {
     this.widget = new Widget(this.wdgId,
-      'HEADER',
+      type,
       this.pgId,
       size,
       text,
-      '100%',
-      'he');
+      width,
+      url);
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
@@ -49,25 +47,45 @@ export class WidgetHeaderComponent implements OnInit {
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = this.wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
   }
 
-  createWidget(psize, text, width, url) {
+  createWidget(name, type, size, text, width, url) {
+    if (!type) {
+      alert('Please give type of the widget');
+      return;
+    }
+    if (type === 'HEADER' && !text) {
+      alert('Please give the text of the HEADER');
+      return;
+    }
+    if (type === 'IMAGE' && !url) {
+      alert('Please give the image url');
+      return;
+    }
+    if (type === 'YOUTUBE' && !url) {
+      alert('Please give the youtube url');
+      return;
+    }
     const tempid = Math.floor(Math.random() * 100);
     this.wdgId = tempid.toString();
+    this.widget = new Widget(this.wdgId,
+      type,
+      this.pgId,
+      size,
+      text,
+      width,
+      url);
 
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  
       return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = this.wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
   }
@@ -81,7 +99,6 @@ export class WidgetHeaderComponent implements OnInit {
       return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
         (wdgs) => {
           this.wdgs = this.wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
 
@@ -93,19 +110,14 @@ export class WidgetHeaderComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  this.type = 'HEADER';
-      this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
+      return this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
         (wdg) => {
           this.widget = wdg;
+          this.name = this.widget.name;
           this.text = this.widget.text;
           this.url = this.widget.url;
           this.size = this.widget.size;
           this.width = this.widget.width;
-		  this.type = 'HEADER';
-        });
-	  this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
-        (webs) => {
-          this.wdgs = webs;
         });
     });
   }

@@ -15,6 +15,8 @@ import { WidgetListComponent } from './components/widget/widget-list/widget-list
 import { WidgetHeaderComponent } from './components/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './components/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './components/widget/widget-edit/widget-youtube/widget-youtube.component';
+import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
+import { WidgetIframeComponent } from './components/widget/widget-edit/widget-iframe/widget-iframe.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -27,13 +29,14 @@ const appRoutes: Routes = [
   {path: 'profile/:userId/websitelist/:webId/pagenew', component: PageNewComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/pageedit', component: PageEditComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist', component: PageListComponent},
+  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetheader', component: WidgetHeaderComponent},
+  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgethtml', component: WidgetHtmlComponent},
+  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetimage', component: WidgetImageComponent},
+  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetyoutube', component: WidgetYoutubeComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetedit', component: WidgetEditComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist', component: WidgetListComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetchooser', component: WidgetChooserComponent},
-  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetedit/:type', component: WidgetEditComponent},
-  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetheader', component: WidgetHeaderComponent},
-  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetimage', component: WidgetImageComponent},
-  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetyoutube', component: WidgetYoutubeComponent},
+  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetnew/:type', component: WidgetEditComponent},
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

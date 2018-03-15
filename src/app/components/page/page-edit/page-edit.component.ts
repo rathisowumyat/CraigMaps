@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
 import {Page} from '../../../models/page.model.client';
 import {PageService} from '../../../services/page.service.client';
@@ -18,30 +18,44 @@ export class PageEditComponent implements OnInit {
   webId: String;
   pgId: String;
   desc: String;
-  ps: Page[];
+  ps: any[];
+  page: any = {};
+  //ps: Page[];
 
   constructor(private pageservice: PageService,
               private webservice: WebsiteService,
               private userservice: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+			  private router: Router) { }
 
   updatePage(name, desc) {
-    this.pageservice.updatePage(this.pgId,
-      new Page(this.pgId,
-        name,
-        this.webId,
-        desc));
-    const webname = this.webservice.findWebsitesById(this.webId).name;
-    const username = this.userservice.findUserById(this.userId).username;
-    alert('Page \'' + name + '\' of Website \'' + webname + '\'' + ' updated successfully for user ' + '\'' + username + '\'');
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      this.pgId = params['pageId'];
+	  const pg = new Page(this.pgId,
+      name,
+      this.webId,
+      desc);
+      return this.pageservice.updatePage(this.webId, pg)
+        .subscribe((pages) => {
+          this.ps = pages;
+		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist']);
+        });
+    });
   }
 
   deletePage() {
-    const pgname = this.pageservice.findPageById(this.pgId).name;
-    const webname = this.webservice.findWebsitesById(this.webId).name;
-    const username = this.userservice.findUserById(this.userId).username;
-    this.pageservice.deletePage(this.pgId);
-    alert('Page \'' + pgname + '\' of Website \'' + webname + '\'' + ' deleted successfully for user ' + '\'' + username + '\'');
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.webId = params['webId'];
+      this.pgId = params['pageId'];
+      return this.pageservice.deletePage(this.webId, this.pgId)
+        .subscribe((pages) => {
+          this.ps = pages;
+		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist']);
+        });
+    });
   }
 
   ngOnInit() {
@@ -49,7 +63,15 @@ export class PageEditComponent implements OnInit {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      this.ps = this.pageservice.findPageByWebsiteId(this.webId);
+      this.pageservice.findPageById(this.webId, this.pgId).subscribe(
+        (page) => {
+            this.name = page.name;
+            this.desc = page.description;
+        });
+      this.pageservice.findPageForWebsite(this.webId).subscribe(
+        (pages) => {
+          this.ps = pages;
+        });
     });
   }
 

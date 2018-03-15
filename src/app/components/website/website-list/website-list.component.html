@@ -6,7 +6,7 @@
       </a>
     </p>
     <a class="cl-text-white navbar-brand cl-text-bold" href="#">
-      Websites {{ws.length}}
+      Websites
     </a>
     <a routerLink="/profile/{{userId}}/websitenew/" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
       <span class="glyphicon glyphicon-plus"></span>
@@ -14,10 +14,11 @@
   </div>
 </nav>
 <div class="mypaddig"></div>
-<div class="container">
+<div class="container-fluid">
   <ul class="list-group-item cl-list-item-borderless">
-    <li *ngFor="let w of ws">
-      <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/websiteedit"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+    <li class="list-group-item cl-list-item-borderless" *ngFor="let w of ws">
+      <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/websiteedit">
+        <span class="glyphicon glyphicon-cog pull-right"></span></a>
       <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/pagelist">{{w.name}}</a>
     </li>
   </ul>

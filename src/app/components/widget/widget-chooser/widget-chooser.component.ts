@@ -12,6 +12,7 @@ import {Widget} from '../../../models/widget.model.client';
   templateUrl: './widget-chooser.component.html',
   styleUrls: ['./widget-chooser.component.css']
 })
+
 export class WidgetChooserComponent implements OnInit {
   name: String;
   userId: String;
@@ -31,34 +32,16 @@ export class WidgetChooserComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
-  createWidget(type, size, text, width, url) {
-    if (!type) {
-      alert('Please give type of the widget');
-      return;
-    }
-    const tempid = Math.floor(Math.random() * 10000);
-    this.wdgId = tempid.toString();
-    this.wdgservice.createWidget(this.pgId,
-      new Widget(this.wdgId,
-        type,
-        this.pgId,
-        size,
-        text,
-        width,
-        url));
-    const username = this.userservice.findUserById(this.userId).username;
-    const webname = this.webservice.findWebsitesById(this.webId).name;
-    const pgname = this.pageservice.findPageById(this.pgId).name;
-    alert('Widget of type ' + type + ' created successfully for Page \'' + pgname +
-      '\' of user ' + '\'' + username + '\'' + ' in website ' + '\'' + webname + '\'');
-  }
-
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      this.wdgs = this.wdgservice.findWidgetsByPageId(this.pgId);
+      //this.wdgId = params['wdgId'];
+      //return this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
+        //(webs) => {
+         // this.wdgs = webs;
+        //});
     });
   }
 }
