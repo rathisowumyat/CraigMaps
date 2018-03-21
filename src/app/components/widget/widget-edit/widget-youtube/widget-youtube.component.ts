@@ -104,7 +104,7 @@ export class WidgetYoutubeComponent implements OnInit {
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
 	  this.type = 'YOUTUBE';
-      this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
+      this.wdgservice.findWidgetById(this.wdgId).subscribe(
         (wdg) => {
           this.widget = wdg;
           this.text = this.widget.text;

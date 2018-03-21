@@ -63,7 +63,7 @@ export class WidgetHeaderComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  
+
       return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = this.wdgs;
@@ -94,13 +94,13 @@ export class WidgetHeaderComponent implements OnInit {
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
 	  this.type = 'HEADER';
-      this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
+      this.wdgservice.findWidgetById(this.wdgId).subscribe(
         (wdg) => {
           this.widget = wdg;
-          this.text = this.widget.text;
-          this.url = this.widget.url;
-          this.size = this.widget.size;
-          this.width = this.widget.width;
+          // this.text = this.widget.text;
+          // this.url = this.widget.url;
+          // this.size = this.widget.size;
+          // this.width = this.widget.width;
 		  this.type = 'HEADER';
         });
 	  this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(

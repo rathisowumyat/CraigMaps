@@ -5,6 +5,7 @@ import {WebsiteService} from '../../../../services/website.service.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {PageService} from '../../../../services/page.service.client';
 import {UserService} from '../../../../services/user.service.client';
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-widget-image',
@@ -24,6 +25,7 @@ export class WidgetImageComponent implements OnInit {
   wdgs: Widget[];
   widget: Widget;
   type: String;
+  baseUrl: String;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
@@ -31,6 +33,7 @@ export class WidgetImageComponent implements OnInit {
               private userservice: UserService,
               private route: ActivatedRoute,
 			  private router: Router) {
+    this.baseUrl = environment.baseUrl;
   }
 
   updateWidget(text, url, width) {
@@ -41,14 +44,22 @@ export class WidgetImageComponent implements OnInit {
       text,
       width,
       url);
+    this.text = text;
+    this.url = url;
+    this.size = '1';
+    this.width = width;
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
+      this.url =  url;
+      this.width = width;
+      this.text =  text;
+      this.size = '1';
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
         (wdg) => {
-          this.wdgs = this.wdgs;
+          this.wdgs = wdg;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
@@ -59,7 +70,7 @@ export class WidgetImageComponent implements OnInit {
       alert('Please give the image url');
       return;
     }
-    
+
     const tempid = Math.floor(Math.random() * 100);
     this.wdgId = tempid.toString();
     this.widget = new Widget(this.wdgId,
@@ -70,6 +81,10 @@ export class WidgetImageComponent implements OnInit {
       width,
       url);
 
+    this.text = text;
+    this.url = url;
+    this.size = size;
+    this.width = width;
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
@@ -77,7 +92,7 @@ export class WidgetImageComponent implements OnInit {
       this.wdgId = params['wdgId'];
       return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
-          this.wdgs = this.wdgs;
+          this.wdgs = wdg;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
@@ -91,7 +106,7 @@ export class WidgetImageComponent implements OnInit {
       this.wdgId = params['wdgId'];
       return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
         (wdgs) => {
-          this.wdgs = this.wdgs;
+          this.wdgs = wdgs;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
@@ -104,14 +119,14 @@ export class WidgetImageComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  this.type = 'IMAGE';
-      this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
-        (wdg) => {
+	    this.type = 'IMAGE';
+      this.wdgservice.findWidgetById(this.wdgId).subscribe(
+        (wdg : Widget) => {
           this.widget = wdg;
-          this.text = this.widget.text;
-          this.url = this.widget.url;
-          this.size = this.widget.size;
-          this.width = this.widget.width;
+          this.text = wdg.text;
+          this.url = wdg.url;
+          this.size = wdg.size;
+          this.width = wdg.width;
         });
 	  this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
         (webs) => {

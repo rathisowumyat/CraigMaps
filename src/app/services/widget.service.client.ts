@@ -25,7 +25,16 @@ export  class WidgetService {
     });
   }
 
-  findWidgetById(pageId: String, widgetId: String) {
+  findImage(imageName: String) {
+    const url = this.baseUrl + '/api/image/' + imageName;
+    return this.http.get(url).map(
+      (res: Response) => {
+        return res.json();
+      }
+    );
+  }
+
+  findWidgetById(widgetId: String) {
     const url =  'http://localhost:3100/api/widget/' + widgetId;
     return this.http.get(url).map((response: Response) => {
       return response.json();
@@ -53,4 +62,14 @@ export  class WidgetService {
       return response.json();
     });
   }
+
+   reorderWidgets(pageId : String, widget : any, initial : number, final : number) {
+    const body = {widget: Widget};
+    return this.http.put('http://localhost:3100/api/page/'+ pageId + "/widget?initial=" + initial + "&final=" + final, body)
+      .map((response: Response) => {
+          return response.json();
+        }
+      );
+  }
+
 }

@@ -25,24 +25,25 @@ export class WebsiteEditComponent implements OnInit {
   constructor(private webservice: WebsiteService,
               private userservice: UserService,
               private route: ActivatedRoute,
-			  private router: Router) {  }
+              private router: Router) {
+  }
 
   updateWebsite(name, desc) {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
-	  const website = new Website(this.webId,
+      const website = new Website(this.webId,
         name,
         this.userId,
         desc);
       return this.webservice.updateWebsite(this.userId, website).subscribe(
         (webs) => {
           this.ws = webs;
-		  this.router.navigate(['/profile', this.userId,'websitelist']);
+          this.router.navigate(['/profile', this.userId, 'websitelist']);
         });
-		
+
     });
-	
+
   }
 
   deleteWebsite() {
@@ -52,10 +53,10 @@ export class WebsiteEditComponent implements OnInit {
       return this.webservice.deleteWebsite(this.userId, this.webId).subscribe(
         (webs) => {
           this.ws = webs;
-		  this.router.navigate(['/profile', this.userId,'websitelist']);
+          this.router.navigate(['/profile', this.userId, 'websitelist']);
         });
     });
-	
+
   }
 
   ngOnInit() {
@@ -67,7 +68,7 @@ export class WebsiteEditComponent implements OnInit {
           this.name = web.name;
           this.desc = web.description;
         });
-	  this.webservice.findWebsiteForUser(this.userId).subscribe(
+      this.webservice.findWebsiteForUser(this.userId).subscribe(
         (webs) => {
           this.ws = webs;
         });

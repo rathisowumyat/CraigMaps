@@ -1,0 +1,79 @@
+<nav class="navbar cl-blue-navbar navbar-fixed-top">
+  <div class="container-fluid row">
+    <div class="navbar-text pull-left">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
+         class="cl-text-white cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
+      </a>
+    </div>
+    <div class="navbar-text pull-right">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
+         class="cl-icon-padding cl-text-white">
+          <span class="glyphicon glyphicon-ok">
+          </span>
+      </a>
+    </div>
+    <a class="navbar-brand cl-text-white cl-text-bold" >
+      Header Details
+    </a>
+  </div>
+</nav>
+<div class="mypaddig"></div>
+<div class="container">
+  <form>
+    Text
+    <input name="text" [(ngModel)]="w.text" class="form-control"/>
+
+    Rows
+    <input name="rows" [(ngModel)]="w.rows" class="form-control" type="number"/>
+
+    <label for="wname">Name</label>
+    <div>
+      <input [(ngModel)]="w.name"
+             type="text"
+             class="form-control"
+             id="wname"
+             name="wname"
+             required
+             autofocus
+             placeholder="Name">
+      <!--<span class="help-block" *ngIf="!wname.valid && wname.touched">
+          Please enter a name for the widget
+      </span>-->
+    </div>
+
+    Placeholder
+    <input name="placeholder"
+           [(ngModel)]="w.placeholder"
+           class="form-control" required/>
+    <p></p>
+    <div class="input-group">
+      <input type="text"
+             readonly
+             value="Formatted"
+             class="form-control"/>
+      <span class="input-group-addon">
+          <input name="formatted"
+                 [(ngModel)]="w.formatted"
+                 type="checkbox"/>
+        </span>
+    </div>
+    <p></p>
+  </form>
+  <a class="btn btn-success btn-block" (click)="updateWidget(name, text)">Update</a>
+  <a class="btn btn-warning btn-block"
+     routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
+  <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
+</div>
+
+<nav class="navbar cl-blue-navbar navbar-fixed-bottom">
+  <div class="container-fluid row">
+    <div class="pull-right navbar-text">
+      <a routerLink="/profile/{{userId}}" class="cl-icon-padding cl-text-white">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+
+    </div>
+  </div>
+</nav>

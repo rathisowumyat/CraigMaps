@@ -10,12 +10,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.static(path.join(__dirname, 'src/assets/uploads')));
 
 // CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
 
@@ -41,6 +43,7 @@ const server = http.createServer(app);
  hello(app);
 
 require('./assignment/app')(app);
+
 
 server.listen( port , function() {
   console.log('Node app is running on port', app.get('port'))});

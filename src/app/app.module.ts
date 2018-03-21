@@ -19,13 +19,18 @@ import { WidgetHeaderComponent } from './components/widget/widget-edit/widget-he
 import { WidgetImageComponent } from './components/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './components/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { FormsModule } from '@angular/forms';
+import { QuillEditorModule } from 'ngx-quill-editor';
 import { WebsiteService } from './services/website.service.client';
 import { WidgetService } from './services/widget.service.client';
 import { PageService } from './services/page.service.client';
 import { UserService } from './services/user.service.client';
-import { WidgetIframeComponent } from './components/widget/widget-edit/widget-iframe/widget-iframe.component';
 import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
 import {HttpModule} from '@angular/http';
+import { DirectivesDirective } from './directives.directive';
+import { SortableDirective } from './sortable.directive';
+import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
+import {sanitizeHtml} from '@angular/platform-browser/src/security/html_sanitizer';
+import {sanitizeUrl} from '@angular/platform-browser/src/security/url_sanitizer';
 
 @NgModule({
   declarations: [
@@ -45,14 +50,17 @@ import {HttpModule} from '@angular/http';
     WidgetHeaderComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
-    WidgetIframeComponent,
-    WidgetHtmlComponent
+    WidgetHtmlComponent,
+    DirectivesDirective,
+    SortableDirective,
+    WidgetTextComponent,
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
-    HttpModule
+    QuillEditorModule,
+    HttpModule,
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

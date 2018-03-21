@@ -5,6 +5,8 @@ import {WidgetService} from '../../../services/widget.service.client';
 import {PageService} from '../../../services/page.service.client';
 import {UserService} from '../../../services/user.service.client';
 import {Widget} from '../../../models/widget.model.client';
+import {DomSanitizer, Title} from "@angular/platform-browser";
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-list',
@@ -22,21 +24,23 @@ export class WidgetListComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  wdgs: Widget[];
+  wdgs: Widget[] = [];
   widget: Widget;
+  baseUrl = environment.baseUrl;
+
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
               private userservice: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+			  private sanitizer: DomSanitizer) { }
 
   listWidgets() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      //this.wdgId = params['wdgId'];
       return this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
         (webs) => {
           this.wdgs = webs;
@@ -44,13 +48,25 @@ export class WidgetListComponent implements OnInit {
     });
   }
 
+    embedURL(url: String){
+    const urlSegments = url.split('/');
+    const embeddedUrl = 'https://www.youtube.com/embed/' + urlSegments.pop();
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl);
+  }
+
+   reorderWidgets(index) {
+    this.wdgservice.reorderWidgets(this.pgId, this.wdgs[index['startIndex']], index['startIndex'], index['endIndex'])
+        .subscribe(
+        (widgets) => {this.wdgs = widgets},
+        (error) => {}
+      );
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-	  
-      //this.wdgId = params['wdgId'];
       return this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
         (webs) => {
           this.wdgs = webs;

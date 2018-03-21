@@ -104,3 +104,51 @@ a:hover{
     z-index: 100;
     position: relative;
 }
+
+ul,li {
+  list-style-type: none;
+  list-style-position:inside;
+  margin:0;
+  padding:0; }
+
+.website-list-item{
+  font-weight: bold;
+  padding-left: 4pt;
+  padding-right: 4pt;
+  padding-top: 4pt;
+  padding-bottom: 4pt;
+  color:#317CB5;
+}
+
+.remove-padding{
+  padding: 0pt;
+}
+
+.remove-padding-left{
+  padding-left: 0pt;
+}
+
+.scroll-vertical {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.widget-list-toolbar {
+  background: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.widget-list-item{
+  position: relative;
+  vertical-align: middle;
+}
+
+.widget-list{
+  margin-left: 15pt;
+  margin-right: 15pt;
+}

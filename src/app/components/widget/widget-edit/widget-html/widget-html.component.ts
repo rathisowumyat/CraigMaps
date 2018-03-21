@@ -41,14 +41,16 @@ export class WidgetHtmlComponent implements OnInit {
       text,
       '100%',
       'ht');
+
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
+      this.text = text;
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
         (wdg) => {
-          this.wdgs = this.wdgs;
+          this.wdgs = wdg;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
@@ -59,7 +61,7 @@ export class WidgetHtmlComponent implements OnInit {
       alert('Please give the text of the HTML');
       return;
     }
-    
+
     const tempid = Math.floor(Math.random() * 100);
     this.wdgId = tempid.toString();
     this.widget = new Widget(this.wdgId,
@@ -77,7 +79,7 @@ export class WidgetHtmlComponent implements OnInit {
       this.wdgId = params['wdgId'];
       return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
-          this.wdgs = this.wdgs;
+          this.wdgs = wdg;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
@@ -91,7 +93,7 @@ export class WidgetHtmlComponent implements OnInit {
       this.wdgId = params['wdgId'];
       return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
         (wdgs) => {
-          this.wdgs = this.wdgs;
+          this.wdgs = wdgs;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
@@ -104,8 +106,8 @@ export class WidgetHtmlComponent implements OnInit {
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  this.type = 'HTML';
-      this.wdgservice.findWidgetById(this.pgId, this.wdgId).subscribe(
+	    this.type = 'HTML';
+      this.wdgservice.findWidgetById(this.wdgId).subscribe(
         (wdg) => {
           this.widget = wdg;
           this.text = this.widget.text;

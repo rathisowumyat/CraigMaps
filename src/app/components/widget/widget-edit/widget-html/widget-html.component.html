@@ -23,12 +23,20 @@
 <div class="container">
   <form>
     <div class="form-group">
-      <label for="heading-text">Text</label>
+      <label for="html-text">Text</label>
       <input type="text" class="form-control" id="html-text" placeholder="Text"
              [(ngModel)]="text"
-             [ngModelOptions]="{standalone: true}" >
+             [ngModelOptions]="{standalone: true}"
+             required
+             autofocus>
     </div>
+	<div class="row">
+        <div>
+          <quill-editor [(ngModel)]="text" name="text"></quill-editor>
+        </div>
+      </div>
   </form>
+
   <a class="btn btn-success btn-block" (click)="updateWidget(text)">Update</a>
   <a class="btn btn-warning btn-block"
      routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>

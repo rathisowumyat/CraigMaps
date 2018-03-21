@@ -16,7 +16,7 @@ import { WidgetHeaderComponent } from './components/widget/widget-edit/widget-he
 import { WidgetImageComponent } from './components/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './components/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
-import { WidgetIframeComponent } from './components/widget/widget-edit/widget-iframe/widget-iframe.component';
+import {WidgetTextComponent} from './components/widget/widget-edit/widget-text/widget-text.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -31,6 +31,7 @@ const appRoutes: Routes = [
   {path: 'profile/:userId/websitelist/:webId/pagelist', component: PageListComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetheader', component: WidgetHeaderComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgethtml', component: WidgetHtmlComponent},
+  {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgettext', component: WidgetTextComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetimage', component: WidgetImageComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetyoutube', component: WidgetYoutubeComponent},
   {path: 'profile/:userId/websitelist/:webId/pagelist/:pageId/widgetlist/:wdgId/widgetedit', component: WidgetEditComponent},

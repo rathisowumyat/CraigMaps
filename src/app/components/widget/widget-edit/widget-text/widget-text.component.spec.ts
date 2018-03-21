@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetIframeComponent } from './widget-iframe.component';
+import { WidgetTextComponent } from './widget-text.component';
 
-describe('WidgetIframeComponent', () => {
-  let component: WidgetIframeComponent;
-  let fixture: ComponentFixture<WidgetIframeComponent>;
+describe('WidgetTextComponent', () => {
+  let component: WidgetTextComponent;
+  let fixture: ComponentFixture<WidgetTextComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetIframeComponent ]
+      declarations: [ WidgetTextComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WidgetIframeComponent);
+    fixture = TestBed.createComponent(WidgetTextComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

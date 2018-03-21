@@ -36,15 +36,27 @@
     </div>
   </form>
   <form *ngIf="type === 'HTML'">
-    <div class="form-group">
-      <label for="heading-text">Text</label>
-      <input type="text" class="form-control" id="html-text" placeholder="Text"
-             [(ngModel)]="text"
-             [ngModelOptions]="{standalone: true}" >
-    </div>
+    <form>
+      <div class="form-group">
+        <label for="html-text">Text</label>
+        <input type="text" class="form-control" id="html-text" placeholder="Text"
+               [(ngModel)]="text"
+               [ngModelOptions]="{standalone: true}"
+               required
+               autofocus>
+      </div>
+      <div class="row">
+        <div>
+          <quill-editor [(ngModel)]="text" name="text"></quill-editor>
+        </div>
+      </div>
+    </form>
+    <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
   </form>
   <form *ngIf="type === 'IMAGE'">
+
     <div class="form-group">
+
       <label for="image-text">FileName</label>
       <input type="text" class="form-control" id="image-text" placeholder="Text"
              [(ngModel)]="text"
@@ -62,12 +74,22 @@
              [(ngModel)]="width"
              [ngModelOptions]="{standalone: true}">
     </div>
-    <div class="form-group">
-      <label for="exampleInputFile">Upload</label>
-      <input type="file" class="form-control" id="exampleInputFile"
-             [(ngModel)]="file"
-             [ngModelOptions]="{standalone: true}">
-    </div>
+    <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+      <input  name="myFile"   type="file" class="form-control"/>
+      <input  name="width" value="{{width}}"   style="display: none"/>
+      <input  name="widgetId" value="{{wdgId}}"   style="display: none"/>
+      <input  name="websiteId" value="{{webId}}"   style="display: none"/>
+      <input  name="pageId" value="{{pgId}}"   style="display: none"/>
+      <input  name="userId" value="{{userId}}"   style="display: none"/>
+      <button type="submit" class="btn btn-success btn-block">Upload Image</button>
+
+    </form>
+<!--<div class="form-group">-->
+      <!--<label for="exampleInputFile">Upload</label>-->
+      <!--<input type="file" class="form-control" id="exampleInputFile"-->
+             <!--[(ngModel)]="file"-->
+             <!--[ngModelOptions]="{standalone: true}">-->
+    <!--</div>-->
   </form>
   <form *ngIf="type === 'YOUTUBE'">
     <div class="form-group">
@@ -88,8 +110,51 @@
              [(ngModel)]="width"
              [ngModelOptions]="{standalone: true}">
     </div>
+    <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
   </form>
-  <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
+  <form *ngIf="type === 'TEXT'">
+    Text
+    <input name="text" [(ngModel)]="text" class="form-control"/>
+
+    Rows
+    <input name="rows" [(ngModel)]="rows" class="form-control" type="number"/>
+
+    <label for="wname">Name</label>
+    <div>
+      <input [(ngModel)]="w.name"
+             type="text"
+             class="form-control"
+             id="wname"
+             name="wname"
+             required
+             autofocus
+             placeholder="Name">
+      <!--<span class="help-block" *ngIf="!wname.valid && wname.touched">
+          Please enter a name for the widget
+      </span>-->
+    </div>
+
+    Placeholder
+    <input name="placeholder"
+           [(ngModel)]="w.placeholder"
+           class="form-control" required/>
+    <p></p>
+    <div class="input-group">
+      <input type="text"
+             readonly
+             value="Formatted"
+             class="form-control"/>
+      <span class="input-group-addon">
+          <input name="formatted"
+                 [(ngModel)]="w.formatted"
+                 type="checkbox"/>
+        </span>
+    </div>
+    <p></p>
+    <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
+  </form>
+
+
   <a class="btn btn-warning btn-block"
      routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
   <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
