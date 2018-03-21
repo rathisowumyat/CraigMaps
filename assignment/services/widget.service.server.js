@@ -165,8 +165,6 @@ module.exports = function (app) {
     console.log(widget.url);
     console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
     console.log("callback:/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
-    var callbackUrl   = "localhost:4200/profile/" + userId + "/websitelist/"
-                            websiteId + "/pagelist/" + pageId + "/widgetlist";
     res.redirect(callbackUrl);
   }
 }
