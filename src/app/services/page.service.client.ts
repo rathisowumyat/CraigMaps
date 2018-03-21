@@ -21,28 +21,28 @@ export class PageService {
   }
 
   updatePage(pageId: String, newWebsite: Page) {
-    const url = 'http://localhost:3100/api/page/' + newWebsite._id;
+    const url = this.baseUrl + '/api/page/' + newWebsite._id;
     return this.http.put(url, newWebsite).map((response: Response) => {
       return response.json();
     });
   }
 
   findPageById(websiteId: String, pageId: String) {
-    const url = 'http://localhost:3100/api/page/' + pageId;
+    const url = this.baseUrl + '/api/page/' + pageId;
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
   }
 
   deletePage(websiteId: String,  pageId: String) {
-    const url = 'http://localhost:3100/api/page/' + pageId;
+    const url = this.baseUrl + '/api/page/' + pageId;
     return this.http.delete(url).map((response: Response) => {
       return response.json();
     });
   }
 
   createPage(websiteId: String, page: Page) {
-    const url = 'http://localhost:3100/api/website/' + websiteId + '/page';
+    const url = this.baseUrl + '/api/website/' + websiteId + '/page';
     return this.http.post(url, page).map((response: Response) => {
       return response.json();
     });
@@ -50,7 +50,7 @@ export class PageService {
 
 
   findPageForWebsite(websiteId: String) {
-    const url = 'http://localhost:3100/api/website/' + websiteId + '/page';
+    const url = this.baseUrl + '/api/website/' + websiteId + '/page';
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });

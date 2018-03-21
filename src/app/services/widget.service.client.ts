@@ -19,7 +19,7 @@ export  class WidgetService {
   }
 
   updateWidget(pageId: String, newWidget: Widget) {
-    const url =  'http://localhost:3100/api/widget/' + newWidget._id;
+    const url =  this.baseUrl + '/api/widget/' + newWidget._id;
     return this.http.put(url, newWidget).map((response: Response) => {
       return response.json();
     });
@@ -35,21 +35,21 @@ export  class WidgetService {
   }
 
   findWidgetById(widgetId: String) {
-    const url =  'http://localhost:3100/api/widget/' + widgetId;
+    const url =  this.baseUrl + '/api/widget/' + widgetId;
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
   }
 
   deleteWidget(pageId: String, widgetId: String) {
-    const url =  'http://localhost:3100/api/widget/' + widgetId;
+    const url =  this.baseUrl + '/api/widget/' + widgetId;
     return this.http.delete(url).map((response: Response) => {
       return response.json();
     });
   }
 
   createWidget(pageId: String, newWidget: Widget) {
-    const url = 'http://localhost:3100/api/page/' + pageId + '/widget';
+    const url = this.baseUrl + '/api/page/' + pageId + '/widget';
     return this.http.post(url, newWidget).map((response: Response) => {
       return response.json();
     });
@@ -57,7 +57,7 @@ export  class WidgetService {
 
 
   findWidgetsByPageId(pageId: String) {
-    const url = 'http://localhost:3100/api/page/' + pageId + '/widget';
+    const url = this.baseUrl + '/api/page/' + pageId + '/widget';
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
@@ -65,7 +65,7 @@ export  class WidgetService {
 
    reorderWidgets(pageId : String, widget : any, initial : number, final : number) {
     const body = {widget: Widget};
-    return this.http.put('http://localhost:3100/api/page/'+ pageId + "/widget?initial=" + initial + "&final=" + final, body)
+    return this.http.put(this.baseUrl + '/api/page/'+ pageId + "/widget?initial=" + initial + "&final=" + final, body)
       .map((response: Response) => {
           return response.json();
         }

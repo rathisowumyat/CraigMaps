@@ -19,28 +19,28 @@ export class WebsiteService {
   }
 
   updateWebsite(userId: String, newWebsite: Website) {
-    const url =  'http://localhost:3100/api/website/' + newWebsite._id;
+    const url =  this.baseUrl + '/api/website/' + newWebsite._id;
     return this.http.put(url, newWebsite).map((response: Response) => {
       return response.json();
     });
   }
 
   findWebsiteById(userId: String, websiteId: String) {
-    const url = 'http://localhost:3100/api/website/' + websiteId;
+    const url = this.baseUrl + '/api/website/' + websiteId;
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
   }
 
   deleteWebsite(userId: String,  websiteId: String){
-    const url = 'http://localhost:3100/api/website/' + websiteId;
+    const url = this.baseUrl + '/api/website/' + websiteId;
     return this.http.delete(url).map((response: Response) => {
       return response.json();
     });
   }
 
   createWebsiteForUser(userId: String, website: Website) {
-    const url = 'http://localhost:3100/api/user/' + userId + '/website';
+    const url = this.baseUrl + '/api/user/' + userId + '/website';
     return this.http.post(url, website).map((response: Response) => {
       return response.json();
     });
@@ -48,7 +48,7 @@ export class WebsiteService {
 
 
   findWebsiteForUser(userId: String) {
-    const url =  'http://localhost:3100/api/user/' + userId + '/website';
+    const url =  this.baseUrl + '/api/user/' + userId + '/website';
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
