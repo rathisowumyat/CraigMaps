@@ -27,7 +27,6 @@
     "@angular/router": "^5.1.0",
     "ajv": "^6.0.0",
     "angular-sanitize": "^1.6.4",
-    "string": "^3.3.3",
     "body-parser": "^1.18.2",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
