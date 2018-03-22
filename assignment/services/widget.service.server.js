@@ -161,6 +161,6 @@ module.exports = function (app) {
     var callbackUrl = 'profile/' + userId + '/websitelist/' + websiteId + '/pagelist/' + pageId + '/widgetlist';
 
     console.log(callbackUrl);
-    res.redirect(callbackUrl);
+    //res.redirect(callbackUrl);
   }
 }
