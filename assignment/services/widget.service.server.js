@@ -151,15 +151,14 @@ module.exports = function (app) {
     var widget = getWidgetById(widgetId);
     if(!widget) {
       const _idt = (Math.floor(Math.random() * 100)) + "";
-      widget =  { _id: _idt, widgetType: "IMAGE", pageId: pageId, width: "100%", "url": filename}
+      widget =  { _id: _idt, widgetType: "IMAGE", pageId: pageId, width: "100%", "url": filename};
       WIDGETS.push(widget);
     }
 
     widget.url = filename;
     //console.log(widget.url);
     //console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
-    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com" +
-        //"http://localhost:4200" +
+    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/" +
         "/profile/" +userId + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
     console.log(callbackUrl);
     res.redirect(callbackUrl);
