@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
-//app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 //app.use(express.static(path.join(__dirname, 'src/assets/uploads')));
 
 // CORS
@@ -28,6 +28,7 @@ app.set('port', port);
 const server = http.createServer(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
+
 // app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname, 'dist/index.html'));
 // });
