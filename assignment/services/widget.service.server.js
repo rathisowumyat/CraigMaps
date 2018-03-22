@@ -159,7 +159,6 @@ module.exports = function (app) {
     //console.log(widget.url);
     //console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
     var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/" +
-        "/profile/" +userId + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
     console.log(callbackUrl);
     res.redirect(callbackUrl);
   }
