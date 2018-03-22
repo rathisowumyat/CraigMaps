@@ -158,7 +158,7 @@ module.exports = function (app) {
     widget.url = filename;
     //console.log(widget.url);
     //console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
-    var callbackUrl = "https://localhost:4200/profile/" + userId + "/websitelist/"
+    var callbackUrl = "http://localhost:4200/profile/" + userId + "/websitelist/"
       + websiteId + "/pagelist/" + pageId + "/widgetlist";
 
     console.log(callbackUrl);
