@@ -16,14 +16,8 @@ module.exports = function (app) {
   app.get("/api/image/:imageName", findImage);
 
   function findImage(req, res) {
-    var imageName = req.params.imageName + '';
-    if(imageName.startsWith("http")) {
-      console.log("true");
-      res.sendFile(imageName);
-    } else {
-      console.log("f");
+    var imageName = req.params['imageName'];
       res.sendFile(path.resolve("./assignment/uploads/" + imageName));
-    }
   }
 
   function findAllWidgets(req, res) {
@@ -162,9 +156,12 @@ module.exports = function (app) {
     }
 
     widget.url = filename;
-    console.log(widget.url);
-    console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
-    console.log("callback:/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+    //console.log(widget.url);
+    //console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
+    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com" +
+        //"http://localhost:4200" +
+        "/profile/" +userId + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    console.log(callbackUrl);
     res.redirect(callbackUrl);
   }
 }
