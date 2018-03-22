@@ -117,8 +117,8 @@
               </a>
               <!--<span class = "glyphicon glyphicon glyphicon-align-justify"></span>-->
             </div>
-            {{widget.text}}
-            <div ng-repeat [innerHTML]="widget.text">
+            <!--{{widget.text}}-->
+            <div [innerHTML]="widget.text">
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@
   </ul>
 </div>
 
-<nav class="navbar cl-blue-navbar navbar-fixed-bottom">
+<nav class="navbar cl-blue-navbar">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
       <a routerLink="/profile/{{userId}}" class="cl-icon-padding cl-text-white">

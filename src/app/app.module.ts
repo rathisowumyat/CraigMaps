@@ -31,6 +31,8 @@ import { SortableDirective } from './sortable.directive';
 import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
 import {sanitizeHtml} from '@angular/platform-browser/src/security/html_sanitizer';
 import {sanitizeUrl} from '@angular/platform-browser/src/security/url_sanitizer';
+import { FlickrImageSearchComponent } from './components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import {FlickrService} from "./services/flickr.service.client";
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import {sanitizeUrl} from '@angular/platform-browser/src/security/url_sanitizer'
     DirectivesDirective,
     SortableDirective,
     WidgetTextComponent,
+    FlickrImageSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,7 @@ import {sanitizeUrl} from '@angular/platform-browser/src/security/url_sanitizer'
     QuillEditorModule,
     HttpModule,
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
