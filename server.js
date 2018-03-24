@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
-app.use(express.static(path.join(__dirname, 'src')));
-app.use('/assets/uploads',express.static(path.join(__dirname, 'src/assets/uploads')));
+app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.static(path.join(__dirname, 'src/assets/uploads')));
 
 // CORS
 app.use(function(req, res, next) {
@@ -27,21 +27,24 @@ app.set('port', port);
 // Create HTTP server
 const server = http.createServer(app);
 
-// MongoDB connection
-//var mongoose = require('mongoose');
-//var db = mongoose.createConnect('mongodb://localhost:27017/webdev');
-
-require('./assignment/app')(app);
-
 // For Build: Catch all other routes and return the index file -- BUILDING
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
+
+// app.get('/', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'dist/index.html'));
+// });
+
+//app.get('/login.html', function (req, res) {
+  //res.sendFile(path.join(__dirname, 'src/assets/views/user/login.html'));
+//});
+
+//app.use(express.static(__dirname + '/src/assets/views/css'));
 
 //handle GET UR
  var hello = require('./hello');
  hello(app);
 
+require('./assignment/app')(app);
+
+
 server.listen( port , function() {
   console.log('Node app is running on port', app.get('port'))});
-

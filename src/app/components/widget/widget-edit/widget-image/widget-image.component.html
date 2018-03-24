@@ -53,18 +53,17 @@
         <input  name="websiteId" value="{{webId}}"   style="display: none"/>
         <input  name="pageId" value="{{pgId}}"   style="display: none"/>
         <input  name="userId" value="{{userId}}"   style="display: none"/>
-        <input  name="url" value="{{url}}"   style="display: none"/>
         <button type="submit" class="btn btn-success btn-block">Upload Image</button>
         <a class="btn btn-warning btn-block"
            routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
         <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
       </form>
       <br/>
-      <div class="bottom-margin">
-        <button class="btn btn-primary btn-block" (click)="searchFlickr()">
-          Search Flickr
-        </button>
-      </div>
+      <!--<div class="bottom-margin">-->
+        <!--<button class="btn btn-primary btn-block" (click)="searchFlickr()">-->
+          <!--Search Flickr-->
+        <!--</button>-->
+      <!--</div>-->
     </div>
   </form>
   <!--<a class="btn btn-success btn-block" (click)="updateWidget(text, url, width)">Upload Image</a>-->
