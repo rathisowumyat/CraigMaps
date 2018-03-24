@@ -136,9 +136,10 @@ module.exports = function (app) {
     var pageId        = req.body.pageId;
     var url           = req.body.url;
 
-    var callbackUrl = "http://cs5610-webdev-app.herokuapp.com/profile/"
-    //var callbackUrl = "http://localhost:4200/profile/"
-                      + userId + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    var callbackUrl = "http://cs5610-webdev-app.herokuapp.com/profile/" + userId
+                      + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    // var callbackUrl = "http://localhost:4200/profile/" + userId
+    //                   + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
     console.log(callbackUrl);
     if(!myFile) {
       res.redirect(callbackUrl);
