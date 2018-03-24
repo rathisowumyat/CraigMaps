@@ -1,7 +1,7 @@
 var WIDGETS =  [
   { _id: "123", widgetType: "HEADER", pageId: "321", size: "2", text: "GIZMODO HEADER of SIZE 2"},
   { _id: "345", widgetType: "IMAGE", pageId: "321", width: "100%",
-    "url": "3555c7e834da5b60fce66fe98f48b3a6"},
+    "url": "http://lorempixel.com/400/200/"},
   { _id: "678", widgetType: "YOUTUBE", pageId: "321", width: "100%",
     "url": "https://youtu.be/AM2Ivdi9c4E" },
   { _id: "789", widgetType: "HTML", pageId: "321", text: "<ul><li>bullet</li><li>list</li><li>html</li></ul>"},

@@ -3,7 +3,7 @@ module.exports = function (app) {
   var WIDGETS = require("./widget.mock.server.js");
 
   var multer = require('multer'); // npm install multer --save
-  var upload = multer({ dest: __dirname + '/../uploads' });
+  var upload = multer({ dest: __dirname + '/../../src/assets/uploads' });
 
   app.post("/api/page/:pageId/widget",createWidget);
   app.get("/api/page/:pageId/widget",findAllWidgetsForPage);
@@ -140,6 +140,16 @@ module.exports = function (app) {
     var userId        = req.body.userId;
     var websiteId     = req.body.websiteId;
     var pageId        = req.body.pageId;
+    var url           = req.body.url;
+
+    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/" + userId + "/websitelist/"
+      + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    console.log(callbackUrl);
+
+    if(!myFile) {
+      res.redirect(callbackUrl);
+      return;
+    }
 
     var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;     // new file name in upload folder
@@ -148,20 +158,16 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
+    const fileUrl = "https://cs5610-webdev-app.herokuapp.com/assets/uploads/" + filename;
     var widget = getWidgetById(widgetId);
     if(!widget) {
       const _idt = (Math.floor(Math.random() * 100)) + "";
-      widget =  { _id: _idt, widgetType: "IMAGE", pageId: pageId, width: "100%", "url": filename};
+      widget =  { _id: _idt, widgetType: "IMAGE", pageId: pageId, width: "100%", "url": fileUrl};
       WIDGETS.push(widget);
     }
+    widget.url = fileUrl;
+    console.log(widget.url);
 
-    widget.url = filename;
-    //console.log(widget.url);
-    //console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
-    var callbackUrl = "http://cs5610-webdev-app.herokuapp.com/profile/" + userId + "/websitelist/"
-      + websiteId + "/pagelist/" + pageId + "/widgetlist";
-
-    console.log(callbackUrl);
     res.redirect(callbackUrl);
   }
 }
