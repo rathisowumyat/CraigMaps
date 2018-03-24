@@ -13,12 +13,6 @@ module.exports = function (app) {
   app.delete("/api/widget/:widgetId",	deleteWidget);
   app.get("/api/widget", findAllWidgets);
   app.post("/api/upload", upload.single('myFile'), uploadImage);
-  app.get("/api/image/:imageName", findImage);
-
-  function findImage(req, res) {
-    var imageName = req.params['imageName'];
-      res.sendFile(path.resolve("./assignment/uploads/" + imageName));
-  }
 
   function findAllWidgets(req, res) {
     res.json(WIDGETS);
@@ -140,6 +134,16 @@ module.exports = function (app) {
     var userId        = req.body.userId;
     var websiteId     = req.body.websiteId;
     var pageId        = req.body.pageId;
+    var url           = req.body.url;
+
+    var callbackUrl = "http://cs5610-webdev-app.herokuapp.com/profile/"
+    //var callbackUrl = "http://localhost:4200/profile/"
+                      + userId + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    console.log(callbackUrl);
+    if(!myFile) {
+      res.redirect(callbackUrl);
+      return;
+    }
 
     var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;     // new file name in upload folder
@@ -148,20 +152,18 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
+    var fileUrl = "http://cs5610-webdev-app.herokuapp.com/uploads/" + filename;
+    //var fileUrl = "http://localhost:3100/uploads/" + filename;
     var widget = getWidgetById(widgetId);
     if(!widget) {
       const _idt = (Math.floor(Math.random() * 100)) + "";
-      widget =  { _id: _idt, widgetType: "IMAGE", pageId: pageId, width: "100%", "url": filename};
+      widget =  { _id: _idt, widgetType: "IMAGE", pageId: pageId, width: "100%", "url": fileUrl};
       WIDGETS.push(widget);
     }
 
-    widget.url = filename;
-    //console.log(widget.url);
-    //console.log("o:"+originalname + " f:" + filename + " p:" + path + " d:" + destination);
-    var callbackUrl = "http://cs5610-webdev-app.herokuapp.com/profile/" + userId + "/websitelist/"
-      + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    widget.url = fileUrl;
+    console.log(widget.url);
 
-    console.log(callbackUrl);
     res.redirect(callbackUrl);
   }
 }

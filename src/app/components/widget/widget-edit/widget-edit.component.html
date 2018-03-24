@@ -88,18 +88,19 @@
       <input  name="websiteId" value="{{webId}}"   style="display: none"/>
       <input  name="pageId" value="{{pgId}}"   style="display: none"/>
       <input  name="userId" value="{{userId}}"   style="display: none"/>
+      <input  name="url" value="{{url}}"   style="display: none"/>
       <button type="submit" class="btn btn-success btn-block">Upload New Image</button>
     </form>
     <a class="btn btn-warning btn-block"
        routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
     <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
     <br>
-    <!--<div class="bottom-margin">-->
-      <!--<a class="btn btn-primary btn-block"-->
-         <!--routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/flickrsearch">-->
-        <!--Search Flickr-->
-      <!--</a>-->
-    <!--</div>-->
+    <div class="bottom-margin">
+      <a class="btn btn-primary btn-block"
+         routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/flickrsearch">
+        Search Flickr
+      </a>
+    </div>
   </form>
 
   <form *ngIf="type === 'YOUTUBE'">
