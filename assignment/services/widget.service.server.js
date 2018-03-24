@@ -142,8 +142,7 @@ module.exports = function (app) {
     var pageId        = req.body.pageId;
     var url           = req.body.url;
 
-    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/profile/" + userId + "/websitelist/"
-    //var callbackUrl = "http://localhost:4200/profile/" + userId + "/websitelist/"
+    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/" + userId + "/websitelist/"
       + websiteId + "/pagelist/" + pageId + "/widgetlist";
     console.log(callbackUrl);
 
@@ -160,7 +159,6 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     const fileUrl = "https://cs5610-webdev-app.herokuapp.com/assets/uploads/" + filename;
-    //const fileUrl = "http://localhost:3100/assets/uploads/" + filename;
     var widget = getWidgetById(widgetId);
     if(!widget) {
       const _idt = (Math.floor(Math.random() * 100)) + "";
