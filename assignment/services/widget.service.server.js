@@ -1,6 +1,6 @@
 module.exports = function (app) {
   var path = require('path');
-  var wdgModel = require("../model/widget/widget.model.server");
+  var widgetModel = require("../model/widget/widget.model.server");
 
   var multer = require('multer'); // npm install multer --save
   var upload = multer({ dest: __dirname + '/../uploads' });
@@ -12,8 +12,6 @@ module.exports = function (app) {
   app.delete("/api/widget/:widgetId", deleteWidget);
   app.put("/api/page/:pageId/widget", reorderWidgets);
   app.post("/api/upload", upload.single('myFile'), uploadImage);
-
-  var widgetModel = require("../model/widget/widget.model.server");
 
   function createWidget(req, res) {
     var pageId = req.params['pageId'];
@@ -28,7 +26,7 @@ module.exports = function (app) {
     widgetModel.findAllWidgetsForPage(pageId).then(function (widgetsForPage) {
       widgetsForPage.sort(function (a,b) {
         return a.index - b.index;
-      })
+      });
       res.json(widgetsForPage);
     });
   }
@@ -110,10 +108,10 @@ module.exports = function (app) {
     var pageId        = req.body.pageId;
     var url           = req.body.url;
 
-    // var callbackUrl = "http://cs5610-webdev-app.herokuapp.com/profile/" + userId
-    //                   + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
-    var callbackUrl = "http://localhost:4200/profile/" + userId
+    var callbackUrl = "http://cs5610-webdev-app.herokuapp.com/profile/" + userId
                       + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    // var callbackUrl = "http://localhost:4200/profile/" + userId
+    //                   + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
     console.log(callbackUrl);
     if(!myFile) {
       res.redirect(callbackUrl);
@@ -127,8 +125,8 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    //var fileUrl = "http://cs5610-webdev-app.herokuapp.com/uploads/" + filename;
-    var fileUrl = "http://localhost:3100/uploads/" + filename;
+    var fileUrl = "http://cs5610-webdev-app.herokuapp.com/uploads/" + filename;
+    // var fileUrl = "http://localhost:3100/uploads/" + filename;
     var widget = widgetModel.findWidgetById(widgetId);
     if(!widget) {
       widget =  {widgetType: "IMAGE", _page: pageId, width: "100%", "url": fileUrl};

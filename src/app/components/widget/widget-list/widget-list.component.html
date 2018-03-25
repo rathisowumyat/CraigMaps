@@ -23,7 +23,7 @@
   <ul style="list-style-type:none"  appSortable (newIndexes)="reorderWidgets($event)">
 
   <li *ngFor="let widget of wdgs"  cl-list-item-borderless>
-    <div [ngSwitch]="widget.widgetType">
+    <div [ngSwitch]="widget.type">
 
       <!--header widget-->
       <div *ngSwitchCase="'HEADER'">
