@@ -4,7 +4,6 @@ import {WebsiteService} from '../../../services/website.service.client';
 import {WidgetService} from '../../../services/widget.service.client';
 import {PageService} from '../../../services/page.service.client';
 import {UserService} from '../../../services/user.service.client';
-import {Widget} from '../../../models/widget.model.client';
 import {DomSanitizer, Title} from "@angular/platform-browser";
 import {environment} from '../../../../environments/environment';
 
@@ -24,8 +23,8 @@ export class WidgetListComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  wdgs: Widget[] = [];
-  widget: Widget;
+  wdgs: any[] = [];
+  widget: any;
   baseUrl = environment.baseUrl;
 
 

@@ -1,16 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Website} from '../models/website.model.client';
-import {WEBSITES} from './website.mock';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 
 import {environment} from '../../environments/environment';
-import {Page} from '../models/page.model.client';
-import {PAGES} from './page.mock';
-
 @Injectable()
 export class PageService {
-  pages: Page[] = [];
+  pages: any[] = [];
 
   constructor(private http: Http){}
 
@@ -20,7 +15,7 @@ export class PageService {
     return this.pages;
   }
 
-  updatePage(pageId: String, newWebsite: Page) {
+  updatePage(pageId: String, newWebsite: any) {
     const url = this.baseUrl + '/api/page/' + newWebsite._id;
     return this.http.put(url, newWebsite).map((response: Response) => {
       return response.json();
@@ -41,7 +36,7 @@ export class PageService {
     });
   }
 
-  createPage(websiteId: String, page: Page) {
+  createPage(websiteId: String, page: any) {
     const url = this.baseUrl + '/api/website/' + websiteId + '/page';
     return this.http.post(url, page).map((response: Response) => {
       return response.json();

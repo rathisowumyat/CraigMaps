@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Website} from '../../../models/website.model.client';
+
 import {WebsiteService} from '../../../services/website.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
@@ -15,7 +15,7 @@ export class WebsiteNewComponent implements OnInit {
   userId: String;
   webId: String;
   desc: String;
-  ws: Website[];
+  ws: any[];
 
   constructor(private webservice: WebsiteService,
               private userservice: UserService,
@@ -31,10 +31,11 @@ export class WebsiteNewComponent implements OnInit {
 	this.userId = params['userId'];
 	const tempid = (Math.floor(Math.random() * 100)) + "";
     this.webId = tempid.toString();
-    const web = new Website(this.webId,
-        name,
-        this.userId,
-        desc);
+    const web = {
+      'name': name,
+      '_user': this.userId,
+      'description': desc
+    }
       return this.webservice.createWebsiteForUser(this.userId, web)
 	  .subscribe(
         (webs) => {

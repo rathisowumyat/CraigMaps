@@ -1,4 +1,3 @@
-import { User } from '../../../models/user.model.client';
 import { UserService } from '../../../services/user.service.client';
 import { Router } from '@angular/router';
 import {Component, OnInit, ViewChild} from '@angular/core';

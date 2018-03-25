@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Widget} from '../../../../models/widget.model.client';
 import {WebsiteService} from '../../../../services/website.service.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {PageService} from '../../../../services/page.service.client';
@@ -21,8 +20,8 @@ export class WidgetHeaderComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  wdgs: Widget[];
-  widget: Widget;
+  wdgs: any[];
+  widget: any;
   type: String;
 
   constructor(private wdgservice: WidgetService,
@@ -34,37 +33,22 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   updateWidget(text, size) {
-    this.widget = new Widget(this.wdgId,
-      'HEADER',
-      this.pgId,
-      size,
-      text,
-      '100%',
-      'he');
+    this.widget = {
+      '_id': this.wdgId,
+      'type': 'HEADER',
+      '_page': this.pgId,
+      'size': size,
+      'text': text,
+      'width': '100%',
+      'url':'he'
+    }
+
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
-        (wdg) => {
-          this.wdgs = this.wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
-        });
-    });
-  }
-
-  createWidget(psize, text, width, url) {
-    const tempid = Math.floor(Math.random() * 100);
-    this.wdgId = tempid.toString();
-
-    this.route.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.webId = params['webId'];
-      this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
-
-      return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = this.wdgs;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);

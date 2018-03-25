@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service.client';
-import { User } from '../../../models/user.model.client';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +9,7 @@ import { User } from '../../../models/user.model.client';
 })
 export class ProfileComponent implements OnInit {
   userId: String;
-  user: User;
+  user: any;
   email: String;
   username: String;
   firstname: String;
@@ -23,11 +22,12 @@ export class ProfileComponent implements OnInit {
   updateUser(username, email, firstname, lastname) {
 	 this.route.params.subscribe(params => {
 	this.userId = params['userId'];
-	const user1 = new User(this.userId,
-	username,
-    email,
-    firstname,
-    lastname);
+	const user1 = {'_id':this.userId,
+	 'username': username,
+    'email': email,
+   'firstName': firstname,
+    'lastName': lastname
+  }
     return this.userservice.updateUser(user1).subscribe(
       (user) => {
         this.user = user;

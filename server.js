@@ -41,3 +41,6 @@ app.get('*', function (req, res) {
 server.listen( port , function() {
   console.log('Node app is running on port', app.get('port'))
 });
+
+var serverSide = require("./server/test-mongodb/app");
+serverSide(app);

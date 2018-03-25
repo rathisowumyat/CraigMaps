@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
-import {User} from '../../../models/user.model.client';
+
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -14,10 +14,10 @@ export class RegisterComponent implements OnInit {
   username: String;
   password: String;
   same: String;
-  user: User;
+  user: any;
   userId: String;
-firstname: String;
-lastname: String;
+  firstname: String;
+  lastname: String;
 
   constructor(private userservice: UserService,
               private router: ActivatedRoute,
@@ -31,11 +31,14 @@ lastname: String;
   if ( password === same ) {
       const tempid = (Math.floor(Math.random() * 10))+"";
       this.userId = tempid.toString();
-      const user1 = new User(this.userId,
-      username,
-      password,
-      username,
-      username);
+      const user1 = {
+        'username': username,
+        'password': password,
+        'firstName': username,
+        'lastName': username,
+        'email': 't@gmail.com',
+        'phone': ''
+      }
 	  this.username = username;
 	  this.password = password;
 	  this.firstname = username;
@@ -49,12 +52,12 @@ lastname: String;
 				this.route.navigate(['/profile', user._id]);
         });
     });
-    
+
   } else {
     alert('Passwords are not same');
   }
   }
 
-  ngOnInit() {  }
+  ngOnInit() {}
 
 }

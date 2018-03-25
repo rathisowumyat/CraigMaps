@@ -3,7 +3,6 @@ import {UserService} from '../../../../services/user.service.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {WebsiteService} from '../../../../services/website.service.client';
 import {PageService} from '../../../../services/page.service.client';
-import {Widget} from '../../../../models/widget.model.client';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -21,8 +20,8 @@ export class WidgetTextComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  wdgs: Widget[];
-  widget: Widget;
+  wdgs: any[];
+  widget: any;
   type: String;
 
   constructor(private wdgservice: WidgetService,
@@ -34,13 +33,13 @@ export class WidgetTextComponent implements OnInit {
   }
 
   updateWidget(text, size) {
-    this.widget = new Widget(this.wdgId,
-      'TEXT',
-      this.pgId,
-      size,
-      text,
-      '100%',
-      'he');
+    this.widget = {
+      '_id': this.wdgId,
+      'type': 'TEXT',
+      '_page': this.pgId,
+      'text': text,
+      'size': size
+    }
     this.text=text;
     this.size=size;
     this.route.params.subscribe(params => {

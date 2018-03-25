@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Widget} from '../../../../models/widget.model.client';
 import {WebsiteService} from '../../../../services/website.service.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {PageService} from '../../../../services/page.service.client';
@@ -21,8 +20,8 @@ export class WidgetYoutubeComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  wdgs: Widget[];
-  widget: Widget;
+  wdgs: any[];
+  widget: any;
   type: String;
 
   constructor(private wdgservice: WidgetService,
@@ -34,47 +33,22 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   updateWidget(	text, url, width) {
-    this.widget = new Widget(this.wdgId,
-      'YOUTUBE',
-      this.pgId,
-      '1',
-      text,
-      width,
-      url);
+    this.widget = {
+      '_id': this.wdgId,
+      'type': 'YOUTUBE',
+      '_page': this.pgId,
+      'size': '1',
+      'text': text,
+      'width': width,
+      'url':url
+    }
+
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
-        (wdg) => {
-          this.wdgs = this.wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
-        });
-    });
-  }
-
-  createWidget(size, text, width, url) {
-    if (!url) {
-      alert('Please give the youtube url');
-      return;
-    }
-    const tempid = Math.floor(Math.random() * 100);
-    this.wdgId = tempid.toString();
-    this.widget = new Widget(this.wdgId,
-      'YOUTUBE',
-      this.pgId,
-      size,
-      text,
-      width,
-      url);
-
-    this.route.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.webId = params['webId'];
-      this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
-      return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = this.wdgs;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);

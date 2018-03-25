@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Website} from '../../../models/website.model.client';
+
 import {ActivatedRoute, Router} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
 import {UserService} from '../../../services/user.service.client';
-import {Page} from '../../../models/page.model.client';
+
 import {PageService} from '../../../services/page.service.client';
-import {User} from '../../../models/user.model.client';
+
 
 @Component({
   selector: 'app-page-new',
@@ -18,7 +18,7 @@ export class PageNewComponent implements OnInit {
   webId: String;
   pgId: String;
   desc: String;
-  ps: Page[];
+  ps: any[];
 
   constructor(private pageservice: PageService,
               private webservice: WebsiteService,
@@ -31,12 +31,12 @@ export class PageNewComponent implements OnInit {
       alert ('Please give name of page');
       return;
     }
-    const tempid = Math.floor(Math.random() * 1000);
-    this.pgId = tempid.toString();
-    const pg = new Page(this.pgId,
-      name,
-      this.webId,
-      desc);
+
+    const pg = {
+      'name': name,
+      '_website': this.webId,
+      'description': desc
+    }
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       return this.pageservice.createPage(this.webId, pg)
@@ -51,7 +51,7 @@ export class PageNewComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
-	  
+
       this.pageservice.findPageForWebsite(this.webId).subscribe(
         (pages) => {
           this.ps = pages;

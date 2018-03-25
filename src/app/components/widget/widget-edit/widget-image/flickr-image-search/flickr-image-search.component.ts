@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FlickrService} from "../../../../../services/flickr.service.client";
 import {WidgetService} from "../../../../../services/widget.service.client";
-import {Widget} from '../../../../../models/widget.model.client';
 
 @Component({
   selector: 'app-flickr-image-search',
@@ -16,8 +15,8 @@ export class FlickrImageSearchComponent implements OnInit {
   websiteId: String;
   pageId: String;
   widgetId: String;
-  widget: Widget;
-  wdgs: Widget[];
+  widget: any;
+  wdgs: any[];
   userId: String;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -68,9 +67,14 @@ export class FlickrImageSearchComponent implements OnInit {
             'websitelist', this.websiteId, 'pagelist', this.pageId, 'widgetlist']);
         });
     } else {
-      const _idt = (Math.floor(Math.random() * 100)) + "";
-      this.widget = new Widget(_idt, 'IMAGE',this.pageId, '1',
-        'flickr image','100%', url);
+      this.widget = this.widget = {
+        'type': 'IMAGE',
+        '_page': this.pageId,
+        'size': '1',
+        'text': 'flickr image',
+        'width': '100%',
+        'url': url
+      }
       this.widgetService.createWidget(this.pageId, this.widget).subscribe(
         (wdgs) => {
           this.wdgs = wdgs;

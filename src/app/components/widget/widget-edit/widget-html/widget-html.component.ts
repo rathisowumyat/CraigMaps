@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {WebsiteService} from '../../../../services/website.service.client';
-import {Widget} from '../../../../models/widget.model.client';
 import {PageService} from '../../../../services/page.service.client';
 import {UserService} from '../../../../services/user.service.client';
 
@@ -21,8 +20,8 @@ export class WidgetHtmlComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  wdgs: Widget[];
-  widget: Widget;
+  wdgs: any[];
+  widget: any;
   type: String;
 
   constructor(private wdgservice: WidgetService,
@@ -34,13 +33,15 @@ export class WidgetHtmlComponent implements OnInit {
   }
 
   updateWidget(text) {
-    this.widget = new Widget(this.wdgId,
-      'HTML',
-      this.pgId,
-      '1',
-      text,
-      '100%',
-      'ht');
+    this.widget = {
+      '_id': this.wdgId,
+      'type': 'HTML',
+      '_page': this.pgId,
+      'size': '1',
+      'text': text,
+      'width': '100%',
+      'url':'ht'
+    }
 
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
@@ -49,35 +50,6 @@ export class WidgetHtmlComponent implements OnInit {
       this.wdgId = params['wdgId'];
       this.text = text;
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
-        (wdg) => {
-          this.wdgs = wdg;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
-        });
-    });
-  }
-
-  createWidget(size, text, width, url) {
-	if (!text) {
-      alert('Please give the text of the HTML');
-      return;
-    }
-
-    const tempid = Math.floor(Math.random() * 100);
-    this.wdgId = tempid.toString();
-    this.widget = new Widget(this.wdgId,
-      'HTML',
-      this.pgId,
-      size,
-      text,
-      width,
-      url);
-
-    this.route.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.webId = params['webId'];
-      this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
-      return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = wdg;
 		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);

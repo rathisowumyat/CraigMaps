@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Website} from '../models/website.model.client';
-import {WEBSITES} from './website.mock';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 
@@ -8,7 +6,7 @@ import {environment} from '../../environments/environment';
 
 @Injectable()
 export class WebsiteService {
-  websites: Website[] = [];
+  websites: any[] = [];
 
   constructor(private http: Http){}
 
@@ -18,7 +16,7 @@ export class WebsiteService {
     return this.websites;
   }
 
-  updateWebsite(userId: String, newWebsite: Website) {
+  updateWebsite(userId: String, newWebsite: any) {
     const url =  this.baseUrl + '/api/website/' + newWebsite._id;
     return this.http.put(url, newWebsite).map((response: Response) => {
       return response.json();
@@ -39,7 +37,7 @@ export class WebsiteService {
     });
   }
 
-  createWebsiteForUser(userId: String, website: Website) {
+  createWebsiteForUser(userId: String, website: any) {
     const url = this.baseUrl + '/api/user/' + userId + '/website';
     return this.http.post(url, website).map((response: Response) => {
       return response.json();

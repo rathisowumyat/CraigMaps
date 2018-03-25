@@ -1,16 +1,12 @@
 import {Injectable} from '@angular/core';
-import { Widget } from '../models/widget.model.client';
-import {WIDGETS} from './widget.mock';
-import {Website} from '../models/website.model.client';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
-import {WEBSITES} from './website.mock';
 
 @Injectable()
 export  class WidgetService {
 
-  widgets: Widget[] = [];
+  widgets: any[] = [];
   constructor(private http: Http){}
   baseUrl = environment.baseUrl;
 
@@ -18,7 +14,7 @@ export  class WidgetService {
     return this.widgets;
   }
 
-  updateWidget(pageId: String, newWidget: Widget) {
+  updateWidget(pageId: String, newWidget: any) {
     const url =  this.baseUrl + '/api/widget/' + newWidget._id;
     return this.http.put(url, newWidget).map((response: Response) => {
       return response.json();
@@ -48,7 +44,7 @@ export  class WidgetService {
     });
   }
 
-  createWidget(pageId: String, newWidget: Widget) {
+  createWidget(pageId: String, newWidget: any) {
     const url = this.baseUrl + '/api/page/' + pageId + '/widget';
     return this.http.post(url, newWidget).map((response: Response) => {
       return response.json();
@@ -64,7 +60,7 @@ export  class WidgetService {
   }
 
    reorderWidgets(pageId : String, widget : any, initial : number, final : number) {
-    const body = {widget: Widget};
+    const body = {widget: widget};
     return this.http.put(this.baseUrl + '/api/page/'+ pageId + "/widget?initial=" + initial + "&final=" + final, body)
       .map((response: Response) => {
           return response.json();

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Website} from '../../../models/website.model.client';
-import {WEBSITES} from '../../../services/website.mock';
 import {WebsiteService} from '../../../services/website.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
-import {User} from '../../../models/user.model.client';
+
 import {UserService} from '../../../services/user.service.client';
 
 @Component({
@@ -12,11 +10,11 @@ import {UserService} from '../../../services/user.service.client';
   styleUrls: ['./website-list.component.css']
 })
 export class WebsiteListComponent implements OnInit {
-  ws: Website[];
+  ws: any[];
   userId: String;
   webId: String;
-  user: User;
-  web: Website;
+  user: any;
+  web: any;
   constructor(private webservice: WebsiteService,
               private userservice: UserService,
               private route: ActivatedRoute) { }

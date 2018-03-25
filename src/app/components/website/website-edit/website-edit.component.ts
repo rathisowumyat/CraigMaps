@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {User} from '../../../models/user.model.client';
+
 import {WebsiteService} from '../../../services/website.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Website} from '../../../models/website.model.client';
+
 import {UserService} from '../../../services/user.service.client';
-import {Page} from '../../../models/page.model.client';
+
 
 @Component({
   selector: 'app-website-edit',
@@ -16,7 +16,7 @@ export class WebsiteEditComponent implements OnInit {
   name: String;
   userId: String;
   webId: String;
-  ws: Website[];
+  ws: any[];
   username: String;
   desc: String;
 
@@ -32,10 +32,11 @@ export class WebsiteEditComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
-      const website = new Website(this.webId,
-        name,
-        this.userId,
-        desc);
+      const website = {'_id': this.webId,
+        'name': name,
+        '_user': this.userId,
+        'description': desc
+      }
       return this.webservice.updateWebsite(this.userId, website).subscribe(
         (webs) => {
           this.ws = webs;

@@ -22,9 +22,9 @@
 <div class="container-fluid">
   <ul class="list-group-item cl-list-item-borderless">
     <li class="list-group-item cl-list-item-borderless" *ngFor="let p of ps">
-      <a routerLink="/profile/{{userId}}/websitelist/{{p.websiteId}}/pagelist/{{p._id}}/pageedit">
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{p._id}}/pageedit">
         <span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/profile/{{userId}}/websitelist/{{p.websiteId}}/pagelist/{{p._id}}/widgetlist">{{p.name}}</a>
+      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{p._id}}/widgetlist">{{p.name}}</a>
     </li>
   </ul>
 </div>

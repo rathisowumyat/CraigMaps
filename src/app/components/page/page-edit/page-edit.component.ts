@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
-import {Page} from '../../../models/page.model.client';
+
 import {PageService} from '../../../services/page.service.client';
 import {UserService} from '../../../services/user.service.client';
-import {Website} from '../../../models/website.model.client';
+
 
 @Component({
   selector: 'app-page-edit',
@@ -20,7 +20,7 @@ export class PageEditComponent implements OnInit {
   desc: String;
   ps: any[];
   page: any = {};
-  //ps: Page[];
+  //ps: any[];
 
   constructor(private pageservice: PageService,
               private webservice: WebsiteService,
@@ -33,10 +33,11 @@ export class PageEditComponent implements OnInit {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-	  const pg = new Page(this.pgId,
-      name,
-      this.webId,
-      desc);
+      const pg = {'_id': this.pgId,
+        'name': name,
+        '_website': this.webId,
+        'description': desc
+      }
       return this.pageservice.updatePage(this.webId, pg)
         .subscribe((pages) => {
           this.ps = pages;

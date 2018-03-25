@@ -2,11 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {WidgetService} from '../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {Widget} from '../../../models/widget.model.client';
 import {WebsiteService} from '../../../services/website.service.client';
 import {PageService} from '../../../services/page.service.client';
 import {UserService} from '../../../services/user.service.client';
-import {Website} from '../../../models/website.model.client';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -24,8 +22,8 @@ export class WidgetEditComponent implements OnInit {
   text: String;
   width: String;
   url: String;
-  wdgs: Widget[];
-  widget: Widget;
+  wdgs: any[];
+  widget: any;
   type: String;
   file: any;
   rows: number;
@@ -38,27 +36,6 @@ export class WidgetEditComponent implements OnInit {
               private route: ActivatedRoute,
 			        private router: Router) {this.baseUrl = environment.baseUrl; }
 
-  updateWidget(type, size, text, width, url) {
-    this.widget = new Widget(this.wdgId,
-        type,
-        this.pgId,
-        size,
-        text,
-        width,
-        url);
-    this.route.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.webId = params['webId'];
-      this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
-	    this.type = type;
-      return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
-        (wdg) => {
-          this.wdgs = wdg;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
-        });
-    });
-  }
 
   createWidget(size, text, width, url) {
     if (this.type === 'HEADER' && !text) {
@@ -80,14 +57,14 @@ export class WidgetEditComponent implements OnInit {
     }
     const tempid = Math.floor(Math.random() * 100);
     this.wdgId = tempid.toString();
-    this.widget = new Widget(this.wdgId,
-        this.type,
-        this.pgId,
-        size,
-        text,
-        width,
-        url);
-
+    this.widget = {
+        'type': this.type,
+        '_page': this.pgId,
+        'size': size,
+        'text': text,
+        'width': width,
+        'url': url
+    }
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
@@ -135,7 +112,7 @@ export class WidgetEditComponent implements OnInit {
 
 	  if(this.wdgId) {
       this.wdgservice.findWidgetById(this.wdgId).subscribe(
-        (wdg : Widget) => {
+        (wdg) => {
           this.widget = wdg;
           // this.name = this.widget.name;
           // this.type = this.widget.widgetType;

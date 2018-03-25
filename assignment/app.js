@@ -4,6 +4,7 @@ module.exports = function (app){
   require("./services/page.service.server")(app);
   require("./services/widget.service.server")(app);
   app.get("/api/hello123", hello);
+  require("./model/models.server");
 
   function hello(req, res) {
     console.log("Hello from Root123 context handler");
