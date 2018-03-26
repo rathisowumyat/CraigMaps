@@ -33,35 +33,36 @@ module.exports = function (app) {
 
   function findWidgetById(req, res) {
     var widgetId = req.params['widgetId'];
-    widgetModel.findWidgetById(widgetId).then(function (widget) {
-      if(widget)
+    widgetModel.findWidgetById(widgetId)
+      .then(function (widget) {
         res.json(widget);
-      else
-        res.status(404).send("No widget with given id.");
-    });
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function updateWidget(req, res) {
     var widgetId = req.params['widgetId'];
     var widgetNew = req.body;
-
-    widgetModel.updateWidget(widgetId, widgetNew).then(function (response) {
-      if(response.n >0 || response.nModified > 0)
-        res.json("Widget updated");
-      else
-        res.status(404).send("Widget was not updated");
-    });
+    widgetModel.updateWidget(widgetId, widgetNew)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function deleteWidget(req, res) {
     var widgetId = req.params['widgetId'];
-
-    widgetModel.deleteWidget(widgetId).then(function (response) {
-      if(response.deletedCount > 0)
-        res.json("Widget deleted");
-      else
-        res.status(404).send("Widget cannot be deleted");
-    });
+    widgetModel.deleteWidget(widgetId)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function reorderWidgets(req, res){
@@ -79,7 +80,7 @@ module.exports = function (app) {
         widgetsForPage.splice(iIndex, 1);
         var insertIndex = widgetsForPage.indexOf(inPlaceOf);
         widgetsForPage.splice(insertIndex, 0, insertWidget);
-        saveWidgetOrder(widgetsForPage)
+        saveWidgetOrder(widgetsForPage);
         res.json(widgetsForPage);
       }
       else
@@ -96,7 +97,6 @@ module.exports = function (app) {
       widgetModel.updateWidget(widget._id, widget).then(function (response) {
       });
     });
-    return;
   }
 
   function uploadImage(req, res) {

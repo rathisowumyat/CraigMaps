@@ -64,22 +64,24 @@ module.exports = function (app) {
   function updateUser(req, res){
     var userId = req.params['userId'];
     var userNew = req.body;
-    userModel.updateUser(userId, userNew).then(function (response) {
-      if(response.n >0 || response.nModified > 0)
-        res.json("User updated");
-      else
-        res.status(404).send("User was not updated");
-    });
+    userModel.updateUser(userId, userNew)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function deleteUser(req, res) {
     var userId = req.params['userId'];
-    userModel.deleteUser(userId).then(function (response) {
-      if(response.deletedCount === 1)
-        res.json("User deleted");
-      else
-        res.status(404).send("User cannot be deleted");
-    });
+    userModel.deleteUser(userId)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function createUser(req, res) {
@@ -92,5 +94,4 @@ module.exports = function (app) {
         res.json(user);
       });
   }
-
 }

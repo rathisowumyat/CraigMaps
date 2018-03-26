@@ -50,8 +50,8 @@ export class WidgetYoutubeComponent implements OnInit {
       this.wdgId = params['wdgId'];
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
         (wdg) => {
-          this.wdgs = this.wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+          this.wdgs = wdg;
+		      this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
   }
@@ -64,8 +64,8 @@ export class WidgetYoutubeComponent implements OnInit {
       this.wdgId = params['wdgId'];
       return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
         (wdgs) => {
-          this.wdgs = this.wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		      this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+          this.wdgs = wdgs;
         });
     });
 

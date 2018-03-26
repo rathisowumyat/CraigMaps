@@ -78,7 +78,7 @@ export class WidgetEditComponent implements OnInit {
       return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdgs) => {
           this.wdgs = wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		    this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
   }

@@ -24,34 +24,35 @@ module.exports = function(app){
 
   function findWebsiteById(req, res) {
     var websiteId = req.params['websiteId'];
-    websiteModel.findWebsiteById(websiteId).then(function (website) {
-      if(website)
+    websiteModel.findWebsiteById(websiteId)
+      .then(function(website){
         res.json(website);
-      else
-        res.status(404).send("No website with given id.");
-    });
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function updateWebsite(req, res) {
     var websiteId = req.params['websiteId'];
     var websiteNew = req.body;
-
-    websiteModel.updateWebsite(websiteId, websiteNew).then(function (response) {
-      if(response.n >0 || response.nModified > 0)
-        res.json("Website updated");
-      else
-        res.status(404).send("Website was not updated");
-    });
+    websiteModel.updateWebsite(websiteId, websiteNew)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function deleteWebsite(req, res) {
     var websiteId = req.params['websiteId'];
-
-    websiteModel.deleteWebsite(websiteId).then(function (response) {
-      if(response.deletedCount > 0)
-        res.json("Website deleted");
-      else
-        res.status(404).send("Website cannot be deleted");
-    });
+    websiteModel.deleteWebsite(websiteId)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 };

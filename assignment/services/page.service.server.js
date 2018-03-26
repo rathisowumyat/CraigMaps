@@ -26,32 +26,35 @@ module.exports = function(app){
 
   function findPageById(req, res) {
     var pageId = req.params['pageId'];
-    pageModel.findPageById(pageId).then(function (page) {
-      if(page)
+    pageModel.findPageById(pageId)
+      .then(function (page) {
         res.json(page);
-      else
-        res.status(404).send("No page with given id.");
-    });
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function updatePage(req, res) {
     var pageId = req.params['pageId'];
     var pageNew = req.body;
-    pageModel.updatePage(pageId, pageNew).then(function (response) {
-      if(response.n >0 || response.nModified > 0)
-        res.json("Page updated");
-      else
-        res.status(404).send("Page was not updated");
-    });
+    pageModel.updatePage(pageId, pageNew)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 
   function deletePage(req, res) {
     var pageId = req.params['pageId'];
-    pageModel.deletePage(pageId).then(function (response) {
-      if(response.deletedCount > 0)
-        res.json("Page deleted");
-      else
-        res.status(404).send("Page cannot be deleted");
-    });
+    pageModel.deletePage(pageId)
+      .then(function(response){
+        res.json(response);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 };
