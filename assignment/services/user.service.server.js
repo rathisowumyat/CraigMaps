@@ -15,14 +15,6 @@ module.exports = function (app) {
     res.send("Hello from user service!");
   }
 
-  // function findUserById(req, res){
-  //   var userId = req.params['userId'];
-  //   var user = users.find(function (user) {
-  //      return user._id === userId;
-  //   });
-  //   res.json(user);
-  // }
-
   function findUserById(req, res){
     var userId = req.params['userId'];
     userModel
@@ -86,7 +78,6 @@ module.exports = function (app) {
 
   function createUser(req, res) {
     var user = req.body;
-    //user._id = (Math.floor(Math.random() * 10)) + "";
     user.firstName = user.username;
     user.lastName = user.username;
     userModel.createUser(user)

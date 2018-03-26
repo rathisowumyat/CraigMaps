@@ -56,7 +56,7 @@ export class WidgetListComponent implements OnInit {
    reorderWidgets(index) {
     this.wdgservice.reorderWidgets(this.pgId, this.wdgs[index['startIndex']], index['startIndex'], index['endIndex'])
         .subscribe(
-        (widgets) => {this.wdgs = widgets},
+        (widgets) => {},
         (error) => {}
       );
   }

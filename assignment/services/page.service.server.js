@@ -5,8 +5,6 @@ module.exports = function(app){
   app.put("/api/page/:pageId", updatePage);
   app.delete("/api/page/:pageId", deletePage);
 
-  //var mockdata = require("./mock.data");
-  //var pages = mockdata.pages;
   var pageModel = require("../model/page/page.model.server");
 
   function createPage(req, res) {

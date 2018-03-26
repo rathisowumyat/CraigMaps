@@ -16,14 +16,16 @@ module.exports = function (app) {
   function createWidget(req, res) {
     var pageId = req.params['pageId'];
     var widget = req.body;
-    widgetModel.createWidget(pageId, widget).then(function (widget) {
+    widgetModel.createWidget(pageId, widget)
+      .then(function (widget) {
       res.json(widget);
     });
   }
 
   function findAllWidgetsForPage(req, res) {
     var pageId = req.params['pageId'];
-    widgetModel.findAllWidgetsForPage(pageId).then(function (widgetsForPage) {
+    widgetModel.findAllWidgetsForPage(pageId)
+      .then(function (widgetsForPage) {
       widgetsForPage.sort(function (a,b) {
         return a.index - b.index;
       });
@@ -70,21 +72,20 @@ module.exports = function (app) {
     var iIndex = req.query['initial'];
     var fIndex = req.query['final'];
 
-    widgetModel.findAllWidgetsForPage(pageId).then(function (widgetsForPage) {
+    widgetModel.findAllWidgetsForPage(pageId)
+      .then(function (widgetsForPage) {
       widgetsForPage.sort(function (a,b) {
         return a.index - b.index;
-      })
-      if(iIndex < widgetsForPage.length && fIndex < widgetsForPage.length){
+      });
+      if(iIndex < widgetsForPage.length && fIndex < widgetsForPage.length) {
         var insertWidget = widgetsForPage[iIndex];
         var inPlaceOf = widgetsForPage[fIndex];
         widgetsForPage.splice(iIndex, 1);
         var insertIndex = widgetsForPage.indexOf(inPlaceOf);
         widgetsForPage.splice(insertIndex, 0, insertWidget);
-        saveWidgetOrder(widgetsForPage);
+        saveWidgetOrder(widgetsForPage)
         res.json(widgetsForPage);
       }
-      else
-        res.status(404).send("Widgets cannot be re-ordered.");
     });
   }
 
@@ -94,7 +95,8 @@ module.exports = function (app) {
       widgetsForPage[i].index = i;
     }
     widgetsForPage.forEach(function(widget) {
-      widgetModel.updateWidget(widget._id, widget).then(function (response) {
+      widgetModel.updateWidget(widget._id, widget)
+        .then(function (response) {
       });
     });
   }
@@ -140,12 +142,11 @@ module.exports = function (app) {
     widget.url = fileUrl;
     widget.width = width;
     widgetModel.updateWidget(widgetId, widget)
-      .then(function (response) {
-      if(response.n >0 || response.nModified > 0){
-        res.redirect(callbackUrl);
-      }
-      else
-        res.status(404).send("Widget was not updated");
-    });
+      .then(function (widget) {
+        res.json(widget);
+      }, function(err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
   }
 }
