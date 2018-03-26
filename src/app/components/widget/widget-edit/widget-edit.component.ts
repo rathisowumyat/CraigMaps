@@ -27,6 +27,8 @@ export class WidgetEditComponent implements OnInit {
   type: String;
   file: any;
   rows: number;
+  place: String;
+  format: String;
   baseUrl: String = environment.baseUrl;
 
   constructor(private wdgservice: WidgetService,

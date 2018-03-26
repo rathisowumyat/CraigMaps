@@ -23,6 +23,9 @@ export class WidgetTextComponent implements OnInit {
   wdgs: any[];
   widget: any;
   type: String;
+  place: String;
+  format: Boolean;
+  rows: String;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
@@ -32,40 +35,25 @@ export class WidgetTextComponent implements OnInit {
               private router: Router) {
   }
 
-  updateWidget(text, size) {
+  updateWidget(text, rows, name, place, format) {
     this.widget = {
       '_id': this.wdgId,
       'type': 'TEXT',
       '_page': this.pgId,
       'text': text,
-      'size': size
+      'name': name,
+      'placeholder': place,
+      'formatted': format,
+      'rows': rows
     }
     this.text=text;
-    this.size=size;
+    this.name=name;
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
-        (wdg) => {
-          this.wdgs = wdg;
-          this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
-        });
-    });
-  }
-
-  createWidget(psize, text, width, url) {
-    const tempid = Math.floor(Math.random() * 100);
-    this.wdgId = tempid.toString();
-
-    this.route.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.webId = params['webId'];
-      this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
-
-      return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = wdg;
           this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
@@ -102,6 +90,7 @@ export class WidgetTextComponent implements OnInit {
           this.url = this.widget.url;
           this.size = this.widget.size;
           this.width = this.widget.width;
+          this.name = this.widget.name;
           this.type = 'TEXT';
         });
       this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(

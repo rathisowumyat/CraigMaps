@@ -137,7 +137,7 @@
 
     <label for="wname">Name</label>
     <div>
-      <input [(ngModel)]="w.name"
+      <input [(ngModel)]="name"
              type="text"
              class="form-control"
              id="wname"
@@ -152,7 +152,7 @@
 
     Placeholder
     <input name="placeholder"
-           [(ngModel)]="w.placeholder"
+           [(ngModel)]="place"
            class="form-control" required/>
     <p></p>
     <div class="input-group">
@@ -162,12 +162,12 @@
              class="form-control"/>
       <span class="input-group-addon">
           <input name="formatted"
-                 [(ngModel)]="w.formatted"
+                 [(ngModel)]="format"
                  type="checkbox"/>
         </span>
     </div>
     <p></p>
-    <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
+    <a class="btn btn-success btn-block" (click)="createWidget(rows, text, width, url)">Add New {{type}}</a>
     <a class="btn btn-warning btn-block"
        routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
     <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>

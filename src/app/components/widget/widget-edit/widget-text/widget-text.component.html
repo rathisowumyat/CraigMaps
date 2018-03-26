@@ -14,23 +14,23 @@
           </span>
       </a>
     </div>
-    <a class="navbar-brand cl-text-white cl-text-bold" >
-      Header Details
+    <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+      TEXT Details
     </a>
   </div>
 </nav>
 <div class="mypaddig"></div>
 <div class="container">
-  <form>
+<form>
     Text
-    <input name="text" [(ngModel)]="w.text" class="form-control"/>
+    <input name="text" [(ngModel)]="text" class="form-control"/>
 
     Rows
-    <input name="rows" [(ngModel)]="w.rows" class="form-control" type="number"/>
+    <input name="rows" [(ngModel)]="rows" class="form-control" type="number"/>
 
     <label for="wname">Name</label>
     <div>
-      <input [(ngModel)]="w.name"
+      <input [(ngModel)]="name"
              type="text"
              class="form-control"
              id="wname"
@@ -45,7 +45,7 @@
 
     Placeholder
     <input name="placeholder"
-           [(ngModel)]="w.placeholder"
+           [(ngModel)]="place"
            class="form-control" required/>
     <p></p>
     <div class="input-group">
@@ -55,13 +55,14 @@
              class="form-control"/>
       <span class="input-group-addon">
           <input name="formatted"
-                 [(ngModel)]="w.formatted"
+                 [(ngModel)]="format"
                  type="checkbox"/>
         </span>
     </div>
     <p></p>
   </form>
-  <a class="btn btn-success btn-block" (click)="updateWidget(name, text)">Update</a>
+
+  <a class="btn btn-success btn-block" (click)="updateWidget(text, rows, name, place, format)">Update</a>
   <a class="btn btn-warning btn-block"
      routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
   <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
