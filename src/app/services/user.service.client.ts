@@ -19,7 +19,7 @@ export class UserService{
   login(username: String, password: String) {
 
     let requestOptions = new RequestOptions();
-    requestOptions.withCredentials = false; // jga
+    requestOptions.withCredentials = true; // jga
 
     const body = {
       username : username,
@@ -51,8 +51,12 @@ export class UserService{
     let requestOptions = new RequestOptions();
     requestOptions.withCredentials = true;
     const user = {
-      username : username,
-      password : password
+      'username': username,
+      'password': password,
+      'firstName': username,
+      'lastName': username,
+      'email': 't@gmail.com',
+      'phone': ''
     };
 
     return this.http.post(this.baseURL + '/api/register', user, requestOptions)
@@ -83,13 +87,15 @@ export class UserService{
   }
 
   createUser(user : any){
-    return this.http.post(this.baseURL + '/api/user', user).map((response: Response) => {
+    return this.http.post(this.baseURL + '/api/user', user)
+      .map((response: Response) => {
       return response.json();
     });
   }
 
   findUserById(userId : string){
-    return this.http.get(this.baseURL+ '/api/user' + "/" + userId).map((response: Response) => {
+    return this.http.get(this.baseURL+ '/api/user' + "/" + userId)
+      .map((response: Response) => {
       return response.json();
     });
   }
@@ -99,7 +105,8 @@ export class UserService{
     let params = new URLSearchParams();
     params.set("username", username);
     requestOptions.params = params;
-    return this.http.get(this.baseURL+ '/api/user',requestOptions).map((response: Response) => {
+    return this.http.get(this.baseURL+ '/api/user',requestOptions)
+      .map((response: Response) => {
       return response.json();
     });
   }
@@ -111,19 +118,24 @@ export class UserService{
     params.set("password", password);
     requestOptions.params = params;
     requestOptions.withCredentials = true;
-    return this.http.get(this.baseURL+ '/api/user',requestOptions).map((response: Response) => {
+    return this.http.get(this.baseURL+ '/api/user',requestOptions)
+      .map((response: Response) => {
       return response.json();
     });
   }
 
-  updateUser(userId : string, user : any){
-    return this.http.put(this.baseURL + '/api/user/' + userId, user).map((response: Response) => {
+  updateUser(user) {
+    const url =  this.baseURL + '/api/user/' + user._id;
+    return this.http.put(url, user)
+         .map((response: Response) => {
       return response.json();
     });
   }
 
-  deleteUser(userId : string){
-    return this.http.delete(this.baseURL+ '/api/user/' + userId).map((response: Response) => {
+  deleteUser(userId) {
+     const url =  this.baseURL + '/api/user/' + userId;
+     return this.http.delete(url)
+          .map((response: Response) => {
       return response.json();
     });
   }

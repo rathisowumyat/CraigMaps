@@ -14,20 +14,17 @@ module.exports = function (app) {
   };
 
   app.get("/api/user/hello", helloUser);
+  app.get("/api/user/:userId", findUserById);
+  app.put("/api/user/:userId", updateUser);
+  app.delete("/api/user/:userId", deleteUser);
   app.get("/api/user?username=username&password=password", findUserByCredentials);
   app.get("/api/user?username=username", findUserByUsername);
-  app.get("/api/user/:userId", findUserById);
-  //app.put("/api/user/:userId", updateUser);
-  //app.delete("/api/user/:userId", deleteUser);
   app.get("/api/user", findUserByCredentials);
-  //app.post("/api/user", createUser);
   app.post("/api/user", auth, createUser);
   app.post("/api/login", passport.authenticate('local'), login);
   app.post("/api/logout", logout);
   app.post("/api/register", register);
   app.get("/api/loggedin", loggedin);
-  app.put("/api/user/:userId", auth, updateUser);
-  app.delete("/api/user/:userId", auth, deleteUser);
   app.get("/facebook/login", passport.authenticate('facebook', { scope : 'email' }));
   app.get('/auth/facebook/callback',
       passport.authenticate('facebook', {
@@ -45,7 +42,7 @@ module.exports = function (app) {
 
   function authorized (req, res, next) {
     if (!req.isAuthenticated()) {
-      res.send(401);
+      res.sendStatus(401);
     } else {
       next();
     }

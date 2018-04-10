@@ -23,31 +23,17 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private sharedService: SharedService) { }
 
-
   ngOnInit() {
     this.user = this.sharedService.user;
     this.userId = this.user['_id'];
-    this.username = this.user['username'];
-
-    if(this.user['email'])
-      this.email = this.user['email'];
-
-    if(this.user['firstName'])
-      this.firstname = this.user['firstName'];
-
-    if(this.user['lastName'])
-      this.lastname = this.user['lastName'];
-  }
-
-  updateUser(){
-    this.user['username'] = this.username;
-    this.user['email'] = this.email;
-    this.user['firstName'] = this.firstname;
-    this.user['lastName'] = this.lastname;
-    this.user['_id'] = this.userId;
-    this.userservice.updateUser(this.userId, this.user).subscribe((response)=>{
-      // successfully updated
-    });
+    this.userservice.findUserById(this.userId).subscribe(
+          (user) => {
+            this.user = user;
+    	  this.username = user.username;
+    	  this.email = user.email;
+    	  this.firstname = user.firstName;
+    	  this.lastname = user.lastName;
+          });
   }
 
   logout() {
@@ -57,42 +43,24 @@ export class ProfileComponent implements OnInit {
       );
   }
 
-  // updateUser(username, email, firstname, lastname) {
-	//  this.route.params.subscribe(params => {
-	// this.userId = params['userId'];
-	// const user1 = {'_id':this.userId,
-	//  'username': username,
-  //   'email': email,
-  //  'firstName': firstname,
-  //   'lastName': lastname
-  // }
-  //   return this.userservice.updateUser(user1).subscribe(
-  //     (user) => {
-  //       this.user = user;
-  //     });
-	//   });
-  // }
+  updateUser(username, email, firstname, lastname) {
+	const user1 = {'_id':this.userId,
+	 'username': username,
+    'email': email,
+   'firstName': firstname,
+    'lastName': lastname
+    }
+    this.userservice.updateUser(user1).subscribe(
+      (user) => {
+        this.user = user;
+      });
+  }
 
   deleteUser() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       return this.userservice.deleteUser(this.userId).subscribe(
         (users) => {
         });
     });
   }
-
-  // ngOnInit() {
-  //   this.route.params.subscribe(params => {
-  //     this.userId = params['userId'];
-  //     this.userservice.findUserById(this.userId).subscribe(
-  //       (user) => {
-  //         this.user = user;
-	// 	  this.username = user.username;
-	// 	  this.email = user.email;
-	// 	  this.firstname = user.firstName;
-	// 	  this.lastname = user.lastName;
-  //       });
-  //   });
-  // }
 }
