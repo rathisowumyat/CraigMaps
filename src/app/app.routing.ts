@@ -18,11 +18,12 @@ import { WidgetYoutubeComponent } from './components/widget/widget-edit/widget-y
 import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
 import {WidgetTextComponent} from './components/widget/widget-edit/widget-text/widget-text.component';
 import {FlickrImageSearchComponent} from "./components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component";
+import {AuthGuard} from './services/auth-guard.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'profile/:userId', component: ProfileComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'profile/:userId/websitenew', component: WebsiteNewComponent},
   {path: 'profile/:userId/websitelist/:webId/websiteedit', component: WebsiteEditComponent},

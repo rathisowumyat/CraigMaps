@@ -1,8 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
+import {SharedService} from "../../../services/shared.service";
 
 import {NgForm} from '@angular/forms';
+import {RequestOptions} from '@angular/http';
 
 @Component({
   selector: 'app-register',
@@ -18,10 +20,15 @@ export class RegisterComponent implements OnInit {
   userId: String;
   firstname: String;
   lastname: String;
+  errorFlag: boolean = false;
+  errorMsg: string = "";
+  @ViewChild('f') registerForm: NgForm;
+  options = new RequestOptions();
 
   constructor(private userservice: UserService,
               private router: ActivatedRoute,
-			  private route: Router) { }
+			        private route: Router,
+              private sharedService: SharedService) { }
 
   createUser(username, password, same) {
     if ((!username) || (!password)) {
@@ -56,6 +63,29 @@ export class RegisterComponent implements OnInit {
   } else {
     alert('Passwords are not same');
   }
+  }
+
+  register(){
+    var username = this.registerForm.value.username;
+    var password = this.registerForm.value.password;
+    var ver_password = this.registerForm.value.verifypassword;
+
+    if(password != ver_password){
+      this.errorMsg = "The passwords do not match. Please re-enter the passwords.";
+      this.errorFlag = true;
+    }
+    else{
+      this.userservice.register(username, password)
+        .subscribe(
+          (user: any) => {
+            this.route.navigate(['/profile']);
+          },
+          (error: any) => {
+            this.errorMsg = error._body;
+            this.errorFlag = true;
+          }
+        );
+    }
   }
 
   ngOnInit() {}

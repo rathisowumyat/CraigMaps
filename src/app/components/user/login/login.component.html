@@ -59,7 +59,12 @@
       </span>
 
       <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid">Login</button>
+      <a class="btn btn-warning  btn-block" routerLink="/register">New User? Register</a>
+      <a href="{{baseUrl}}/facebook/login" class="btn btn-primary btn-block">
+        <span class="fa fa-facebook"></span>
+        Facebook
+      </a>
 
     </form>
-    <a class="btn btn-warning  btn-block" routerLink="/register">New User? Register</a>
+
     </div>
