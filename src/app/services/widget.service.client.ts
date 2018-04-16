@@ -14,14 +14,14 @@ export  class WidgetService {
     return this.widgets;
   }
 
-  updateWidget(pageId: String, newWidget: any) {
+  updateWidget(pageId: string, newWidget: any) {
     const url =  this.baseUrl + '/api/widget/' + newWidget._id;
     return this.http.put(url, newWidget).map((response: Response) => {
       return response.json();
     });
   }
 
-  findImage(imageName: String) {
+  findImage(imageName: string) {
     const url = this.baseUrl + '/api/image/' + imageName;
     return this.http.get(url).map(
       (res: Response) => {
@@ -30,36 +30,35 @@ export  class WidgetService {
     );
   }
 
-  findWidgetById(widgetId: String) {
+  findWidgetById(widgetId: string) {
     const url =  this.baseUrl + '/api/widget/' + widgetId;
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
   }
 
-  deleteWidget(pageId: String, widgetId: String) {
+  deleteWidget(pageId: string, widgetId: string) {
     const url =  this.baseUrl + '/api/widget/' + widgetId;
     return this.http.delete(url).map((response: Response) => {
       return response.json();
     });
   }
 
-  createWidget(pageId: String, newWidget: any) {
+  createWidget(pageId: string, newWidget: any) {
     const url = this.baseUrl + '/api/page/' + pageId + '/widget';
     return this.http.post(url, newWidget).map((response: Response) => {
       return response.json();
     });
   }
 
-
-  findWidgetsByPageId(pageId: String) {
+  findWidgetsByPageId(pageId: string) {
     const url = this.baseUrl + '/api/page/' + pageId + '/widget';
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
   }
 
-   reorderWidgets(pageId : String, widget : any, initial : number, final : number) {
+   reorderWidgets(pageId : string, widget : any, initial : number, final : number) {
     const body = {widget: widget};
     return this.http.put(this.baseUrl + '/api/page/'+ pageId + "/widget?initial=" + initial + "&final=" + final, body)
       .map((response: Response) => {
@@ -67,5 +66,4 @@ export  class WidgetService {
         }
       );
   }
-
 }

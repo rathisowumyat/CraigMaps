@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {WebsiteService} from '../../../../services/website.service.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {PageService} from '../../../../services/page.service.client';
-import {UserService} from '../../../../services/user.service.client';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -11,25 +10,23 @@ import {UserService} from '../../../../services/user.service.client';
   styleUrls: ['./widget-youtube.component.css']
 })
 export class WidgetYoutubeComponent implements OnInit {
-  name: String;
-  userId: String;
-  webId: String;
-  pgId: String;
-  wdgId: String;
-  size: String;
-  text: String;
-  width: String;
-  url: String;
+  name: string;
+  webId: string;
+  pgId: string;
+  wdgId: string;
+  size: string;
+  text: string;
+  width: string;
+  url: string;
   wdgs: any[];
   widget: any;
-  type: String;
+  type: string;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
-              private userservice: UserService,
               private route: ActivatedRoute,
-			  private router: Router) {
+			        private router: Router) {
   }
 
   updateWidget(	text, url, width) {
@@ -44,40 +41,36 @@ export class WidgetYoutubeComponent implements OnInit {
     }
 
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = wdg;
-		      this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		      this.router.navigate(['/profile', 'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
   }
 
   deleteWidget() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
       return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
         (wdgs) => {
-		      this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		      this.router.navigate(['/profile', 'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
           this.wdgs = wdgs;
         });
     });
-
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
-	  this.type = 'YOUTUBE';
+	    this.type = 'YOUTUBE';
       this.wdgservice.findWidgetById(this.wdgId).subscribe(
         (wdg) => {
           this.widget = wdg;
@@ -86,7 +79,7 @@ export class WidgetYoutubeComponent implements OnInit {
           this.size = this.widget.size;
           this.width = this.widget.width;
         });
-	  this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
+	    this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
         (webs) => {
           this.wdgs = webs;
         });

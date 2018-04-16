@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
 import {PageService} from '../../../services/page.service.client';
-import {UserService} from '../../../services/user.service.client';
 import {WidgetService} from '../../../services/widget.service.client';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-widget-chooser',
@@ -12,27 +12,27 @@ import {WidgetService} from '../../../services/widget.service.client';
 })
 
 export class WidgetChooserComponent implements OnInit {
-  name: String;
-  userId: String;
-  webId: String;
-  pgId: String;
-  wdgId: String;
-  size: String;
-  text: String;
-  width: String;
-  url: String;
+  name: string;
+  userId: string;
+  webId: string;
+  pgId: string;
+  wdgId: string;
+  size: string;
+  text: string;
+  width: string;
+  url: string;
   wdgs: any[];
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
-              private userservice: UserService,
+              private sharedService: SharedService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
+      this.userId = this.sharedService.user['_id'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       //this.wdgId = params['wdgId'];

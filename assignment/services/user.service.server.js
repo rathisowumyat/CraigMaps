@@ -13,14 +13,14 @@ module.exports = function (app) {
     //callbackURL  : 'http://localhost:3100/auth/facebook/callback'
   };
 
-  app.get("/api/user/hello", helloUser);
-  app.get("/api/user/:userId", findUserById);
-  app.put("/api/user/:userId", updateUser);
-  app.delete("/api/user/:userId", deleteUser);
-  app.get("/api/user?username=username&password=password", findUserByCredentials);
-  app.get("/api/user?username=username", findUserByUsername);
-  app.get("/api/user", findUserByCredentials);
-  app.post("/api/user", auth, createUser);
+  app.get("/api/profile/hello", helloUser);
+  app.get("/api/profile/:userId", findUserById);
+  app.put("/api/profile/:userId", updateUser);
+  app.delete("/api/profile/:userId",  deleteUser);
+  app.get("/api/profile?username=username&password=password", findUserByCredentials);
+  app.get("/api/profile?username=username", findUserByUsername);
+  app.get("/api/profile", findUserByCredentials);
+  app.post("/api/profile", auth, createUser);
   app.post("/api/login", passport.authenticate('local'), login);
   app.post("/api/logout", logout);
   app.post("/api/register", register);
@@ -90,7 +90,7 @@ module.exports = function (app) {
 
   function logout(req, res) {
     req.logOut();
-    res.send(200);
+    res.sendStatus(200);
   }
 
   function loggedin(req, res) {
@@ -169,6 +169,7 @@ module.exports = function (app) {
     user.lastName = user.username;
     userModel.createUser(user)
       .then(function (user) {
+        console.log('createUser' + user);
         res.json(user);
       });
   }

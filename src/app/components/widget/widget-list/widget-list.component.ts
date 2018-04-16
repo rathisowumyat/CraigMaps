@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
 import {WidgetService} from '../../../services/widget.service.client';
 import {PageService} from '../../../services/page.service.client';
-import {UserService} from '../../../services/user.service.client';
 import {DomSanitizer, Title} from "@angular/platform-browser";
 import {environment} from '../../../../environments/environment';
 
@@ -14,15 +13,14 @@ import {environment} from '../../../../environments/environment';
 })
 
 export class WidgetListComponent implements OnInit {
-  name: String;
-  userId: String;
-  webId: String;
-  pgId: String;
-  wdgId: String;
-  size: String;
-  text: String;
-  width: String;
-  url: String;
+  name: string;
+  webId: string;
+  pgId: string;
+  wdgId: string;
+  size: string;
+  text: string;
+  width: string;
+  url: string;
   wdgs: any[] = [];
   widget: any;
   baseUrl = environment.baseUrl;
@@ -31,13 +29,11 @@ export class WidgetListComponent implements OnInit {
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
-              private userservice: UserService,
               private route: ActivatedRoute,
-			  private sanitizer: DomSanitizer) { }
+			        private sanitizer: DomSanitizer) { }
 
   listWidgets() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       return this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
@@ -47,7 +43,7 @@ export class WidgetListComponent implements OnInit {
     });
   }
 
-    embedURL(url: String){
+    embedURL(url: string){
     const urlSegments = url.split('/');
     const embeddedUrl = 'https://www.youtube.com/embed/' + urlSegments.pop();
     return this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl);
@@ -63,7 +59,6 @@ export class WidgetListComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       return this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(

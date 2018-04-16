@@ -12,9 +12,10 @@ import {environment} from '../../../../environments/environment';
 })
 
 export class LoginComponent implements OnInit {
-  username: String;
-  password: String;
-  errorFlag: boolean;
+  username: string;
+  password: string;
+  errorFlag: boolean = false;
+  errorMsg: string = "";
   baseUrl = environment.baseUrl;
 
   @ViewChild('f') loginForm: NgForm;
@@ -26,28 +27,18 @@ export class LoginComponent implements OnInit {
     this.username = this.loginForm.value.username;
     this.password = this.loginForm.value.password;
     // calling client side userservice to send login information
+    console.log('login prof.ts');
     this.userservice.login(this.username, this.password)
       .subscribe(
-        (user) => {
-          this.sharedService.user = user;
-          console.log(user);
-          this.router.navigate(['/profile', user._id])}, // data.userId??
+        (data: any) => {
+          this.router.navigate(['/profile']);
+        },
         (error: any) => {
-          console.log(error);
+          this.errorMsg = "Username and password do not match. Please enter the correct credentials";
+          this.errorFlag = true;
         }
       );
-
-  // return this.userservice.findUserByCredentials(this.username, this.password)
-  //     .subscribe((user) => {
-  //       if (user._id) {
-  //         this.router.navigate(['/profile', user._id ]);
-  //       } else {
-  //         alert('Invalid username or password !');
-  //       }
-	// 	return;
-  //     });
   }
 
   ngOnInit() {}
-
 }

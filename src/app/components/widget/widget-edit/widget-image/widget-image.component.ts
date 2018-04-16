@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {WebsiteService} from '../../../../services/website.service.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {PageService} from '../../../../services/page.service.client';
-import {UserService} from '../../../../services/user.service.client';
 import {environment} from "../../../../../environments/environment";
 
 @Component({
@@ -12,28 +11,24 @@ import {environment} from "../../../../../environments/environment";
   styleUrls: ['./widget-image.component.css']
 })
 export class WidgetImageComponent implements OnInit {
-  name: String;
-  userId: String;
-  webId: String;
-  pgId: String;
-  wdgId: String;
-  size: String;
-  text: String;
-  width: String;
-  url: String;
+  name: string;
+  webId: string;
+  pgId: string;
+  wdgId: string;
+  size: string;
+  text: string;
+  width: string;
+  url: string;
   wdgs: any[];
   widget: any;
-  type: String;
-  baseUrl: String;
+  type: string;
+  baseUrl: string = environment.baseUrl;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
-              private userservice: UserService,
               private route: ActivatedRoute,
-			  private router: Router) {
-    this.baseUrl = environment.baseUrl;
-  }
+			        private router: Router) {  }
 
   updateWidget(text, url, width) {
     this.widget = {
@@ -49,7 +44,6 @@ export class WidgetImageComponent implements OnInit {
     this.size = '1';
     this.width = width;
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
@@ -60,32 +54,30 @@ export class WidgetImageComponent implements OnInit {
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = wdg;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		  this.router.navigate(['/profile', 'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
   }
 
   deleteWidget() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
       return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
         (wdgs) => {
           this.wdgs = wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		  this.router.navigate(['/profile', 'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
 
   }
   searchFlickr(){
-    this.router.navigate(['/profile',this.userId,
+    this.router.navigate(['/profile',
       'websitelist',this.webId,'pagelist',this.pgId,'widgetlist', this.wdgId,'flickrsearch']);
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];

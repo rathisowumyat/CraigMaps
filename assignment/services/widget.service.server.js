@@ -105,15 +105,14 @@ module.exports = function (app) {
     var widgetId      = req.body.widgetId;
     var width         = req.body.width;
     var myFile        = req.file;
-    var userId        = req.body.userId;
     var websiteId     = req.body.websiteId;
     var pageId        = req.body.pageId;
     var url           = req.body.url;
 
-    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/profile/" + userId
-                      + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
-    // var callbackUrl = "http://localhost:4200/profile/" + userId
-    //                   + "/websitelist/" + websiteId + "/pagelist/" + pageId + "/widgetlist";
+    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/profile/websitelist/"
+    // var callbackUrl = "http://localhost:4200/profile/websitelist/"
+                      + websiteId + "/pagelist/" + pageId + "/widgetlist";
+
     console.log(callbackUrl);
     if(!myFile) {
       res.redirect(callbackUrl);
@@ -129,9 +128,16 @@ module.exports = function (app) {
 
     var fileUrl = "https://cs5610-webdev-app.herokuapp.com/uploads/" + filename;
     // var fileUrl = "http://localhost:3100/uploads/" + filename;
-    var widget = widgetModel.findWidgetById(widgetId);
-    if(!widget) {
-      widget =  {widgetType: "IMAGE", _page: pageId, width: "100%", "url": fileUrl};
+
+    if(!widgetId) {
+      widget = {
+        'type': "IMAGE",
+        '_page': pageId,
+        'size': size,
+        'width': "100%",
+        'url': fileUrl
+      }
+
       widgetModel.createWidget(pageId, widget)
         .then(function (widget) {
           res.redirect(callbackUrl);
@@ -139,6 +145,7 @@ module.exports = function (app) {
       return;
     }
 
+    var widget = widgetModel.findWidgetById(widgetId);
     widget.url = fileUrl;
     widget.width = width;
     widgetModel.updateWidget(widgetId, widget)

@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {WebsiteService} from '../../../services/website.service.client';
 import {PageService} from '../../../services/page.service.client';
-import {UserService} from '../../../services/user.service.client';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -12,29 +11,28 @@ import {environment} from '../../../../environments/environment';
   templateUrl: './widget-edit.component.html',
   styleUrls: ['./widget-edit.component.css']
 })
+
 export class WidgetEditComponent implements OnInit {
-  name: String;
-  userId: String;
-  webId: String;
-  pgId: String;
-  wdgId: String;
-  size: String;
-  text: String;
-  width: String;
-  url: String;
+  name: string;
+  webId: string;
+  pgId: string;
+  wdgId: string;
+  size: string;
+  text: string;
+  width: string;
+  url: string;
   wdgs: any[];
   widget: any;
-  type: String;
+  type: string;
   file: any;
   rows: number;
-  place: String;
-  format: String;
-  baseUrl: String = environment.baseUrl;
+  place: string;
+  format: string;
+  baseUrl: string = environment.baseUrl;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
-              private userservice: UserService,
               private route: ActivatedRoute,
 			        private router: Router) {this.baseUrl = environment.baseUrl; }
 
@@ -57,8 +55,7 @@ export class WidgetEditComponent implements OnInit {
       alert('Please give the youtube url');
       return;
     }
-    const tempid = Math.floor(Math.random() * 100);
-    this.wdgId = tempid.toString();
+
     this.widget = {
         'type': this.type,
         '_page': this.pgId,
@@ -68,10 +65,8 @@ export class WidgetEditComponent implements OnInit {
         'url': url
     }
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
 	    this.type = params['type'];
 	    this.url =  url;
 	    this.width = width;
@@ -80,50 +75,21 @@ export class WidgetEditComponent implements OnInit {
       return this.wdgservice.createWidget(this.pgId, this.widget).subscribe(
         (wdgs) => {
           this.wdgs = wdgs;
-		    this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		    this.router.navigate(['/profile', 'websitelist', this.webId, 'pagelist', this.pgId, 'widgetlist']);
         });
     });
-  }
-
-  deleteWidget() {
-    this.route.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.webId = params['webId'];
-      this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
-      return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
-        (wdgs) => {
-          this.wdgs = wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
-        });
-    });
-
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
-      this.wdgId = params['wdgId'];
 	    this.type = params['type'];
       this.text = 'sample text';
       this.url = this.baseUrl;
       this.size = '1';
       this.width = '100%';
 
-	  if(this.wdgId) {
-      this.wdgservice.findWidgetById(this.wdgId).subscribe(
-        (wdg) => {
-          this.widget = wdg;
-          // this.name = this.widget.name;
-          // this.type = this.widget.widgetType;
-          // this.text = this.widget.text;
-          // this.url = this.baseUrl;
-          // this.size = this.widget.size;
-          // this.width = this.widget.width;
-        });
-	  }
      this.wdgservice.findWidgetsByPageId(this.pgId).subscribe(
         (webs) => {
           this.wdgs = webs;

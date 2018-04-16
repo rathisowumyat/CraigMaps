@@ -8,18 +8,15 @@ import {Router} from '@angular/router';
 @Injectable()
 export class UserService{
 
-  baseURL : string;
+  baseURL = environment.baseUrl;
 
   constructor(private http: Http,
               private sharedService: SharedService,
-              private router: Router ){
-    this.baseURL = environment.baseUrl;
-  }
+              private router: Router ){  }
 
-  login(username: String, password: String) {
-
+  login(username: string, password: string) {
     let requestOptions = new RequestOptions();
-    requestOptions.withCredentials = true; // jga
+    requestOptions.withCredentials = true;
 
     const body = {
       username : username,
@@ -46,8 +43,7 @@ export class UserService{
       );
   }
 
-  register(username: String, password: String) {
-
+  register(username: string, password: string) {
     let requestOptions = new RequestOptions();
     requestOptions.withCredentials = true;
     const user = {
@@ -87,14 +83,14 @@ export class UserService{
   }
 
   createUser(user : any){
-    return this.http.post(this.baseURL + '/api/user', user)
+    return this.http.post(this.baseURL + '/api/profile', user)
       .map((response: Response) => {
       return response.json();
     });
   }
 
   findUserById(userId : string){
-    return this.http.get(this.baseURL+ '/api/user' + "/" + userId)
+    return this.http.get(this.baseURL + '/api/profile/' + userId)
       .map((response: Response) => {
       return response.json();
     });
@@ -105,7 +101,7 @@ export class UserService{
     let params = new URLSearchParams();
     params.set("username", username);
     requestOptions.params = params;
-    return this.http.get(this.baseURL+ '/api/user',requestOptions)
+    return this.http.get(this.baseURL + '/api/profile',requestOptions)
       .map((response: Response) => {
       return response.json();
     });
@@ -118,24 +114,22 @@ export class UserService{
     params.set("password", password);
     requestOptions.params = params;
     requestOptions.withCredentials = true;
-    return this.http.get(this.baseURL+ '/api/user',requestOptions)
+    return this.http.get(this.baseURL + '/api/profile',requestOptions)
       .map((response: Response) => {
       return response.json();
     });
   }
 
-  updateUser(user) {
-    const url =  this.baseURL + '/api/user/' + user._id;
-    return this.http.put(url, user)
-         .map((response: Response) => {
+  updateUser(userId : string, user : any){
+    return this.http.put(this.baseURL + '/api/profile/' + userId, user)
+      .map((response: Response) => {
       return response.json();
     });
   }
 
-  deleteUser(userId) {
-     const url =  this.baseURL + '/api/user/' + userId;
-     return this.http.delete(url)
-          .map((response: Response) => {
+  deleteUser(userId : string){
+    return this.http.delete(this.baseURL+ '/api/profile/' + userId)
+      .map((response: Response) => {
       return response.json();
     });
   }

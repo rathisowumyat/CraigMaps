@@ -10,14 +10,14 @@ import {WidgetService} from "../../../../../services/widget.service.client";
 })
 export class FlickrImageSearchComponent implements OnInit {
 
-  searchText: String;
+  searchText: string;
   photos: any;
-  websiteId: String;
-  pageId: String;
-  widgetId: String;
+  websiteId: string;
+  pageId: string;
+  widgetId: string;
   widget: any;
   wdgs: any[];
-  userId: String;
+  userId: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -28,7 +28,6 @@ export class FlickrImageSearchComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['userId'];
           this.websiteId = params['webId'];
           this.pageId = params['pageId'];
           this.widgetId = params['wdgId'];
@@ -63,7 +62,7 @@ export class FlickrImageSearchComponent implements OnInit {
       this.widgetService.updateWidget(this.pageId, this.widget)
         .subscribe((wdgs) => {
           this.wdgs = wdgs;
-          this.router.navigate(['/profile', this.userId,
+          this.router.navigate(['/profile',
             'websitelist', this.websiteId, 'pagelist', this.pageId, 'widgetlist']);
         });
     } else {
@@ -78,7 +77,7 @@ export class FlickrImageSearchComponent implements OnInit {
       this.widgetService.createWidget(this.pageId, this.widget).subscribe(
         (wdgs) => {
           this.wdgs = wdgs;
-          this.router.navigate(['/profile', this.userId,'websitelist',
+          this.router.navigate(['/profile', 'websitelist',
             this.websiteId,'pagelist',this.pageId,'widgetlist']);
         });
     }

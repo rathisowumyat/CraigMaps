@@ -1,14 +1,14 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
   <div class="container-fluid">
     <p class="navbar-text pull-left">
-      <a routerLink="/profile/{{userId}}" class="navbar-link cl-text-white">
+      <a routerLink="/profile" class="navbar-link cl-text-white">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
     </p>
     <a class="cl-text-white navbar-brand cl-text-bold" href="#">
       Websites
     </a>
-    <a routerLink="/profile/{{userId}}/websitenew/" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+    <a routerLink="/profile/websitenew/" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
       <span class="glyphicon glyphicon-plus"></span>
     </a>
   </div>
@@ -17,16 +17,16 @@
 <div class="container-fluid">
   <ul class="list-group-item cl-list-item-borderless">
     <li class="list-group-item cl-list-item-borderless" *ngFor="let w of ws">
-      <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/websiteedit">
+      <a routerLink="/profile/websitelist/{{w._id}}/websiteedit">
         <span class="glyphicon glyphicon-cog pull-right"></span></a>
-      <a routerLink="/profile/{{userId}}/websitelist/{{w._id}}/pagelist">{{w.name}}</a>
+      <a routerLink="/profile/websitelist/{{w._id}}/pagelist">{{w.name}}</a>
     </li>
   </ul>
 </div>
 
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">
   <div class="container-fuild">
-    <a routerLink="/profile/{{userId}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+    <a routerLink="/profile" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </div>

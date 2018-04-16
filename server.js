@@ -27,7 +27,7 @@ app.use('/uploads', express.static(path.join(__dirname, '/assignment/uploads')))
 
 // CORS
 app.use(function(req, res, next) {
-  //res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Origin", "https://cs5610-webdev-app.herokuapp.com");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -49,7 +49,7 @@ require('./assignment/app')(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, 'src/index.html'));
 });
 
 server.listen( port , function() {

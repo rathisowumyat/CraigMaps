@@ -12,59 +12,45 @@
       </p>
     </div>
   </div>
-</nav>    <!--<div class="container">-->
-        <!--<h1>Login</h1>-->
-        <!--<input type="text"-->
-               <!--class="form-control"-->
-               <!--[(ngModel)] = "username"-->
-               <!--[ngModelOptions]="{standalone: true}"-->
-               <!--placeholder="username"/>-->
-        <!--<input type="password"-->
-               <!--class="form-control"-->
-               <!--[(ngModel)] = "password"-->
-               <!--[ngModelOptions]="{standalone: true}"-->
-               <!--placeholder="password"/>-->
-        <!--<a class="btn btn-primary btn-block" (click)="login(username, password)">Login</a>-->
-        <!--<a class="btn btn-success btn-block" routerLink="/register">Register</a>-->
-    <!--</div>-->
+</nav>
+
+<div class="container">
+
+  <div class="alert alert-danger error-message" *ngIf="errorFlag"> {{errorMsg}} </div>
+
+  <h1>Login</h1>
+
+  <form #f="ngForm" (ngSubmit) = login()>
+    <input placeholder="username"
+           name="username"
+           type="text"
+           class="form-control"
+           ngModel
+           required
+           autofocus
+           #username="ngModel"/>
+    <span class="help-block" *ngIf="!username.valid && username.touched">
+      Please enter the username
+    </span>
 
 
-    <div *ngIf="errorFlag"
-         class="alert alert-danger">
-      {{errorMsg}}
-    </div>
+    <input placeholder="password"
+           name="password"
+           type="password"
+           class="form-control"
+           ngModel
+           required
+           autofocus
+           #password="ngModel"/>
+    <span class="help-block" *ngIf="!password.valid && password.touched">
+      Please enter the password
+    </span>
 
-    <div class="container">
-    <form (ngSubmit) = "login()" #f="ngForm">
-      <label>Username</label>
-      <div class="input-icon icon-username"></div>
-      <input   placeholder="username"
-               name="username"
-               type="text"
-               class="form-control"
-               ngModel required #username="ngModel"
-               />
-
-      <label>Password</label>
-      <div class="input-icon icon-password"></div>
-      <input   placeholder="password"
-               name="password"
-               type="password"
-               class="form-control"
-               ngModel required #password="ngModel"
-               />
-
-      <span class="help-block" *ngIf="!username.valid && username.touched">
-        Please enter username!
-      </span>
-
-      <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid">Login</button>
-      <a class="btn btn-warning  btn-block" routerLink="/register">New User? Register</a>
-      <a href="{{baseUrl}}/facebook/login" class="btn btn-primary btn-block">
-        <span class="fa fa-facebook"></span>
-        Facebook
-      </a>
-
-    </form>
-
-    </div>
+    <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid">Login</button>
+    <a class="btn btn-warning  btn-block" routerLink="/register">New User? Register</a>
+    <a href="{{baseUrl}}/facebook/login" class="btn btn-primary btn-block">
+      <span class="fa fa-facebook"></span>
+      Facebook
+    </a>
+  </form>
+</div>

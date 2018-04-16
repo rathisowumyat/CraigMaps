@@ -6,37 +6,36 @@ import {environment} from '../../environments/environment';
 @Injectable()
 export class PageService {
   pages: any[] = [];
+  baseUrl = environment.baseUrl;
 
   constructor(private http: Http){}
-
-  baseUrl = environment.baseUrl;
 
   findAllPages() {
     return this.pages;
   }
 
-  updatePage(pageId: String, newWebsite: any) {
+  updatePage(pageId: string, newWebsite: any) {
     const url = this.baseUrl + '/api/page/' + newWebsite._id;
     return this.http.put(url, newWebsite).map((response: Response) => {
       return response.json();
     });
   }
 
-  findPageById(websiteId: String, pageId: String) {
+  findPageById(websiteId: string, pageId: string) {
     const url = this.baseUrl + '/api/page/' + pageId;
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
   }
 
-  deletePage(websiteId: String,  pageId: String) {
+  deletePage(websiteId: string,  pageId: string) {
     const url = this.baseUrl + '/api/page/' + pageId;
     return this.http.delete(url).map((response: Response) => {
       return response.json();
     });
   }
 
-  createPage(websiteId: String, page: any) {
+  createPage(websiteId: string, page: any) {
     const url = this.baseUrl + '/api/website/' + websiteId + '/page';
     return this.http.post(url, page).map((response: Response) => {
       return response.json();
@@ -44,7 +43,7 @@ export class PageService {
   }
 
 
-  findPageForWebsite(websiteId: String) {
+  findPageForWebsite(websiteId: string) {
     const url = this.baseUrl + '/api/website/' + websiteId + '/page';
     return this.http.get(url).map((response: Response) => {
       return response.json();

@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {WebsiteService} from '../../../../services/website.service.client';
 import {PageService} from '../../../../services/page.service.client';
-import {UserService} from '../../../../services/user.service.client';
 
 @Component({
   selector: 'app-widget-html',
@@ -11,23 +10,21 @@ import {UserService} from '../../../../services/user.service.client';
   styleUrls: ['./widget-html.component.css']
 })
 export class WidgetHtmlComponent implements OnInit {
-  name: String;
-  userId: String;
-  webId: String;
-  pgId: String;
-  wdgId: String;
-  size: String;
-  text: String;
-  width: String;
-  url: String;
+  name: string;
+  webId: string;
+  pgId: string;
+  wdgId: string;
+  size: string;
+  text: string;
+  width: string;
+  url: string;
   wdgs: any[];
   widget: any;
-  type: String;
+  type: string;
 
   constructor(private wdgservice: WidgetService,
               private pageservice: PageService,
               private webservice: WebsiteService,
-              private userservice: UserService,
               private route: ActivatedRoute,
 			  private router: Router) {
   }
@@ -44,7 +41,6 @@ export class WidgetHtmlComponent implements OnInit {
     }
 
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
@@ -52,21 +48,20 @@ export class WidgetHtmlComponent implements OnInit {
       return this.wdgservice.updateWidget(this.wdgId, this.widget).subscribe(
         (wdg) => {
           this.wdgs = wdg;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		  this.router.navigate(['/profile', 'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
   }
 
   deleteWidget() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];
       return this.wdgservice.deleteWidget(this.pgId, this.wdgId).subscribe(
         (wdgs) => {
           this.wdgs = wdgs;
-		  this.router.navigate(['/profile', this.userId,'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
+		  this.router.navigate(['/profile', 'websitelist',this.webId,'pagelist',this.pgId,'widgetlist']);
         });
     });
 
@@ -74,7 +69,6 @@ export class WidgetHtmlComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.userId = params['userId'];
       this.webId = params['webId'];
       this.pgId = params['pageId'];
       this.wdgId = params['wdgId'];

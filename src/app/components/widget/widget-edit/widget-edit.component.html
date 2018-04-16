@@ -1,14 +1,14 @@
 <nav class="navbar cl-blue-navbar navbar-fixed-top">
   <div class="container-fluid row">
     <div class="navbar-text pull-left">
-      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
+      <a routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
          class="cl-text-white cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
+      <a routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist"
          class="cl-icon-padding cl-text-white">
           <span class="glyphicon glyphicon-ok">
           </span>
@@ -36,8 +36,7 @@
     </div>
     <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
     <a class="btn btn-warning btn-block"
-       routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
-    <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
+       routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
   </form>
 
   <form *ngIf="type === 'HTML'">
@@ -58,8 +57,7 @@
     </form>
     <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
     <a class="btn btn-warning btn-block"
-       routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
-    <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
+       routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
   </form>
   <form *ngIf="type === 'IMAGE'">
 
@@ -84,20 +82,17 @@
     <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
       <input  name="myFile"   type="file" class="form-control"/>
       <input  name="width" value="{{width}}"   style="display: none"/>
-      <input  name="widgetId" value="{{wdgId}}"   style="display: none"/>
       <input  name="websiteId" value="{{webId}}"   style="display: none"/>
       <input  name="pageId" value="{{pgId}}"   style="display: none"/>
-      <input  name="userId" value="{{userId}}"   style="display: none"/>
       <input  name="url" value="{{url}}"   style="display: none"/>
       <button type="submit" class="btn btn-success btn-block">Upload New Image</button>
     </form>
     <a class="btn btn-warning btn-block"
-       routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
-    <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
+       routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
     <br>
     <div class="bottom-margin">
       <a class="btn btn-primary btn-block"
-         routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/flickrsearch">
+         routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist/flickrsearch">
         Search Flickr
       </a>
     </div>
@@ -124,8 +119,7 @@
     </div>
     <a class="btn btn-success btn-block" (click)="createWidget(size, text, width, url)">Add New {{type}}</a>
     <a class="btn btn-warning btn-block"
-       routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
-    <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
+       routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
   </form>
 
   <form *ngIf="type === 'TEXT'">
@@ -169,8 +163,7 @@
     <p></p>
     <a class="btn btn-success btn-block" (click)="createWidget(rows, text, width, url)">Add New {{type}}</a>
     <a class="btn btn-warning btn-block"
-       routerLink="/profile/{{userId}}/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
-    <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
+       routerLink="/profile/websitelist/{{webId}}/pagelist/{{pgId}}/widgetlist">Cancel</a>
   </form>
 </div>
 
@@ -178,7 +171,7 @@
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
 
-      <a routerLink="/profile/{{userId}}" class="cl-icon-padding cl-text-white">
+      <a routerLink="/profile" class="cl-icon-padding cl-text-white">
         <span class="glyphicon glyphicon-user"></span>
       </a>
 

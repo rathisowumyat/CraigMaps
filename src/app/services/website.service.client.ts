@@ -7,46 +7,45 @@ import {environment} from '../../environments/environment';
 @Injectable()
 export class WebsiteService {
   websites: any[] = [];
+  baseUrl = environment.baseUrl;
 
   constructor(private http: Http){}
-
-  baseUrl = environment.baseUrl;
 
   findAllWebSites() {
     return this.websites;
   }
 
-  updateWebsite(userId: String, newWebsite: any) {
+  updateWebsite(userId: string, newWebsite: any) {
     const url =  this.baseUrl + '/api/website/' + newWebsite._id;
     return this.http.put(url, newWebsite).map((response: Response) => {
       return response.json();
     });
   }
 
-  findWebsiteById(userId: String, websiteId: String) {
+  findWebsiteById(userId: string, websiteId: string) {
     const url = this.baseUrl + '/api/website/' + websiteId;
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });
   }
 
-  deleteWebsite(userId: String,  websiteId: String){
+  deleteWebsite(userId: string,  websiteId: string){
     const url = this.baseUrl + '/api/website/' + websiteId;
     return this.http.delete(url).map((response: Response) => {
       return response.json();
     });
   }
 
-  createWebsiteForUser(userId: String, website: any) {
-    const url = this.baseUrl + '/api/user/' + userId + '/website';
+  createWebsiteForUser(userId: string, website: any) {
+    const url = this.baseUrl + '/api/profile/' + userId + '/website';
     return this.http.post(url, website).map((response: Response) => {
       return response.json();
     });
   }
 
 
-  findWebsiteForUser(userId: String) {
-    const url =  this.baseUrl + '/api/user/' + userId + '/website';
+  findWebsiteForUser(userId: string) {
+    const url =  this.baseUrl + '/api/profile/' + userId + '/website';
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });

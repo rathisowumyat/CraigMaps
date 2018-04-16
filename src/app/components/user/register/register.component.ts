@@ -13,13 +13,13 @@ import {RequestOptions} from '@angular/http';
 })
 
 export class RegisterComponent implements OnInit {
-  username: String;
-  password: String;
-  same: String;
+  username: string;
+  password: string;
+  same: string;
   user: any;
-  userId: String;
-  firstname: String;
-  lastname: String;
+  userId: string;
+  firstname: string;
+  lastname: string;
   errorFlag: boolean = false;
   errorMsg: string = "";
   @ViewChild('f') registerForm: NgForm;
@@ -29,41 +29,6 @@ export class RegisterComponent implements OnInit {
               private router: ActivatedRoute,
 			        private route: Router,
               private sharedService: SharedService) { }
-
-  createUser(username, password, same) {
-    if ((!username) || (!password)) {
-      alert ('Please give username and password');
-      return;
-    }
-  if ( password === same ) {
-      const tempid = (Math.floor(Math.random() * 10))+"";
-      this.userId = tempid.toString();
-      const user1 = {
-        'username': username,
-        'password': password,
-        'firstName': username,
-        'lastName': username,
-        'email': 't@gmail.com',
-        'phone': ''
-      }
-	  this.username = username;
-	  this.password = password;
-	  this.firstname = username;
-	  this.lastname = username;
-      this.router.params.subscribe(params => {
-      return this.userservice.createUser(user1)
-          .subscribe((user) => {
-              this.user = user;
-				console.log(this.userId + " " + user._id);
-				this.userId = user._id;
-				this.route.navigate(['/profile', user._id]);
-        });
-    });
-
-  } else {
-    alert('Passwords are not same');
-  }
-  }
 
   register(){
     var username = this.registerForm.value.username;
@@ -89,5 +54,4 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {}
-
 }

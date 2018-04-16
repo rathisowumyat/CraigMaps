@@ -10,12 +10,12 @@ import {SharedService} from '../../../services/shared.service';
 })
 export class ProfileComponent implements OnInit {
 
-  userId: string;
-  user: any;
-  email: string;
-  username: string;
-  firstname: string;
-  lastname: string;
+  userId: string = "";
+  user = {};
+  username: string = "";
+  email: string = "";
+  firstname: string = "";
+  lastname: string = "";
 
   constructor(
     private userservice: UserService,
@@ -28,11 +28,10 @@ export class ProfileComponent implements OnInit {
     this.userId = this.user['_id'];
     this.userservice.findUserById(this.userId).subscribe(
           (user) => {
-            this.user = user;
-    	  this.username = user.username;
-    	  this.email = user.email;
-    	  this.firstname = user.firstName;
-    	  this.lastname = user.lastName;
+            this.username = user.username;
+            this.email = user.email;
+            this.firstname = user.firstName;
+            this.lastname = user.lastName;
           });
   }
 
@@ -44,13 +43,12 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser(username, email, firstname, lastname) {
-	const user1 = {'_id':this.userId,
-	 'username': username,
-    'email': email,
-   'firstName': firstname,
-    'lastName': lastname
-    }
-    this.userservice.updateUser(user1).subscribe(
+    this.user['username'] = username;
+    this.user['email'] = email;
+    this.user['firstName'] = firstname;
+    this.user['lastName'] = lastname;
+    this.userservice.updateUser(this.userId, this.user)
+      .subscribe(
       (user) => {
         this.user = user;
       });
