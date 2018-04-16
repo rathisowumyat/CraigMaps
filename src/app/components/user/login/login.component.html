@@ -16,7 +16,10 @@
 
 <div class="container">
 
-  <div class="alert alert-danger error-message" *ngIf="errorFlag"> {{errorMsg}} </div>
+  <div *ngIf="errorFlag"
+       class="alert alert-danger">
+    {{errorMsg}}
+  </div>
 
   <h1>Login</h1>
 
@@ -27,7 +30,6 @@
            class="form-control"
            ngModel
            required
-           autofocus
            #username="ngModel"/>
     <span class="help-block" *ngIf="!username.valid && username.touched">
       Please enter the username
@@ -40,7 +42,6 @@
            class="form-control"
            ngModel
            required
-           autofocus
            #password="ngModel"/>
     <span class="help-block" *ngIf="!password.valid && password.touched">
       Please enter the password
