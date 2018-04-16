@@ -49,7 +49,7 @@ require('./assignment/app')(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'src/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 server.listen( port , function() {
