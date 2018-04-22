@@ -33,6 +33,8 @@ import { FlickrImageSearchComponent } from './components/widget/widget-edit/widg
 import { FlickrService } from "./services/flickr.service.client";
 import { DirectivesDirective } from './directives.directive';
 import { SortableDirective } from './sortable.directive';
+import { CraigmapsComponent } from './components/craigmaps/craigmaps.component';
+import {CraigmapsService} from './services/craigmaps.service.client';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { SortableDirective } from './sortable.directive';
     SortableDirective,
     WidgetTextComponent,
     FlickrImageSearchComponent,
+    CraigmapsComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,7 @@ import { SortableDirective } from './sortable.directive';
     QuillEditorModule,
     HttpModule,
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService, SharedService, AuthGuard],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService, SharedService, AuthGuard, CraigmapsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

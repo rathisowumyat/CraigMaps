@@ -9,7 +9,7 @@ module.exports = function (app) {
   var facebookConfig = {
     clientID     : '2194166917477846', //process.env.FACEBOOK_CLIENT_ID,
     clientSecret : '4fafdf13d72bdba25679f2faa8b110e9', //process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL  : 'https://cs5610-webdev-app.herokuapp.com/auth/facebook/callback'//, process.env.FACEBOOK_CALLBACK_URL
+    callbackURL  : 'https://craigmaps.herokuapp.com/auth/facebook/callback'//, process.env.FACEBOOK_CALLBACK_URL
     //callbackURL  : 'http://localhost:3100/auth/facebook/callback'
   };
 

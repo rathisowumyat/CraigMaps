@@ -109,7 +109,7 @@ module.exports = function (app) {
     var pageId        = req.body.pageId;
     var url           = req.body.url;
 
-    var callbackUrl = "https://cs5610-webdev-app.herokuapp.com/profile/websitelist/"
+    var callbackUrl = "https://craigmaps.herokuapp.com/profile/websitelist/"
     // var callbackUrl = "http://localhost:4200/profile/websitelist/"
                       + websiteId + "/pagelist/" + pageId + "/widgetlist";
 
@@ -126,7 +126,7 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    var fileUrl = "https://cs5610-webdev-app.herokuapp.com/uploads/" + filename;
+    var fileUrl = "https://craigmaps.herokuapp.com/uploads/" + filename;
     // var fileUrl = "http://localhost:3100/uploads/" + filename;
 
     if(!widgetId) {
