@@ -1,15 +1,12 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="cl-text-white navbar-brand cl-text-bold" href="#">
-        Login
+      <a class="cl-text-white navbar-brand cl-text-bold cl-text-center" >
+        Your CraigMaps App For Travel-Time Based Rental Search!
       </a>
-      <p class="navbar-text pull-right">
-        <a href="#" class="navbar-link">
-          <span class="glyphicon glyphicon-plus pull-right">
-          </span>
-        </a>
-      </p>
+    </div>
+      <div class="pull-right">
+        <img src="https://cdn0.iconfinder.com/data/icons/construction-22/32/navigation_pin_location_find_mark_home-512.png" height="40" width="42">
     </div>
   </div>
 </nav>
@@ -20,9 +17,13 @@
        class="alert alert-danger">
     {{errorMsg}}
   </div>
-
-  <h1>Login</h1>
-
+  <div class="col-xs-3">
+    </div>
+      <div class="col-xs-7">
+  <!--<img class="responsive-image cl-widget-images"  width="100%" height="50%" src="https://media-cdn.tripadvisor.com/media/photo-s/03/9b/30/26/seattle.jpg">-->
+  <img width="75%" height="400px" src="https://pushfyi.com/wp-content/uploads/2017/07/Location-intro.png">
+      </div>
+<!--<img class="this-img-center" src="cmbg.png">-->
   <form #f="ngForm" (ngSubmit) = login()>
     <input placeholder="username"
            name="username"
@@ -46,12 +47,22 @@
     <span class="help-block" *ngIf="!password.valid && password.touched">
       Please enter the password
     </span>
-
+    <div class="col-xs-6">
+      <div>
     <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid">Login</button>
+    </div>
+    </div>
+      <div class="col-xs-6">
+        <div>
+      <a href="{{baseUrl}}/facebook/login" class="btn btn-primary btn-block">
+        <span class="fa fa-facebook"></span>
+        Facebook
+      </a>
+      </div>
+      </div>
+    <br>
+    <div class="col-xs-12">
     <a class="btn btn-warning  btn-block" routerLink="/register">New User? Register</a>
-    <a href="{{baseUrl}}/facebook/login" class="btn btn-primary btn-block">
-      <span class="fa fa-facebook"></span>
-      Facebook
-    </a>
+    </div>
   </form>
 </div>

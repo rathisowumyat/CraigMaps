@@ -4,12 +4,9 @@
       <a class="cl-text-white navbar-brand cl-text-bold" href="#">
         Profile
       </a>
-      <p class="navbar-text pull-right">
-        <a href="#" class="navbar-link">
-          <span class="glyphicon glyphicon-plus pull-right">
-          </span>
-        </a>
-      </p>
+    </div>
+    <div class="pull-right">
+      <img src="https://cdn0.iconfinder.com/data/icons/construction-22/32/navigation_pin_location_find_mark_home-512.png" height="40" width="42">
     </div>
   </div>
 </nav>
@@ -35,8 +32,8 @@
              [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}">
     </div>
   </form>
-  <button class="btn btn-success btn-block" (click)="updateUser(username, email, firstname, lastname)" routerLink="/profile">Update</button>
-  <button class="btn btn-danger btn-block" (click)="deleteUser()" routerLink="/login">Delete</button>
-  <button class="btn btn-primary btn-block" routerLink="/profile/craigmaps">CraigMaps</button>
+  <button class="btn btn-success btn-block" (click)="updateUser(username, email, firstname, lastname)" routerLink="/profile">Update Profile</button>
+  <button class="btn btn-danger btn-block" (click)="deleteUser()" routerLink="/login">Delete Account</button>
+  <button class="btn btn-primary btn-block" routerLink="/profile/craigmaps">To CraigMaps Search</button>
   <button class="btn btn-warning btn-block" (click) = "logout()">Logout</button>
 </div>
