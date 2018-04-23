@@ -1,7 +1,7 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <i class="cl-text-white navbar-brand cl-text-bold cl-text-center">
+      <i class="cl-text-white navbar-brand cl-text-bold ">
         Best Rentals for Timely Commutation to your regular Destination!
       </i>
     </div>
@@ -11,10 +11,6 @@
   </div>
 </nav>
 
-<div *ngIf="errorFlag"
-     class="alert alert-warning">
-  {{errorMsg}}
-</div>
 <div class="container">
 <div class="mypaddig"></div>
     <form #f="ngForm" (ngSubmit) = search()>
@@ -66,7 +62,7 @@
                 class="form-control"
                 ngModel
                 #mode="ngModel">
-          <option disabled selected hiddem>--choose mode of transport(default DRIVING)--</option>
+          <option disabled selected >--choose mode of transport(default DRIVING)--</option>
           <option value="driving">DRIVING</option>
           <option value="walking">WALKING</option>
           <option value="transit">TRANSIT</option>
@@ -82,12 +78,17 @@
   <!--<div class="contain-fluid" >-->
     <!--<div class="col-xs-8" *ngIf="chart">-->
   <br>
+  <div *ngIf="errorFlag"
+       class="alert alert-warning">
+    {{errorMsg}}
+  </div>
   <div *ngIf="chart">
     <!--<div class="col-xs-4">-->
     <div width="100%" height="400px">
   <ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>
     </div>
     <!--</div>-->
+
     <!--<div class="col-xs-6">-->
 <table >
 <tr>
@@ -104,7 +105,18 @@
   <!--</div>-->
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
   <div class="container-fluid row">
+    <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/rentals">
+      Monitor App for Rental Results
+    </a>
+    <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/travels">
+      Monitor App for Travel Results
+    </a>
     <div class="pull-right navbar-text">
+      <a routerLink="/profile" class="cl-icon-padding cl-text-white">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+    </div>
+    <div class="pull-left navbar-text">
       <a routerLink="/profile" class="cl-icon-padding cl-text-white">
         <span class="glyphicon glyphicon-user"></span>
       </a>

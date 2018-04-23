@@ -8,6 +8,8 @@ import { WebsiteEditComponent } from './components/website/website-edit/website-
 import { WebsiteListComponent } from './components/website/website-list/website-list.component';
 import {AuthGuard} from './services/auth-guard.service';
 import {CraigmapsComponent} from './components/craigmaps/craigmaps.component';
+import {TravelComponent} from './components/craigmaps/travel/travel.component';
+import {RentalComponent} from './components/craigmaps/rental/rental.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -18,6 +20,8 @@ const appRoutes: Routes = [
   {path: 'profile/websitelist', component: WebsiteListComponent},
   {path: 'profile/craigmaps', component: CraigmapsComponent},
   {path: 'profile/craigmaps/admin', component: CraigmapsComponent},
+  {path: 'profile/craigmaps/admin/travels', component: TravelComponent},
+  {path: 'profile/craigmaps/admin/rentals', component: RentalComponent},
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

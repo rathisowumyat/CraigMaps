@@ -6,6 +6,7 @@ var UserSchema = mongoose.Schema({
   lastName: String,
   email: String,
   phone: String,
+  admin: {type: Boolean, default: false},
   websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Website'}],
   dateCreated: { type: Date, default: Date.now },
   facebook: {

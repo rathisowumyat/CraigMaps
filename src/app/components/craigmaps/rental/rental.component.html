@@ -1,3 +1,81 @@
-<p>
-  rental works!
-</p>
+<nav class="navbar navbar-fixed-top cl-blue-navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <i class="cl-text-white navbar-brand cl-text-bold ">
+        Montior Rentals
+      </i>
+    </div>
+    <div class="pull-right">
+      <img src="https://cdn0.iconfinder.com/data/icons/construction-22/32/navigation_pin_location_find_mark_home-512.png" height="40" width="42">
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="mypaddig"></div>
+  <form #f="ngForm" (ngSubmit) = search()>
+    <!--<label>City you would like to rent:</label>-->
+    <div class="col-xs-6">
+      <div>
+        <input placeholder="City you would like to rent"
+               name="from"
+               type="text"
+               class="form-control"
+               ngModel
+               required
+               #from="ngModel"/>
+        <span class="help-block" *ngIf="!from.valid && from.touched">
+      Please enter the city you would like to rent
+    </span>
+      </div>
+
+    </div>
+    <div class="col-xs-6">
+      <div>
+        <select name="rent"
+                placeholder="Range"
+                class="form-control"
+                ngModel
+                #rent="ngModel">
+          <option disabled selected hidden>--choose rent(default less than $5000)--</option>
+          <option value="5000">less than $5000</option>
+          <option value="10000">$5000 to $10000</option>
+          <option value="15000">$10000 to $15000</option>
+        </select>
+      </div>
+
+    </div>
+    <!--<label>Mode of commutation (DRIVING[Default])</label>-->
+    <br>
+    <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid"> Search </button>
+  </form>
+
+  <br>
+  <div *ngIf="errorFlag"
+       class="alert alert-warning">
+    {{errorMsg}}
+  </div>
+  <div *ngIf="chart">
+    <div width="100%" height="400px">
+    <ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>
+    </div>
+    <table >
+      <tr>
+        <th>House Location</th><th>Rent</th><th>Craigslist on Details</th>
+      </tr>
+      <tr *ngFor="let w of routedRentals" ng-class-odd="'striped'">
+        <td>{{w.location}}</td>
+        <td>{{w.price}}</td>
+        <td><a href="{{w.url}}" target="_blank">{{w.url}}</a></td>
+      </tr>
+    </table>
+    <!--</div>-->
+    <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
+      <div class="container-fluid row">
+        <div class="pull-right navbar-text">
+          <a routerLink="/profile" class="cl-icon-padding cl-text-white">
+            <span class="glyphicon glyphicon-user"></span>
+          </a>
+        </div>
+      </div>
+    </nav>

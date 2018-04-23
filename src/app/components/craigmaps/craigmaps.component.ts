@@ -20,7 +20,9 @@ export class CraigmapsComponent implements OnInit {
   errorFlag = false;
   errorMsg = '';
   baseUrl = environment.baseUrl;
-  rentals : any;
+  userId: string;
+  user: any;
+  rentals: any;
   routedRentals = [];
   chart = false;
   myDataSets = [
@@ -83,7 +85,7 @@ export class CraigmapsComponent implements OnInit {
                     distanceval: l.distanceval,
                     url: l.url
                   });
-                  this.routedRentals = this.routedRentals.sort((a,b) => {
+                  this.routedRentals = this.routedRentals.sort((a, b) => {
                      // return parseFloat(a.durationval) - parseFloat(b.durationval);
                     return a.durationval - b.durationval;
                   });
@@ -142,6 +144,33 @@ export class CraigmapsComponent implements OnInit {
     this.router.navigate(['/profile', 'craigmaps']);
   }
 
+  monitorRental() {
+      this.user = this.sharedService.user;
+    if (this.user.admin) {
+      this.router.navigate(['/profile', 'craigmaps', 'admin', 'rentals']);
+    } else {
+      this.errorMsg = 'Only Admins are allowed to Monitor';
+      this.errorFlag = true;
+      console.log(this.errorMsg);
+    }
+  }
+
+  monitorTravell() {
+    this.user = this.sharedService.user;
+    if (this.user.admin) {
+      this.router.navigate(['/profile', 'craigmaps', 'admin', 'travels']);
+    } else {
+      this.errorMsg = 'Only Admins are allowed to Monitor';
+      this.errorFlag = true;
+      console.log(this.errorMsg);
+    }
+  }
+
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.userId = this.sharedService.user['_id'];
+      console.log(this.userId);
+      console.log(this.user);
+    });
   }
 }

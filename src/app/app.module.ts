@@ -23,6 +23,7 @@ import {CraigmapsService} from './services/craigmaps.service.client';
 import { NgxLineChartModule } from 'ngx-line-chart';
 import { TravelComponent } from './components/craigmaps/travel/travel.component';
 import { RentalComponent } from './components/craigmaps/rental/rental.component';
+import { MonitorComponent } from './components/monitor/monitor.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RentalComponent } from './components/craigmaps/rental/rental.component'
     CraigmapsComponent,
     TravelComponent,
     RentalComponent,
+    MonitorComponent,
   ],
   imports: [
     BrowserModule,
