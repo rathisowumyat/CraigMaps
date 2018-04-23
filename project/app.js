@@ -1,8 +1,6 @@
 module.exports = function (app){
   require("./services/user.service.server")(app);
   require("./services/website.service.server")(app);
-  require("./services/page.service.server")(app);
-  require("./services/widget.service.server")(app);
   require("./services/craigmaps.service.server")(app);
   app.get("/api/hello123", hello);
   require("./model/models.server");

@@ -21,7 +21,7 @@ a:hover{
 }
 
 .cl-blue-navbar{
-  background-color: #337ab7;
+  background-color: midnightblue;
 }
 
 .cl-text-white{
@@ -104,4 +104,13 @@ a:hover{
   width: 85%;
   z-index: 100;
   position: relative;
+}
+.tr:nth-child(even) {background-color: #f2f2f2;}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+.cl-text-center {
+  text-align: center;
 }

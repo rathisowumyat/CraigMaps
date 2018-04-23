@@ -1,81 +1,118 @@
 module.exports = function (app) {
 
-  app.get("/api/craigmaps/:from/:to", calcRoute);
-  app.get("/api/craigmaps/:from", calcRent);
+  app.post("/api/craigmaps/rentals", rental);
+  app.post("/api/craigmaps/routes", route);
 
-  function calcRoute(req, res) {
-    var start = req.params['from'];
-    var end = req.params['to'];
+  var gkey = 'AIzaSyCh83vE6TuJUB6BZswszWjLNwu5LsH-Z3w'; //process.ENV.GKEY;
+  var request = require('request');
+  var craigslist = require('node-craigslist');
+  var client = new craigslist.Client();
+  var rp = require('request-promise');
 
-    console.log(start + end);
-
-    var request = require('request');
-    var url = 'https://maps.googleapis.com/maps/api/directions/json?origin='
-      + start + '&destination=' + end + '&mode=driving&key=AIzaSyCh83vE6TuJUB6BZswszWjLNwu5LsH-Z3w';
-    request(url, function (error, response, body) {
-        // console.log('error:', error); // Print the error if one occurred
-        // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        // console.log('body:', body); // Print the HTML for the Google homepage.
-        res.json(body);
-      });
-  }
-
-  function calcRent(req, res) {
-      var start = req.params['from'];
-
-      // console.log(start);
-      //
-      // var Zillow = require('node-zillow');
-      //
-      // var zwsid = 'X1-ZWz18nfm3iq77v_2xcn2';
-      // var zillow = new Zillow(zwsid);
-      // var parameters = {
-      //   'zws-id': zwsid,
-      //   'address': start,
-      //   'citystatezip': '98199',
-      //   'rentzestimate': 'true'
-      // };
-
-    // var request = require('request');
-    // var url = 'https://www.zillow.com/homes/02115_rb/';
-    // request(url, function (error, response, body) {
-    //   console.log('error:', error); // Print the error if one occurred
-    //   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //   console.log('body:', body); // Print the HTML for the Google homepage.
-    //   res.json(body);
-    // });
-      //
-      // zillow.get('GetSearchResults', parameters)
-    // zillow.get('GetRateSummary')
-    //     .then(function (results) {
-    //       console.log(results);
-    //       return res.json(results);
-    //       // results here is an object { message: {}, request: {}, response: {}}
-    //     });
-    var
-      craigslist = require('node-craigslist'),
-      client = new craigslist.Client({
-        city : start
-      }),
-      options = {
-        category : 'apa',
-        offset: '20'
-        // maxAsk : '200',
-        // minAsk : '100'
-      };
+  //Retrieve rentals for the city sorted based rent rate low to high
+  function rental(req, res) {
+    var city = req.body.from;
+    var rent = req.body.rent;
+    var rent2 = parseFloat(rent) - 5000;
+    rent2 = rent2.toString();
+    //console.log(start);
+    var options = {
+      city: city,
+      category: 'hhh',
+      offset: 5,
+      maxAsk : rent,
+      minAsk : rent2
+    };
 
     client
       .search(options, 'rent')
       .then(function(listings) {
-      // play with listings here...
         //console.log(listings);
-        listings.forEach(function (l) {
-          l.price = l.price.toString().replace('$','');
+          listings = listings.slice(1,10);
+          listings.forEach(function(l) {
+            l.location = l.location.toString().replace(/[^a-zA-Z 0-9,]+/g, '');
+          });
+          // listings.sort(function (a, b) {
+          //   var pra = a.price.toString().replace('$', '');
+          //   var prb = b.price.toString().replace('$', '');
+          //   return parseFloat(pra) - parseFloat(prb);
+          // });
+          return res.json(listings);
+        },
+        function(err) {
+          console.log('Could not find any rentals for this city');
+          return;
         });
-        listings.sort(function (a, b) {
-          return parseFloat(a.price) - parseFloat(b.price);
-        });
-        return res.json(listings);
-      });
   }
+
+  //Draw the routes from each rental to destination
+  function httpreqcall(url, callback) {
+    //console.log('url:'+url);
+    request(url, function (error, response, body) {
+      // console.log('error:', error); // Print the error if one occurred
+      // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+      // console.log('body:', body); // Print the HTML for the Google homepage.
+      //res.json(body);
+      //console.log(JSON.stringify(response));
+      if (error) {
+        console.log('Could not find routes for this house');
+        return callback('');
+      }
+      //console.log(body);
+      //var temp = JSON.parse(body);
+      callback(body);
+    });
+  }
+
+  function route(req, res) {
+    var l = req.body.list;
+    var end = req.body.to;
+    var mode = req.body.mode; // req.params['mode'];
+    var urlprefix = 'https://maps.googleapis.com/maps/api/directions/json?origin=';
+    var urlsuffix = '&destination=' + end + '&mode=' + mode + '&key=' + gkey;
+    var distance = '';
+    var duration = '';
+    var distanceval;
+    var durationval;
+    //
+    // rentallist = JSON.parse(rentallist);
+    // rentallist
+    //   .forEach(function (l) {
+   // var l = JSON.parse(rentallist);
+   // console.log(l);
+    if (l.location) {
+      var url = urlprefix + l.location + urlsuffix;
+      //httpreqcall(url, function (temp)
+      //console.log(url);
+      httpreqcall(url, function (data) {
+          var temp = JSON.parse(data);
+          //console.log(temp);
+          if (temp
+              && temp.routes
+              && temp.routes[0]
+              && temp.routes[0].legs
+              && temp.routes[0].legs[0]
+              && temp.routes[0].legs[0].duration
+              && temp.routes[0].legs[0].duration.value) {
+              distance = temp.routes[0].legs[0].distance.text.toString();
+              duration = temp.routes[0].legs[0].duration.text.toString();
+              distanceval = temp.routes[0].legs[0].distance.value;
+              durationval = temp.routes[0].legs[0].duration.value;
+              l.distance = distance;
+              l.duration = duration;
+              l.distanceval = distanceval;
+              l.durationval = durationval;
+              console.log(distance);
+            }
+
+          console.log(duration);
+          console.log(distance);
+          res.json(l);
+        });
+    }
+  }
+  //     });
+  //   res.json(rentallist);
+  // }
+
 }

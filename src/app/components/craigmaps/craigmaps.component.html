@@ -1,63 +1,121 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="cl-text-white navbar-brand cl-text-bold" href="#">
-        CraigMaps Search
-      </a>
-      <p class="navbar-text pull-right">
-        <a href="#" class="navbar-link">
-          <span class="glyphicon glyphicon-plus pull-right">
-          </span>
-        </a>
+      <i class="cl-text-white navbar-brand cl-text-bold cl-text-center">
+        Best Rentals for Timely Commutation to your regular Destination!
+      </i>
+      <p class="pull-right">
+        <!--<img src="../../../css/cmlogo.jpg"height="40" width="42">-->
       </p>
     </div>
   </div>
 </nav>
 
+<div *ngIf="errorFlag"
+     class="alert alert-warning">
+  {{errorMsg}}
+</div>
 <div class="container">
-
-  <div *ngIf="errorFlag"
-       class="alert alert-danger">
-    {{errorMsg}}
-  </div>
-
-  <h4><b><i>Best Rentals for Timely Commutation to your regular Destination!</i></b></h4>
-<br>
-  <form #f="ngForm" (ngSubmit) = search()>
-    <label>City you would like to rent:</label>
-    <input placeholder="From"
-           name="from"
-           type="text"
-           class="form-control"
-           ngModel
-           required
-           #from="ngModel"/>
-    <span class="help-block" *ngIf="!from.valid && from.touched">
+<div class="mypaddig"></div>
+    <form #f="ngForm" (ngSubmit) = search()>
+      <!--<label>City you would like to rent:</label>-->
+      <div class="col-xs-6">
+        <div>
+      <input placeholder="City you would like to rent"
+             name="from"
+             type="text"
+             class="form-control"
+             ngModel
+             required
+             #from="ngModel"/>
+      <span class="help-block" *ngIf="!from.valid && from.touched">
       Please enter the city you would like to rent
     </span>
-
-    <label>Address you daily commute to(such as Office/School):</label>
-    <input placeholder="To"
-           name="to"
-           type="text"
-           class="form-control"
-           ngModel
-           required
-           #to="ngModel"/>
-    <span class="help-block" *ngIf="!to.valid && to.touched">
+        </div>
+        <div>
+        <!--<label>Address you daily commute to(such as Office/School):</label>-->
+        <input placeholder="Address you daily commute to(such as Office/School)"
+               name="to"
+               type="text"
+               class="form-control"
+               ngModel
+               required
+               #to="ngModel"/>
+        <span class="help-block" *ngIf="!to.valid && to.touched">
       Please enter the address of the place daily commute to, so that Craigmaps can suggest the rentals with time-effective travel
     </span>
-
-    <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid">
-      Search </button>
-  </form>
-
-  <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
-    <div class="container-fluid row">
-      <div class="pull-right navbar-text">
-        <a routerLink="/profile" class="cl-icon-padding cl-text-white">
-          <span class="glyphicon glyphicon-user"></span>
-        </a>
       </div>
+      </div>
+      <div class="col-xs-6">
+        <div>
+      <select name="rent"
+              placeholder="Range"
+              class="form-control"
+              ngModel
+              #rent="ngModel">
+        <option disabled selected>--choose rent(default less than $1000)--</option>
+        <option value="1000">less than $1000</option>
+        <option value="5000">$1000 to $5000</option>
+        <option value="10000">$5000 to $10000</option>
+      </select>
+      </div>
+
+      <div>
+        <select name="mode"
+                placeholder="DRIVING"
+                class="form-control"
+                ngModel
+                #mode="ngModel">
+          <option disabled selected>--choose mode of transport(default DRIVING)--</option>
+          <option value="driving">DRIVING</option>
+          <option value="walking">WALKING</option>
+          <option value="transit">TRANSIT</option>
+          <option value="bicycling">BICYCLING</option>
+        </select>
+      </div>
+      </div>
+      <!--<label>Mode of commutation (DRIVING[Default])</label>-->
+      <br>
+      <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid"> Search </button>
+    </form>
+
+  <!--<button class="btn btn-warning btn-block" (click) = "clear()">Reset</button>-->
+  <div class="contain-fluid" *ngIf="chart">
+    <div class="col-xs-7">
+<table >
+<tr>
+  <th>House Location</th><th>Rent</th><th>Duration to Dest.</th><th>Distance to Dest.</th><th>Craigslist Url For Details</th>
+</tr>
+<tr *ngFor="let w of routedRentals">
+  <td>{{w.location}}</td>
+  <td>{{w.price}}</td>
+  <td>{{w.distance}}</td>
+  <td>{{w.duration}}</td>
+  <td><a href="{{w.url}}" target="_blank">{{w.url}}</a></td>
+</tr>
+</table>
     </div>
-  </nav>
+    <div class="col-xs-4">
+      <br>
+      <br>
+      <br>
+      <ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>
+      <!--<canvas baseChart-->
+              <!--class="chart"-->
+              <!--[data]="myDataSets"-->
+              <!--[labels]="labels"-->
+              <!--[options]="options"-->
+              <!--[chartType]="'doughnut'">-->
+      <!--</canvas>-->
+    </div>
+  </div>
+
+<nav class="navbar cl-blue-navbar navbar-fixed-bottom">
+  <div class="container-fluid row">
+    <div class="pull-right navbar-text">
+      <a routerLink="/profile" class="cl-icon-padding cl-text-white">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+    </div>
+  </div>
+</nav>
