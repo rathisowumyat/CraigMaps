@@ -20,16 +20,24 @@ export class CraigmapsComponent implements OnInit {
   errorFlag = false;
   errorMsg = '';
   baseUrl = environment.baseUrl;
-  rentals: any;
+  rentals : any;
   routedRentals = [];
   chart = false;
-  myDataSets = [{
-    name: 'rentals  vs duration',
-    points: [
+  myDataSets = [
+    {
+     name: 'x:rent vs y:time(in seconds) to reach',
+     points: [
       // {x: 10, y: 100},
       // {x: 20, y: 500}
-    ]
-  }];
+      ]
+    },
+    {
+      name: 'x:rent vs y:distance(in meters) to destination',
+      points: [
+      // {x: 10, y: 100},
+      // {x: 20, y: 500}
+      ]
+    }];
 
   @ViewChild('f') searchForm: NgForm;
 
@@ -46,6 +54,7 @@ export class CraigmapsComponent implements OnInit {
     if (!this.mode || this.mode === '') {
       this.mode = 'driving';
     }
+    this.chart = false;
     this.rentals = [];
     this.routedRentals = [];
     // console.log('ts:'+this.from+this.to+this.mode);
@@ -64,23 +73,31 @@ export class CraigmapsComponent implements OnInit {
             this.craigmapsservice.route(d, this.to, this.mode)
               .subscribe(
                 (l: any) => {
-                  // console.log(data);
-                  this.rentals.push({
+                  console.log(l);
+                  this.routedRentals.push({
                     location: l.location,
                     price: l.price,
                     duration: l.duration,
                     distance: l.distance,
+                    durationval: l.durationval,
+                    distanceval: l.distanceval,
                     url: l.url
                   });
-                  this.routedRentals = this.rentals.sort((a,b) => {
-                     return parseFloat(a.durationval) - parseFloat(b.durationval);
+                  this.routedRentals = this.routedRentals.sort((a,b) => {
+                     // return parseFloat(a.durationval) - parseFloat(b.durationval);
+                    return a.durationval - b.durationval;
                   });
-                  var pra = l.price.toString().replace('$', '');
+                  var pra = parseInt(l.price.toString().replace('$', ''), 10);
                   var dura = l.durationval;
-                  if (pra && dura) {
+                  var dist = l.distanceval;
+                  if (pra && dura && dist) {
                     this.myDataSets[0].points.push({
-                      x: parseFloat(pra),
-                      y: parseFloat(l.durationval)
+                      x: pra,
+                      y: dura
+                    });
+                    this.myDataSets[1].points.push({
+                      x: pra,
+                      y: dist
                     });
                   }
                   console.log('Price: ' + l.price +
@@ -89,7 +106,7 @@ export class CraigmapsComponent implements OnInit {
                     ',duration: ' + JSON.stringify(l.duration));
                 },
                 (error: any) => {
-                  this.errorMsg = 'Could not find any route';
+                  this.errorMsg = 'No routes fetched! Check for address and Try again!';
                   this.errorFlag = true;
                   console.log(this.errorMsg);
                 }
@@ -97,7 +114,7 @@ export class CraigmapsComponent implements OnInit {
           });
         },
         (error: any) => {
-          this.errorMsg = 'Could not find any rentals';
+          this.errorMsg = 'No rentals currently availabel for this city! Check for city name/Adjust rent and try again!';
           this.errorFlag = true;
           console.log(this.errorMsg);
         }
@@ -119,7 +136,7 @@ export class CraigmapsComponent implements OnInit {
     this.errorFlag = false;
     this.errorMsg = '';
     this.baseUrl = environment.baseUrl;
-    this.rentals = [];
+    this.rentals = '';
     this.routedRentals = [];
     this.chart = false;
     this.router.navigate(['/profile', 'craigmaps']);

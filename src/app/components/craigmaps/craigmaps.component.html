@@ -4,9 +4,9 @@
       <i class="cl-text-white navbar-brand cl-text-bold cl-text-center">
         Best Rentals for Timely Commutation to your regular Destination!
       </i>
-      <p class="pull-right">
-        <!--<img src="../../../css/cmlogo.jpg"height="40" width="42">-->
-      </p>
+    </div>
+    <div class="pull-right">
+      <img src="https://cdn0.iconfinder.com/data/icons/construction-22/32/navigation_pin_location_find_mark_home-512.png" height="40" width="42">
     </div>
   </div>
 </nav>
@@ -53,10 +53,10 @@
               class="form-control"
               ngModel
               #rent="ngModel">
-        <option disabled selected>--choose rent(default less than $1000)--</option>
-        <option value="1000">less than $1000</option>
-        <option value="5000">$1000 to $5000</option>
+        <option disabled selected hidden>--choose rent(default less than $5000)--</option>
+        <option value="5000">less than $5000</option>
         <option value="10000">$5000 to $10000</option>
+        <option value="15000">$10000 to $15000</option>
       </select>
       </div>
 
@@ -66,7 +66,7 @@
                 class="form-control"
                 ngModel
                 #mode="ngModel">
-          <option disabled selected>--choose mode of transport(default DRIVING)--</option>
+          <option disabled selected hiddem>--choose mode of transport(default DRIVING)--</option>
           <option value="driving">DRIVING</option>
           <option value="walking">WALKING</option>
           <option value="transit">TRANSIT</option>
@@ -78,38 +78,30 @@
       <br>
       <button class="btn btn-success btn-block" type="submit" [disabled]="!f.valid"> Search </button>
     </form>
-
   <!--<button class="btn btn-warning btn-block" (click) = "clear()">Reset</button>-->
-  <div class="contain-fluid" *ngIf="chart">
-    <div class="col-xs-7">
+  <!--<div class="contain-fluid" >-->
+    <!--<div class="col-xs-8" *ngIf="chart">-->
+  <br>
+  <div *ngIf="chart">
+    <!--<div class="col-xs-4">-->
+    <div width="100%" height="400px">
+  <ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>
+    </div>
+    <!--</div>-->
+    <!--<div class="col-xs-6">-->
 <table >
 <tr>
-  <th>House Location</th><th>Rent</th><th>Duration to Dest.</th><th>Distance to Dest.</th><th>Craigslist Url For Details</th>
+  <th>House Location</th><th>Rent</th><th>Time to reach</th><th>Distance</th><th>Craigslist on Details</th>
 </tr>
-<tr *ngFor="let w of routedRentals">
+<tr *ngFor="let w of routedRentals" ng-class-odd="'striped'">
   <td>{{w.location}}</td>
   <td>{{w.price}}</td>
-  <td>{{w.distance}}</td>
   <td>{{w.duration}}</td>
+  <td>{{w.distance}}</td>
   <td><a href="{{w.url}}" target="_blank">{{w.url}}</a></td>
 </tr>
 </table>
-    </div>
-    <div class="col-xs-4">
-      <br>
-      <br>
-      <br>
-      <ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>
-      <!--<canvas baseChart-->
-              <!--class="chart"-->
-              <!--[data]="myDataSets"-->
-              <!--[labels]="labels"-->
-              <!--[options]="options"-->
-              <!--[chartType]="'doughnut'">-->
-      <!--</canvas>-->
-    </div>
-  </div>
-
+  <!--</div>-->
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
