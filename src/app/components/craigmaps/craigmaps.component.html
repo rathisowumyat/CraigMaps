@@ -1,13 +1,13 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
   <div class="container-fluid">
-    <div class="navbar-header">
+    <div class="col-xs-10 navbar-header">
       <i class="cl-text-white navbar-brand cl-text-bold ">
         Best Rentals for Timely Commutation to your regular Destination!
       </i>
     </div>
-    <div class="pull-right">
+    <div class="pull-right ">
       <a routerLink="/login">
-      <img src="https://cdn0.iconfinder.com/data/icons/construction-22/32/navigation_pin_location_find_mark_home-512.png" height="40" width="42">
+        <img height='10px' src="https://cdn0.iconfinder.com/data/icons/construction-22/32/navigation_pin_location_find_mark_home-512.png" height="40" width="42">
       </a>
     </div>
   </div>
@@ -19,7 +19,8 @@
       <!--<label>City you would like to rent:</label>-->
       <div class="col-xs-6">
         <div>
-      <input placeholder="City you would like to rent"
+      <input placeholder="City iv>
+would like to rent"
              name="from"
              type="text"
              class="form-control"
@@ -51,7 +52,7 @@
               class="form-control"
               ngModel
               #rent="ngModel">
-        <option disabled selected hidden>--choose rent(default less than $5000)--</option>
+        <option disabled selected>--choose rent(default less than $5000)--</option>
         <option value="5000">less than $5000</option>
         <option value="10000">$5000 to $10000</option>
         <option value="15000">$10000 to $15000</option>
@@ -64,7 +65,7 @@
                 class="form-control"
                 ngModel
                 #mode="ngModel">
-          <option disabled selected >--choose mode of transport(default DRIVING)--</option>
+          <option disabled selected>--choose mode of transport(default DRIVING)--</option>
           <option value="driving">DRIVING</option>
           <option value="walking">WALKING</option>
           <option value="transit">TRANSIT</option>
