@@ -22,9 +22,11 @@ export class CraigmapsComponent implements OnInit {
   baseUrl = environment.baseUrl;
   userId: string;
   user: any;
+  isAdmin: boolean;
   rentals: any;
   routedRentals = [];
   chart = false;
+  x = [];
   myDataSets = [
     {
      name: 'x:rent vs y:time(in seconds) to reach',
@@ -38,6 +40,22 @@ export class CraigmapsComponent implements OnInit {
       points: [
       // {x: 10, y: 100},
       // {x: 20, y: 500}
+      ]
+    }];
+  myDataSets1 = [
+    {
+      name: 'x:rent vs y:time(in seconds) to reach',
+      points: [
+        // {x: 10, y: 100},
+        // {x: 20, y: 500}
+      ]
+    }];
+  myDataSets2 = [
+    {
+      name: 'x:rent vs y:distance(in meters) to reach',
+      points: [
+        // {x: 10, y: 100},
+        // {x: 20, y: 500}
       ]
     }];
 
@@ -101,6 +119,15 @@ export class CraigmapsComponent implements OnInit {
                       x: pra,
                       y: dist
                     });
+                    this.myDataSets1[0].points.push({
+                      x: pra,
+                      y: dura
+                    });
+                    this.myDataSets2[0].points.push({
+                      x: pra,
+                      y: dist
+                    });
+                    this.x.push(l.price);
                   }
                   console.log('Price: ' + l.price +
                     ',location: ' + l.location +
@@ -146,29 +173,37 @@ export class CraigmapsComponent implements OnInit {
 
   monitorRental() {
       this.user = this.sharedService.user;
-    if (this.user.admin) {
+    console.log(this.user);
+    if (this.user.admin === true) {
       this.router.navigate(['/profile', 'craigmaps', 'admin', 'rentals']);
     } else {
       this.errorMsg = 'Only Admins are allowed to Monitor';
-      this.errorFlag = true;
-      console.log(this.errorMsg);
+      // this.errorFlag = true;
+      this.router.navigate(['/login']);
+      alert(this.errorMsg);
     }
   }
 
-  monitorTravell() {
+  monitorTravel() {
     this.user = this.sharedService.user;
-    if (this.user.admin) {
+    console.log(this.user);
+    if (this.user.admin === true) {
       this.router.navigate(['/profile', 'craigmaps', 'admin', 'travels']);
     } else {
       this.errorMsg = 'Only Admins are allowed to Monitor';
-      this.errorFlag = true;
-      console.log(this.errorMsg);
+      // this.errorFlag = true;
+      this.router.navigate(['/login']);
+      alert(this.errorMsg);
     }
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = this.sharedService.user['_id'];
+      this.user = this.sharedService.user;
+      if (this.user.admin === true) {
+        this.isAdmin = true;
+      }
       console.log(this.userId);
       console.log(this.user);
     });

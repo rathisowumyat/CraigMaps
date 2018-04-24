@@ -6,7 +6,9 @@
       </i>
     </div>
     <div class="pull-right">
+      <a routerLink="/login">
       <img src="https://cdn0.iconfinder.com/data/icons/construction-22/32/navigation_pin_location_find_mark_home-512.png" height="40" width="42">
+      </a>
     </div>
   </div>
 </nav>
@@ -83,13 +85,22 @@
     {{errorMsg}}
   </div>
   <div *ngIf="chart">
+
     <!--<div class="col-xs-4">-->
-    <div width="100%" height="400px">
-  <ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>
+    <!--&lt;!&ndash;<div width="100%" height="200px">&ndash;&gt;-->
+  <!--<ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>-->
+    <!--</div>-->
+    <div class="col-xs-6">
+      <!--<div width="100%" height="200px">-->
+      <ngx-line-chart [xAxisValues]="x" [dataSets]="myDataSets1"></ngx-line-chart>
+    </div>
+    <div class="col-xs-6">
+      <!--<div width="100%" height="200px">-->
+      <ngx-line-chart [xAxisValues]="x" [dataSets]="myDataSets2"></ngx-line-chart>
     </div>
     <!--</div>-->
 
-    <!--<div class="col-xs-6">-->
+    <div class="col-xs-12">
 <table >
 <tr>
   <th>House Location</th><th>Rent</th><th>Time to reach</th><th>Distance</th><th>Craigslist on Details</th>
@@ -102,24 +113,22 @@
   <td><a href="{{w.url}}" target="_blank">{{w.url}}</a></td>
 </tr>
 </table>
-  <!--</div>-->
+  </div>
+  </div>
 <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
-  <div class="container-fluid row">
-    <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/rentals">
+  <div class="container-fluid row" >
+    <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/rentals" *ngIf="isAdmin">
       Monitor App for Rental Results
     </a>
-    <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/travels">
+    <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/travels" *ngIf="isAdmin">
       Monitor App for Travel Results
     </a>
-    <div class="pull-right navbar-text">
-      <a routerLink="/profile" class="cl-icon-padding cl-text-white">
-        <span class="glyphicon glyphicon-user"></span>
-      </a>
-    </div>
-    <div class="pull-left navbar-text">
+
+    <div class="pull-right navbar-text" *ngIf="userId">
       <a routerLink="/profile" class="cl-icon-padding cl-text-white">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </div>
   </div>
 </nav>
+</div>

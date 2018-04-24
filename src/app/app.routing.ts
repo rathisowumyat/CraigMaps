@@ -19,6 +19,7 @@ const appRoutes: Routes = [
   {path: 'profile/websitelist/:webId/websiteedit', component: WebsiteEditComponent},
   {path: 'profile/websitelist', component: WebsiteListComponent},
   {path: 'profile/craigmaps', component: CraigmapsComponent},
+  {path: 'craigmaps', component: CraigmapsComponent},
   {path: 'profile/craigmaps/admin', component: CraigmapsComponent},
   {path: 'profile/craigmaps/admin/travels', component: TravelComponent},
   {path: 'profile/craigmaps/admin/rentals', component: RentalComponent},
