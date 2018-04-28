@@ -1,8 +1,13 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
   <div class="container-fluid">
     <div class="col-xs-10 navbar-header">
+      <p class="navbar-text pull-left">
+        <a routerLink="/profile/craigmaps" class="navbar-link cl-text-white">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
       <i class="cl-text-white navbar-brand cl-text-bold">
-        Monitor Travels
+        Monitor Route source to destination
       </i>
     </div>
     <div class="pull-right">
@@ -19,7 +24,7 @@
     <!--<label>City you would like to rent:</label>-->
     <div class="col-xs-6">
       <div>
-        <input placeholder="City/Address"
+        <input placeholder="From Address"
                name="from"
                type="text"
                class="form-control"
@@ -32,7 +37,7 @@
       </div>
       <div>
         <!--<label>Address you daily commute to(such as Office/School):</label>-->
-        <input placeholder="Address you daily commute to(such as Office/School)"
+        <input placeholder="To Address"
                name="to"
                type="text"
                class="form-control"
@@ -71,7 +76,7 @@
        class="alert alert-warning">
     {{errorMsg}}
   </div>
-  <div *ngIf="chart">
+  <!--<div *ngIf="chart">-->
     <!--<div class="col-xs-4">-->
     <!--<div width="100%" height="400px">-->
       <!--<ngx-line-chart [dataSets]="myDataSets"></ngx-line-chart>-->
@@ -82,18 +87,26 @@
       <tr>
         <th>Time to reach</th><th>Distance</th>
       </tr>
-      <tr *ngFor="let w of routedRentals" ng-class-odd="'striped'">
-        <td>{{w.duration}}</td>
-        <td>{{w.distance}}</td>
-      </tr>
+      <!--<tr *ngFor="let w of routedRentals" ng-class-odd="'striped'">-->
+        <td>{{duration}}</td>
+        <td>{{distance}}</td>
+      <!--</tr>-->
     </table>
     <!--</div>-->
-    <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
-      <div class="container-fluid row">
-        <div class="pull-right navbar-text">
-          <a routerLink="/profile" class="cl-icon-padding cl-text-white">
-            <span class="glyphicon glyphicon-user"></span>
-          </a>
-        </div>
+  <nav class="navbar cl-blue-navbar navbar-fixed-bottom">
+    <div class="container-fluid row" >
+      <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/rentals" *ngIf="isAdmin">
+        Monitor App for Rental Results
+      </a>
+      <a class="navbar-brand cl-text-white cl-text-bold" routerLink="/profile/craigmaps/admin/travels" *ngIf="isAdmin">
+        Monitor App for Travel Results
+      </a>
+
+      <div class="pull-right navbar-text" *ngIf="userId">
+        <a routerLink="/profile" class="cl-icon-padding cl-text-white">
+          <span class="glyphicon glyphicon-user"></span>
+        </a>
       </div>
-    </nav>
+    </div>
+  </nav>
+</div>

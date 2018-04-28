@@ -40,6 +40,11 @@ export class RegisterComponent implements OnInit {
       this.errorFlag = true;
     }
     else{
+      var u = this.userservice.findUserByCredentials(username, password);
+      if (u) {
+        alert('User already exists!');
+        return;
+      }
       this.userservice.register(username, password)
         .subscribe(
           (user: any) => {

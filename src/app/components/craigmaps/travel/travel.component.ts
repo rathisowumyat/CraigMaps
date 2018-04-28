@@ -23,23 +23,11 @@ export class TravelComponent implements OnInit {
   rentals : any;
   userId: string;
   user: any;
+  isAdmin: boolean;
   routedRentals = [];
   chart = false;
-  myDataSets = [
-    {
-      name: 'x:rent vs y:time(in seconds) to reach',
-      points: [
-        // {x: 10, y: 100},
-        // {x: 20, y: 500}
-      ]
-    },
-    {
-      name: 'x:rent vs y:distance(in meters) to destination',
-      points: [
-        // {x: 10, y: 100},
-        // {x: 20, y: 500}
-      ]
-    }];
+  distance: string;
+  duration: string;
 
   @ViewChild('f') searchForm: NgForm;
 
@@ -57,44 +45,27 @@ export class TravelComponent implements OnInit {
       this.mode = 'driving';
     }
     this.chart = false;
-    this.rentals = [];
-    this.routedRentals = [];
-    // console.log('ts:'+this.from+this.to+this.mode);
 
-            this.craigmapsservice.route(this.from, this.to, this.mode)
-              .subscribe(
-                (l: any) => {
-                  console.log(l);
-                  this.routedRentals.push({
-                    duration: l.duration,
-                    distance: l.distance,
-                    durationval: l.durationval,
-                    distanceval: l.distanceval,
-                  });
-                  this.routedRentals = this.routedRentals.sort((a,b) => {
-                    // return parseFloat(a.durationval) - parseFloat(b.durationval);
-                    return a.durationval - b.durationval;
-                  });
-                  var dura = l.durationval;
-                  var dist = l.distanceval;
+    this.craigmapsservice.oneroute(this.from, this.to, this.mode)
+      .subscribe(
+        (l: any) => {
+          console.log(l);
 
-                   console.log(
-                    ',distance: ' + JSON.stringify(l.distance) +
-                    ',duration: ' + JSON.stringify(l.duration));
-                },
-                (error: any) => {
-                  this.errorMsg = 'No routes fetched! Check for address and Try again!';
-                  this.errorFlag = true;
-                  console.log(this.errorMsg);
-                }
-              );
-    this.chart = true;
+          this.duration = l.duration;
+          this.distance = l.distance;
+          var dura = l.durationval;
+          var dist = l.distanceval;
 
-    // console.log('************:'+this.rentals);
-    // this.rentals.forEach((l) => {
-    //   console.log(l.price);
-    // });
-
+          console.log('distance: ' + JSON.stringify(l.distance) +
+            ',duration: ' + JSON.stringify(l.duration));
+        },
+        (error: any) => {
+          this.errorMsg = 'No routes fetched! Check for address and Try again!';
+          this.errorFlag = true;
+          console.log(this.errorMsg);
+        }
+      );
+    //this.chart = true;
   }
 
   clear() {
@@ -114,6 +85,12 @@ export class TravelComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = this.sharedService.user['_id'];
+      this.user = this.sharedService.user;
+      if (this.user.admin === true) {
+        this.isAdmin = true;
+      }
+      console.log(this.userId);
+      console.log(this.user);
     });
   }
 }

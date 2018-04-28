@@ -23,18 +23,12 @@ export class RentalComponent implements OnInit {
   rentals : any;
   userId: string;
   user: any;
+  isAdmin: boolean;
   routedRentals = [];
   chart = false;
   myDataSets = [
     {
-      name: 'x:rent vs y:time(in seconds) to reach',
-      points: [
-        // {x: 10, y: 100},
-        // {x: 20, y: 500}
-      ]
-    },
-    {
-      name: 'x:rent vs y:distance(in meters) to destination',
+      name: 'plotting available rents',
       points: [
         // {x: 10, y: 100},
         // {x: 20, y: 500}
@@ -91,7 +85,7 @@ export class RentalComponent implements OnInit {
                 y: count
               });
             }
-            console.log('Price: ' + l.price + ',location: ' + l.location);
+            console.log('Price: ' + l.price + ',location: ' + l.location + 'record:' + count);
           }
         },
         (error: any) => {
@@ -126,6 +120,12 @@ export class RentalComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = this.sharedService.user['_id'];
+      this.user = this.sharedService.user;
+      if (this.user.admin === true) {
+        this.isAdmin = true;
+      }
+      console.log(this.userId);
+      console.log(this.user);
     });
   }
 }

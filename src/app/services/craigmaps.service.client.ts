@@ -28,6 +28,18 @@ export class CraigmapsService {
       });
   }
 
+  oneroute(from, to, mode) {
+    const body = {
+      list: from,
+      to: to,
+      mode: mode
+    };
+    return this.http.post(this.baseUrl + '/api/craigmaps/oneroute',  body)
+      .map((response: Response) => {
+        return response.json();
+      });
+  }
+
   rental(from, rent) {
     const body = {
       from: from,

@@ -2,6 +2,7 @@ module.exports = function (app) {
 
   app.post("/api/craigmaps/rentals", rental);
   app.post("/api/craigmaps/routes", route);
+  app.post("/api/craigmaps/oneroute", oneroute);
 
   var gkey = 'AIzaSyCh83vE6TuJUB6BZswszWjLNwu5LsH-Z3w'; //process.ENV.GKEY;
   var request = require('request');
@@ -105,8 +106,8 @@ module.exports = function (app) {
               console.log(distance);
             }
 
-          console.log(duration);
-          console.log(distance);
+          //console.log(duration);
+          //console.log(distance);
           res.json(l);
         });
     }
@@ -114,5 +115,59 @@ module.exports = function (app) {
   //     });
   //   res.json(rentallist);
   // }
+
+  function oneroute(req, res) {
+    var from = req.body.list;
+    var end = req.body.to;
+    var mode = req.body.mode; // req.params['mode'];
+    var urlprefix = 'https://maps.googleapis.com/maps/api/directions/json?origin=';
+    var urlsuffix = '&destination=' + end + '&mode=' + mode + '&key=' + gkey;
+    var distance = '';
+    var duration = '';
+    var distanceval;
+    var durationval;
+    var l = {
+      distance: 'miles',
+      duration: 'mins',
+      distanceval: 0,
+      durationval: 0
+    };
+    //
+    // rentallist = JSON.parse(rentallist);
+    // rentallist
+    //   .forEach(function (l) {
+    // var l = JSON.parse(rentallist);
+    // console.log(l);
+    if (from) {
+      var url = urlprefix + l.location + urlsuffix;
+      //httpreqcall(url, function (temp)
+      //console.log(url);
+      httpreqcall(url, function (data) {
+        var temp = JSON.parse(data);
+        //console.log(temp);
+        if (temp
+          && temp.routes
+          && temp.routes[0]
+          && temp.routes[0].legs
+          && temp.routes[0].legs[0]
+          && temp.routes[0].legs[0].duration
+          && temp.routes[0].legs[0].duration.value) {
+          distance = temp.routes[0].legs[0].distance.text.toString();
+          duration = temp.routes[0].legs[0].duration.text.toString();
+          distanceval = temp.routes[0].legs[0].distance.value;
+          durationval = temp.routes[0].legs[0].duration.value;
+          l.distance = distance;
+          l.duration = duration;
+          l.distanceval = distanceval;
+          l.durationval = durationval;
+          //console.log(distance);
+        }
+
+        //console.log(duration);
+        //console.log(distance);
+        res.json(l);
+      });
+    }
+  }
 
 }
