@@ -23,7 +23,7 @@ export class RentalComponent implements OnInit {
   rentals : any;
   userId: string;
   user: any;
-  isAdmin: boolean;
+  isAdmin = true;
   routedRentals = [];
   chart = false;
   myDataSets = [
